@@ -1,10 +1,13 @@
 {
-  "main": "build/index.js",
+  "main": "build/main.js",
   "devDependencies": {
-    "electron": "13.1.6"
+    "copyfiles": "^2.4.1",
+    "electron": "13.1.6",
+    "rimraf": "^3.0.2"
   },
   "scripts": {
-    "compile": "tsc && cp src/index.html build/index.html",
-    "start": "npm run compile && electron"
+    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css build/",
+    "compile": "tsc && npm run copy-files",
+    "start": "npm run compile && electron ."
   }
 }

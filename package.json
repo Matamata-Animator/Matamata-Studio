@@ -6,7 +6,7 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css build/",
+    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg build/",
     "compile": "tsc && npm run copy-files",
     "start": "npm run compile && electron ."
   }

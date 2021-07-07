@@ -1,0 +1,10 @@
+{
+  "main": "build/index.js",
+  "devDependencies": {
+    "electron": "13.1.6"
+  },
+  "scripts": {
+    "compile": "tsc && cp src/index.html build/index.html",
+    "start": "npm run compile && electron"
+  }
+}

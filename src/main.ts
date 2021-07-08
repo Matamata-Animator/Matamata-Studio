@@ -11,7 +11,12 @@ let win;
 app.on("ready", () => {
   win = new BrowserWindow({
     icon: __dirname + "/icons/icon.png",
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
   });
   const indexHTML = path.join(__dirname + "/index.html");
   win.loadFile(indexHTML);
+  win.webContents.openDevTools();
 });

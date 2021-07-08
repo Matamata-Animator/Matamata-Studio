@@ -10,7 +10,12 @@ var win;
 electron_1.app.on("ready", function () {
     win = new electron_1.BrowserWindow({
         icon: __dirname + "/icons/icon.png",
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
     });
     var indexHTML = path.join(__dirname + "/index.html");
     win.loadFile(indexHTML);
+    win.webContents.openDevTools();
 });

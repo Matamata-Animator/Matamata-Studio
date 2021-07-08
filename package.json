@@ -1,6 +1,15 @@
 {
+  "name": "MatamataTC",
+  "description": "Create the timestamps file for Matamata",
+  "license": "MIT",
+  "version": "0.0.1",
   "main": "build/main.js",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.57",
+    "@electron-forge/maker-deb": "^6.0.0-beta.57",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.57",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
+    "@electron-forge/maker-zip": "^6.0.0-beta.57",
     "@types/sound-play": "^1.1.0",
     "@types/wavesurfer.js": "^5.1.0",
     "copyfiles": "^2.4.1",
@@ -13,9 +22,39 @@
     "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg build/",
     "compile": "tsc && npm run copy-files",
     "watch": "tsc-watch --onSuccess \"npm run copy-files\"",
-    "start": "npm run compile && electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "wavesurfer.js": "^5.1.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": ""
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

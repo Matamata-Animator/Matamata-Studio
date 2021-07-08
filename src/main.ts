@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { ipcMain, app, BrowserWindow, dialog } from "electron";
 
 try {
   require("electron-reloader")(module);

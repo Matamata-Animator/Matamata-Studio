@@ -12,7 +12,14 @@ body {
 }
 
 #waveform {
-  position: relative;
+  text-align: center;
+}
+#dragHelpText {
+  position: absolute;
+  color: black;
+  top: 7%;
+  left: 50%;
+  transform: translate(-50%, -7%);
 }
 
 #seconds {

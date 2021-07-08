@@ -41,6 +41,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var wavesurfer_js_1 = __importDefault(require("wavesurfer.js"));
 var wavesurfer_markers_js_1 = __importDefault(require("wavesurfer.js/dist/plugin/wavesurfer.markers.js"));
+var dialogs_1 = __importDefault(require("dialogs"));
+// var Dialogs = require("dialogs");
+var dialogs = dialogs_1.default({});
 var audio = wavesurfer_js_1.default.create({
     container: "#waveform",
     waveColor: "blue",
@@ -52,15 +55,21 @@ var audio = wavesurfer_js_1.default.create({
 function dropHandler(event) {
     var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var path;
+        var x, path;
         return __generator(this, function (_b) {
             event.preventDefault();
             if (((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files[0].type) === "audio/wav" &&
                 (!isLoaded() ||
-                    window.confirm("Are you sure you want to overwrite current progress?"))) {
+                    dialogs.confirm("Are you sure you want to overwrite current progress?"))) {
                 console.log(isLoaded());
                 if (isLoaded()) {
                     audio.pause();
+                }
+                else {
+                    x = document.getElementById("dragHelpText");
+                    if (x) {
+                        x.style.display = "none";
+                    }
                 }
                 path = event.dataTransfer.files[0].path;
                 // audio = new Audio(path);
@@ -74,50 +83,78 @@ function dropHandler(event) {
 }
 function setZoomMin() {
     return __awaiter(this, void 0, void 0, function () {
-        var min;
+        var min, zoomSlider;
         return __generator(this, function (_a) {
             while (audio.getDuration() == 0)
                 ;
             min = String(innerWidth / audio.getDuration());
-            console.log(min);
-            console.log(innerWidth);
-            console.log(audio.getDuration());
-            //@ts-ignore
-            document.getElementById("audioZoom").min = min;
+            zoomSlider = document.getElementById("audioZoom");
+            if (zoomSlider === null || zoomSlider === void 0 ? void 0 : zoomSlider.min) {
+                zoomSlider.min = min;
+            }
             return [2 /*return*/];
         });
     });
 }
 function audioClicked(event) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/];
-        });
-    });
+    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+        return [2 /*return*/];
+    }); });
 }
 function isLoaded() {
     return audio.getDuration() > 0;
 }
-//@ts-ignore
-document.onkeypress = function (e) {
-    switch (e.key) {
-        case " ":
-            if (!audio.isPlaying()) {
-                audio.play();
-            }
-            else {
-                audio.pause();
-            }
-            break;
-        case "a":
-            audio.addMarker({
-                time: audio.getCurrentTime(),
-                label: "reee",
-                color: "000000",
-            });
-            break;
-    }
-};
+document.onkeypress = function (e) { return __awaiter(void 0, void 0, void 0, function () {
+    var overlapping, _i, _a, m, markers, e_1;
+    return __generator(this, function (_b) {
+        switch (e.key) {
+            case " ":
+                if (!audio.isPlaying()) {
+                    audio.play();
+                }
+                else {
+                    audio.pause();
+                }
+                break;
+            case "a":
+                overlapping = false;
+                for (_i = 0, _a = audio.markers.markers; _i < _a.length; _i++) {
+                    m = _a[_i];
+                    if (m.time == audio.getCurrentTime()) {
+                        overlapping = true;
+                        break;
+                    }
+                }
+                if (overlapping) {
+                    break;
+                }
+                audio.addMarker({
+                    time: audio.getCurrentTime(),
+                    label: "POSE",
+                    color: "000000",
+                });
+                markers = audio.markers.markers;
+                e_1 = markers[markers.length - 1].el;
+                if (e_1) {
+                    e_1.children[1].children[0].onclick = function () {
+                        console.log("Marker Click!");
+                    };
+                    e_1.children[1].children[1].onclick = function (click) { return __awaiter(void 0, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            console.log(click);
+                            dialogs.prompt("Pose Name:", "", function (r) {
+                                //@ts-ignore
+                                click.srcElement.innerText = r;
+                            });
+                            return [2 /*return*/];
+                        });
+                    }); };
+                }
+                break;
+        }
+        return [2 /*return*/];
+    });
+}); };
 var seconds = 0;
 //@ts-ignore
 var inner = document.getElementById("seconds").innerHTML;
@@ -134,5 +171,4 @@ document.getElementById("audioZoom").oninput = function () {
     //@ts-ignore
     var zoomLevel = Number(this.value);
     audio.zoom(zoomLevel);
-    console.log(zoomLevel);
 };

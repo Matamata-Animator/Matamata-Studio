@@ -13,7 +13,7 @@
     "@types/sound-play": "^1.1.0",
     "@types/wavesurfer.js": "^5.1.0",
     "copyfiles": "^2.4.1",
-    "electron": "13.1.6",
+    "electron": "^13.1.6",
     "electron-reloader": "^1.2.1",
     "rimraf": "^3.0.2",
     "tsc-watch": "^4.4.0"
@@ -22,11 +22,12 @@
     "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg build/",
     "compile": "tsc && npm run copy-files",
     "watch": "tsc-watch --onSuccess \"npm run copy-files\"",
-    "start": "electron-forge start",
+    "start": "npm run compile && electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
   "dependencies": {
+    "dialogs": "^2.0.1",
     "electron-squirrel-startup": "^1.0.0",
     "wavesurfer.js": "^5.1.0"
   },

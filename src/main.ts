@@ -1,5 +1,9 @@
 import { app, BrowserWindow } from "electron";
 
+try {
+  require("electron-reloader")(module);
+} catch (_) {}
+
 var path = require("path");
 
 let win;

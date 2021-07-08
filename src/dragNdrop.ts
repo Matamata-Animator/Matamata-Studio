@@ -1,4 +1,4 @@
-console.log("reeeee");
+console.log("reeeeee");
 function dropHandler(event: DragEvent) {
   event.preventDefault();
   alert("hello");

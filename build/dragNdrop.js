@@ -1,5 +1,5 @@
 "use strict";
-console.log("reeeee");
+console.log("reeeeee");
 function dropHandler(event) {
     event.preventDefault();
     alert("hello");

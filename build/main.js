@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
+try {
+    require("electron-reloader")(module);
+}
+catch (_) { }
 var path = require("path");
 var win;
 electron_1.app.on("ready", function () {

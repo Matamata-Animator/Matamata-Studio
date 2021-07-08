@@ -65,12 +65,8 @@ function dropHandler(event) {
                 path = event.dataTransfer.files[0].path;
                 // audio = new Audio(path);
                 audio.load(path);
+                audio.clearMarkers();
                 setTimeout(setZoomMin, 100);
-                // audio.addMarker({
-                //   time: 5,
-                //   label: "reee",
-                //   color: "000000",
-                // });
             }
             return [2 /*return*/];
         });
@@ -87,7 +83,7 @@ function setZoomMin() {
             console.log(innerWidth);
             console.log(audio.getDuration());
             //@ts-ignore
-            document.getElementById("audioZoom").value = min;
+            document.getElementById("audioZoom").min = min;
             return [2 /*return*/];
         });
     });
@@ -104,13 +100,22 @@ function isLoaded() {
 }
 //@ts-ignore
 document.onkeypress = function (e) {
-    if (e.key == " ") {
-        if (!audio.isPlaying()) {
-            audio.play();
-        }
-        else {
-            audio.pause();
-        }
+    switch (e.key) {
+        case " ":
+            if (!audio.isPlaying()) {
+                audio.play();
+            }
+            else {
+                audio.pause();
+            }
+            break;
+        case "a":
+            audio.addMarker({
+                time: audio.getCurrentTime(),
+                label: "reee",
+                color: "000000",
+            });
+            break;
     }
 };
 var seconds = 0;

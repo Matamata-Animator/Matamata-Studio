@@ -24,13 +24,8 @@ async function dropHandler(event: DragEvent) {
     let path = event.dataTransfer.files[0].path;
     // audio = new Audio(path);
     audio.load(path);
-
+    audio.clearMarkers();
     setTimeout(setZoomMin, 100);
-    // audio.addMarker({
-    //   time: 5,
-    //   label: "reee",
-    //   color: "000000",
-    // });
   }
 }
 
@@ -41,7 +36,7 @@ async function setZoomMin() {
   console.log(innerWidth);
   console.log(audio.getDuration());
   //@ts-ignore
-  document.getElementById("audioZoom").value = min;
+  document.getElementById("audioZoom").min = min;
 }
 
 async function audioClicked(event: MouseEvent) {
@@ -56,12 +51,21 @@ function isLoaded() {
 
 //@ts-ignore
 document.onkeypress = (e) => {
-  if (e.key == " ") {
-    if (!audio.isPlaying()) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
+  switch (e.key) {
+    case " ":
+      if (!audio.isPlaying()) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+      break;
+    case "a":
+      audio.addMarker({
+        time: audio.getCurrentTime(),
+        label: "reee",
+        color: "000000",
+      });
+      break;
   }
 };
 

@@ -35,18 +35,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var audio;
+// import * as fs from "fs";
+var wavesurfer_js_1 = __importDefault(require("wavesurfer.js"));
+var wavesurfer_markers_js_1 = __importDefault(require("wavesurfer.js/dist/plugin/wavesurfer.markers.js"));
+// let audio: HTMLAudioElement;
+var audio = wavesurfer_js_1.default.create({
+    container: "#waveform",
+    scrollParent: true,
+    waveColor: "blue",
+    progressColor: "purple",
+    responsive: true,
+    height: (15 * innerHeight) / 100,
+    plugins: [wavesurfer_markers_js_1.default.create([])],
+});
 function dropHandler(event) {
     var _a;
     return __awaiter(this, void 0, void 0, function () {
+        var path;
         return __generator(this, function (_b) {
             event.preventDefault();
             if (((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files[0].type) === "audio/wav") {
-                audio = new Audio(event.dataTransfer.files[0].path);
+                if (isLoaded()) {
+                    audio.pause();
+                }
+                path = event.dataTransfer.files[0].path;
+                // audio = new Audio(path);
                 audio.play();
-                //  let audio = fs.readFileSync(event.dataTransfer.files[0].path);
-                //   console.log("Audio File Selected");
+                audio.load(path);
+                // audio.addMarker({
+                //   time: 5,
+                //   label: "reee",
+                //   color: "000000",
+                // });
             }
             return [2 /*return*/];
         });
@@ -55,11 +79,25 @@ function dropHandler(event) {
 function audioClicked(event) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            if (audio) {
+            if (isLoaded()) {
                 audio.play();
-                audio.currentTime = (event.clientX / innerWidth) * audio.duration;
+                audio.currentTime = (event.clientX / innerWidth) * isLoaded().duration;
             }
             return [2 /*return*/];
         });
     });
 }
+function isLoaded() {
+    return audio.duration && audio.duration > 0;
+}
+//@ts-ignore
+document.onkeypress = function (e) {
+    if (e.key == " ") {
+        if (!audio.isPlaying()) {
+            audio.play();
+        }
+        else {
+            audio.pause();
+        }
+    }
+};

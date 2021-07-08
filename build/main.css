@@ -1,0 +1,16 @@
+body {
+  background-color: #626785;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+#drop_zone {
+  width: 100vw;
+  height: 15vh;
+  background: #c0c0c0;
+  align-items: center;
+}
+
+#waveform {
+  position: relative;
+}

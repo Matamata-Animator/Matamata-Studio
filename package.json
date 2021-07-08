@@ -2,6 +2,7 @@
   "main": "build/main.js",
   "devDependencies": {
     "@types/sound-play": "^1.1.0",
+    "@types/wavesurfer.js": "^5.1.0",
     "copyfiles": "^2.4.1",
     "electron": "13.1.6",
     "electron-reloader": "^1.2.1",
@@ -13,5 +14,8 @@
     "compile": "tsc && npm run copy-files",
     "watch": "tsc-watch --onSuccess \"npm run copy-files\"",
     "start": "npm run compile && electron ."
+  },
+  "dependencies": {
+    "wavesurfer.js": "^5.1.0"
   }
 }

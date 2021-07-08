@@ -1,7 +1,5 @@
-// import * as fs from "fs";
 import WaveSurfer from "wavesurfer.js";
 import MarkersPlugin from "wavesurfer.js/dist/plugin/wavesurfer.markers.js";
-// let audio: HTMLAudioElement;
 
 var audio = WaveSurfer.create({
   container: "#waveform",
@@ -11,6 +9,7 @@ var audio = WaveSurfer.create({
   responsive: true,
   height: (15 * innerHeight) / 100,
   plugins: [MarkersPlugin.create([])],
+  normalize: true,
 });
 async function dropHandler(event: DragEvent) {
   event.preventDefault();
@@ -53,3 +52,14 @@ document.onkeypress = (e) => {
     }
   }
 };
+
+var seconds = 0;
+//@ts-ignore
+var inner = document.getElementById("seconds").innerHTML;
+setInterval(function () {
+  //@ts-ignore
+  document.getElementById("seconds")?.innerText = `Time: ${audio
+    .getCurrentTime()
+    .toFixed(3)}`;
+  seconds += 1;
+}, 10);

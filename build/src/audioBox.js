@@ -39,8 +39,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// import * as fs from "fs";
 var wavesurfer_js_1 = __importDefault(require("wavesurfer.js"));
 var wavesurfer_markers_js_1 = __importDefault(require("wavesurfer.js/dist/plugin/wavesurfer.markers.js"));
+// let audio: HTMLAudioElement;
 var audio = wavesurfer_js_1.default.create({
     container: "#waveform",
     scrollParent: true,
@@ -49,7 +51,6 @@ var audio = wavesurfer_js_1.default.create({
     responsive: true,
     height: (15 * innerHeight) / 100,
     plugins: [wavesurfer_markers_js_1.default.create([])],
-    normalize: true,
 });
 function dropHandler(event) {
     var _a;
@@ -100,14 +101,3 @@ document.onkeypress = function (e) {
         }
     }
 };
-var seconds = 0;
-//@ts-ignore
-var inner = document.getElementById("seconds").innerHTML;
-setInterval(function () {
-    var _a;
-    //@ts-ignore
-    (_a = document.getElementById("seconds")) === null || _a === void 0 ? void 0 : _a.innerText = "Time: " + audio
-        .getCurrentTime()
-        .toFixed(3);
-    seconds += 1;
-}, 10);

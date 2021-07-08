@@ -14,3 +14,8 @@ body {
 #waveform {
   position: relative;
 }
+
+#seconds {
+  padding-left: 1vw;
+  color: black;
+}

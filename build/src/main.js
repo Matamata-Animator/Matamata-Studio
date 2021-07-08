@@ -17,5 +17,5 @@ electron_1.app.on("ready", function () {
     });
     var indexHTML = path.join(__dirname + "/index.html");
     win.loadFile(indexHTML);
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
 });

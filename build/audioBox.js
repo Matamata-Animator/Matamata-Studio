@@ -43,10 +43,8 @@ var wavesurfer_js_1 = __importDefault(require("wavesurfer.js"));
 var wavesurfer_markers_js_1 = __importDefault(require("wavesurfer.js/dist/plugin/wavesurfer.markers.js"));
 var audio = wavesurfer_js_1.default.create({
     container: "#waveform",
-    scrollParent: true,
     waveColor: "blue",
     progressColor: "purple",
-    responsive: true,
     height: (15 * innerHeight) / 100,
     plugins: [wavesurfer_markers_js_1.default.create([])],
     normalize: true,
@@ -57,14 +55,17 @@ function dropHandler(event) {
         var path;
         return __generator(this, function (_b) {
             event.preventDefault();
-            if (((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files[0].type) === "audio/wav") {
+            if (((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files[0].type) === "audio/wav" &&
+                (!isLoaded() ||
+                    window.confirm("Are you sure you want to overwrite current progress?"))) {
+                console.log(isLoaded());
                 if (isLoaded()) {
                     audio.pause();
                 }
                 path = event.dataTransfer.files[0].path;
                 // audio = new Audio(path);
-                audio.play();
                 audio.load(path);
+                setTimeout(setZoomMin, 100);
                 // audio.addMarker({
                 //   time: 5,
                 //   label: "reee",
@@ -75,19 +76,31 @@ function dropHandler(event) {
         });
     });
 }
+function setZoomMin() {
+    return __awaiter(this, void 0, void 0, function () {
+        var min;
+        return __generator(this, function (_a) {
+            while (audio.getDuration() == 0)
+                ;
+            min = String(innerWidth / audio.getDuration());
+            console.log(min);
+            console.log(innerWidth);
+            console.log(audio.getDuration());
+            //@ts-ignore
+            document.getElementById("audioZoom").value = min;
+            return [2 /*return*/];
+        });
+    });
+}
 function audioClicked(event) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            if (isLoaded()) {
-                audio.play();
-                audio.currentTime = (event.clientX / innerWidth) * isLoaded().duration;
-            }
             return [2 /*return*/];
         });
     });
 }
 function isLoaded() {
-    return audio.duration && audio.duration > 0;
+    return audio.getDuration() > 0;
 }
 //@ts-ignore
 document.onkeypress = function (e) {
@@ -111,3 +124,10 @@ setInterval(function () {
         .toFixed(3);
     seconds += 1;
 }, 10);
+//@ts-ignore
+document.getElementById("audioZoom").oninput = function () {
+    //@ts-ignore
+    var zoomLevel = Number(this.value);
+    audio.zoom(zoomLevel);
+    console.log(zoomLevel);
+};

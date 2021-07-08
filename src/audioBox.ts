@@ -3,10 +3,8 @@ import MarkersPlugin from "wavesurfer.js/dist/plugin/wavesurfer.markers.js";
 
 var audio = WaveSurfer.create({
   container: "#waveform",
-  scrollParent: true,
   waveColor: "blue",
   progressColor: "purple",
-  responsive: true,
   height: (15 * innerHeight) / 100,
   plugins: [MarkersPlugin.create([])],
   normalize: true,
@@ -14,15 +12,20 @@ var audio = WaveSurfer.create({
 async function dropHandler(event: DragEvent) {
   event.preventDefault();
 
-  if (event.dataTransfer?.files[0].type === "audio/wav") {
+  if (
+    event.dataTransfer?.files[0].type === "audio/wav" &&
+    (!isLoaded() ||
+      window.confirm("Are you sure you want to overwrite current progress?"))
+  ) {
+    console.log(isLoaded());
     if (isLoaded()) {
       audio.pause();
     }
     let path = event.dataTransfer.files[0].path;
     // audio = new Audio(path);
-    audio.play();
     audio.load(path);
 
+    setTimeout(setZoomMin, 100);
     // audio.addMarker({
     //   time: 5,
     //   label: "reee",
@@ -31,15 +34,24 @@ async function dropHandler(event: DragEvent) {
   }
 }
 
+async function setZoomMin() {
+  while (audio.getDuration() == 0);
+  let min = String(innerWidth / audio.getDuration());
+  console.log(min);
+  console.log(innerWidth);
+  console.log(audio.getDuration());
+  //@ts-ignore
+  document.getElementById("audioZoom").value = min;
+}
+
 async function audioClicked(event: MouseEvent) {
-  if (isLoaded()) {
-    audio.play();
-    audio.currentTime = (event.clientX / innerWidth) * isLoaded().duration;
-  }
+  // if (isLoaded()) {
+  //   audio.currentTime = (event.clientX / innerWidth) * audio.getDuration();
+  // }
 }
 
 function isLoaded() {
-  return audio.duration && audio.duration > 0;
+  return audio.getDuration() > 0;
 }
 
 //@ts-ignore
@@ -63,3 +75,11 @@ setInterval(function () {
     .toFixed(3)}`;
   seconds += 1;
 }, 10);
+
+//@ts-ignore
+document.getElementById("audioZoom").oninput = function () {
+  //@ts-ignore
+  let zoomLevel = Number(this.value);
+  audio.zoom(zoomLevel);
+  console.log(zoomLevel);
+};

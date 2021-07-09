@@ -1,11 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var fs_1 = require("fs");
-var prod = true;
+var electron_is_dev_1 = __importDefault(require("electron-is-dev"));
+var isDev = electron_is_dev_1.default;
 try {
     require("electron-reloader")(module);
-    prod = false;
 }
 catch (_) { }
 var path = require("path");
@@ -39,7 +42,7 @@ electron_1.app.on("ready", function () {
     });
     var indexHTML = path.join(__dirname + "/index.html");
     win.loadFile(indexHTML);
-    if (!prod) {
+    if (!isDev) {
         win.webContents.openDevTools();
     }
 });

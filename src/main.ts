@@ -3,7 +3,13 @@ import { ipcMain, app, BrowserWindow, dialog } from "electron";
 import { writeFile } from "fs";
 
 import electronIsDev from "electron-is-dev";
+import { autoUpdater } from "electron-updater";
+
 let isDev = electronIsDev;
+
+if (!isDev) {
+  autoUpdater.checkForUpdatesAndNotify();
+}
 
 try {
   require("electron-reloader")(module);
@@ -38,6 +44,7 @@ ipcMain.handle(
     // ev.returnValue = path;
   }
 );
+
 app.on("ready", () => {
   win = new BrowserWindow({
     icon: __dirname + "/icons/icon.png",

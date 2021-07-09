@@ -2,11 +2,11 @@ import { ipcMain, app, BrowserWindow, dialog } from "electron";
 
 import { writeFile } from "fs";
 
-let prod = true;
+import electronIsDev from "electron-is-dev";
+let isDev = electronIsDev;
 
 try {
   require("electron-reloader")(module);
-  prod = false;
 } catch (_) {}
 
 var path = require("path");
@@ -48,7 +48,7 @@ app.on("ready", () => {
   });
   const indexHTML = path.join(__dirname + "/index.html");
   win.loadFile(indexHTML);
-  if (!prod) {
+  if (!isDev) {
     win.webContents.openDevTools();
   }
 });

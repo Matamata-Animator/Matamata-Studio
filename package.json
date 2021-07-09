@@ -21,12 +21,13 @@
     "tsc-watch": "^4.4.0"
   },
   "scripts": {
-    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg build/",
+    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico build/",
     "compile": "tsc && yarn run copy-files",
     "watch": "tsc-watch --onSuccess \"yarn run copy-files\"",
     "start": "yarn run compile && electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "full-dist": "yarn run compile && electron-builder -wl",
+    "dist": "yarn run compile && electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
@@ -42,6 +43,9 @@
         "deb"
       ],
       "category": "Office"
+    },
+    "win": {
+      "icon": "build/icons/icon.ico"
     },
     "files": [
       "build/"

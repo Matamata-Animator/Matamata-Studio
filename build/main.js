@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var fs_1 = require("fs");
+var prod = true;
 try {
     require("electron-reloader")(module);
+    prod = false;
 }
 catch (_) { }
 var path = require("path");
@@ -37,5 +39,7 @@ electron_1.app.on("ready", function () {
     });
     var indexHTML = path.join(__dirname + "/index.html");
     win.loadFile(indexHTML);
-    win.webContents.openDevTools();
+    if (!prod) {
+        win.webContents.openDevTools();
+    }
 });

@@ -2,6 +2,10 @@
   "name": "matamatadesktop",
   "executableName": "Matamata Desktop",
   "description": "Desktop GUI for Matamata",
+  "author": {
+    "name": "Matamata-Animator",
+    "email": "matamata@aispawn.com"
+  },
   "license": "MIT",
   "version": "0.1.0",
   "main": "build/main.js",
@@ -18,13 +22,29 @@
   },
   "scripts": {
     "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg build/",
-    "compile": "tsc && npm run copy-files",
-    "watch": "tsc-watch --onSuccess \"npm run copy-files\"",
-    "start": "npm run compile && electron ."
+    "compile": "tsc && yarn run copy-files",
+    "watch": "tsc-watch --onSuccess \"yarn run copy-files\"",
+    "start": "yarn run compile && electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "dialogs": "^2.0.1",
     "typescript": "^4.3.5",
     "wavesurfer.js": "^5.1.0"
+  },
+  "build": {
+    "appId": "com.aispawn.matamatadesktop",
+    "productName": "Matamata Desktop",
+    "linux": {
+      "target": [
+        "deb"
+      ],
+      "category": "Office"
+    },
+    "files": [
+      "build/"
+    ]
   }
 }

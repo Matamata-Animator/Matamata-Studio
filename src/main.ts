@@ -1,5 +1,7 @@
 import { ipcMain, app, BrowserWindow, dialog } from "electron";
 
+import { writeFile } from "fs";
+
 try {
   require("electron-reloader")(module);
 } catch (_) {}
@@ -7,7 +9,32 @@ try {
 var path = require("path");
 
 let win;
+ipcMain.handle(
+  "saveTo",
+  (
+    ev,
+    data,
+    options = {
+      title: "Save timestamps",
+      default: "/",
+      buttonLabel: "Save",
+    }
+  ) => {
+    console.log("save");
 
+    dialog.showSaveDialog(options).then((r) => {
+      console.log(r.filePath);
+      //@ts-ignore
+      writeFile(r.filePath, data, (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+      });
+    });
+    // ev.returnValue = path;
+  }
+);
 app.on("ready", () => {
   win = new BrowserWindow({
     icon: __dirname + "/icons/icon.png",

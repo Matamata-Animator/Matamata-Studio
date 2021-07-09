@@ -41,7 +41,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var wavesurfer_js_1 = __importDefault(require("wavesurfer.js"));
 var wavesurfer_markers_js_1 = __importDefault(require("wavesurfer.js/dist/plugin/wavesurfer.markers.js"));
+var electron_1 = require("electron");
 var dialogs_1 = __importDefault(require("dialogs"));
+// import { remote } from "electron";
 // var Dialogs = require("dialogs");
 var dialogs = dialogs_1.default({});
 var audio = wavesurfer_js_1.default.create({
@@ -143,8 +145,10 @@ document.onkeypress = function (e) { return __awaiter(void 0, void 0, void 0, fu
                         return __generator(this, function (_a) {
                             console.log(click);
                             dialogs.prompt("Pose Name:", "", function (r) {
-                                //@ts-ignore
-                                click.srcElement.innerText = r;
+                                if (r) {
+                                    //@ts-ignore
+                                    click.srcElement.innerText = r;
+                                }
                             });
                             return [2 /*return*/];
                         });
@@ -172,3 +176,29 @@ document.getElementById("audioZoom").oninput = function () {
     var zoomLevel = Number(this.value);
     audio.zoom(zoomLevel);
 };
+function saveTimestamps() {
+    return __awaiter(this, void 0, void 0, function () {
+        var timestamps, _i, _a, m, poseName, time, ts, ts_text, _b, timestamps_1, t;
+        return __generator(this, function (_c) {
+            timestamps = [];
+            for (_i = 0, _a = audio.markers.markers; _i < _a.length; _i++) {
+                m = _a[_i];
+                poseName = m.el.innerText;
+                time = Math.trunc(m.time * 1000);
+                ts = { time: time, poseName: poseName };
+                timestamps.push(ts);
+            }
+            timestamps.sort(function (a, b) {
+                return a.time - b.time;
+            });
+            ts_text = "";
+            for (_b = 0, timestamps_1 = timestamps; _b < timestamps_1.length; _b++) {
+                t = timestamps_1[_b];
+                ts_text += t.time + " " + t.poseName + "\n";
+            }
+            console.log("send");
+            electron_1.ipcRenderer.invoke("saveTo", ts_text);
+            return [2 /*return*/];
+        });
+    });
+}

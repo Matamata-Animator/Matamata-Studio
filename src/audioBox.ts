@@ -3,6 +3,8 @@ import MarkersPlugin from "wavesurfer.js/dist/plugin/wavesurfer.markers.js";
 import { ipcRenderer } from "electron";
 
 import Dialogs from "dialogs";
+
+// import { remote } from "electron";
 // var Dialogs = require("dialogs");
 
 var dialogs = Dialogs({});
@@ -95,8 +97,10 @@ document.onkeypress = async (e) => {
           console.log(click);
 
           dialogs.prompt("Pose Name:", "", (r) => {
-            //@ts-ignore
-            click.srcElement.innerText = r;
+            if (r) {
+              //@ts-ignore
+              click.srcElement.innerText = r;
+            }
           });
         };
       }
@@ -121,3 +125,29 @@ document.getElementById("audioZoom").oninput = function () {
   let zoomLevel = Number(this.value);
   audio.zoom(zoomLevel);
 };
+
+interface Timestamp {
+  time: number;
+  poseName: string;
+}
+
+async function saveTimestamps() {
+  let timestamps: Timestamp[] = [];
+  for (const m of audio.markers.markers) {
+    //@ts-ignore
+    let poseName: string = m.el.innerText;
+    let time: number = Math.trunc(m.time * 1000);
+    let ts: Timestamp = { time: time, poseName: poseName };
+    timestamps.push(ts);
+  }
+  timestamps.sort((a, b) => {
+    return a.time - b.time;
+  });
+
+  let ts_text = "";
+  for (const t of timestamps) {
+    ts_text += `${t.time} ${t.poseName}\n`;
+  }
+  console.log("send");
+  ipcRenderer.invoke("saveTo", ts_text);
+}

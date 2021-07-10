@@ -3,6 +3,7 @@ import MarkersPlugin from "wavesurfer.js/dist/plugin/wavesurfer.markers.js";
 import { ipcRenderer } from "electron";
 
 import Dialogs from "dialogs";
+import exp from "constants";
 
 // import { remote } from "electron";
 // var Dialogs = require("dialogs");
@@ -69,56 +70,6 @@ function isLoaded() {
   return audio.getDuration() > 0;
 }
 
-document.onkeypress = async (e) => {
-  switch (e.key) {
-    case " ":
-      if (!audio.isPlaying()) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
-      break;
-    case "a":
-      let overlapping = false;
-      for (const m of audio.markers.markers) {
-        if (m.time == audio.getCurrentTime()) {
-          overlapping = true;
-          break;
-        }
-      }
-      if (overlapping) {
-        break;
-      }
-      audio.addMarker({
-        time: audio.getCurrentTime(),
-        label: "POSE",
-        color: "000000",
-      });
-
-      var markers = audio.markers.markers;
-
-      //@ts-ignore
-      let e = markers[markers.length - 1].el;
-
-      if (e) {
-        e.children[1].children[0].onclick = () => {
-          console.log(`Marker Click!`);
-        };
-        e.children[1].children[1].onclick = async (click: MouseEvent) => {
-          console.log(click);
-
-          dialogs.prompt("Pose Name:", "", (r) => {
-            if (r) {
-              //@ts-ignore
-              click.srcElement.innerText = r;
-            }
-          });
-        };
-      }
-      break;
-  }
-};
-
 var seconds = 0;
 //@ts-ignore
 var inner = document.getElementById("seconds").innerHTML;
@@ -162,3 +113,60 @@ async function saveTimestamps() {
   console.log("send");
   ipcRenderer.invoke("saveTo", ts_text);
 }
+
+async function createMarker() {
+  let overlapping = false;
+  for (const m of audio.markers.markers) {
+    if (m.time == audio.getCurrentTime()) {
+      overlapping = true;
+      return;
+    }
+  }
+
+  audio.addMarker({
+    time: audio.getCurrentTime(),
+    label: "POSE",
+    color: "000000",
+  });
+
+  var markers = audio.markers.markers;
+
+  //@ts-ignore
+  let e = markers[markers.length - 1].el;
+
+  if (e) {
+    e.children[1].children[0].onclick = () => {
+      console.log(`Marker Click!`);
+    };
+    e.children[1].children[1].onclick = async (click: MouseEvent) => {
+      console.log(click);
+
+      dialogs.prompt("Pose Name:", "", (r) => {
+        if (r) {
+          //@ts-ignore
+          click.srcElement.innerText = r;
+        }
+      });
+    };
+  }
+}
+function togglePause() {
+  if (!audio.isPlaying()) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+}
+
+document.onkeypress = async (e) => {
+  switch (e.key) {
+    case " ":
+      togglePause();
+      break;
+    case "a":
+      createMarker();
+      break;
+  }
+};
+
+export { createMarker };

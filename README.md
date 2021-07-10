@@ -1,5 +1,7 @@
 # Matamata Desktop
 
+[![Build/Release](https://github.com/Matamata-Animator/Desktop/actions/workflows/build.yml/badge.svg)](https://github.com/Matamata-Animator/Desktop/actions/workflows/build.yml) [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/matamata)
+
 A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Matamata)
 
 ## Installation

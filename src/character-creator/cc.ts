@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 let dropzone: p5.Element;
 let mdrop: p5.Element;
 
@@ -116,4 +118,76 @@ function drawMouth(x: number, y: number) {
     );
   }
   imageMode(CORNER);
+}
+function highlight() {
+  dropzone.style("background-color", "#ccc");
+}
+
+function unhighlight() {
+  dropzone.style("background-color", "#fff");
+}
+function mhighlight() {
+  mdrop.style("background-color", "#ccc");
+}
+
+function munhighlight() {
+  mdrop.style("background-color", "#fff");
+}
+
+function hovering() {
+  return (
+    border < mouseX &&
+    mouseX < width - border &&
+    border < mouseY &&
+    mouseY < height - border
+  );
+}
+function mouseWheel(event: WheelEvent) {
+  if (hovering()) {
+    mScale.value(int(mScale.value()) - event.deltaY / 10);
+  }
+}
+
+function mousePressed() {
+  mouse_down = true;
+}
+function mouseReleased() {
+  mouse_down = false;
+}
+interface Pose {
+  image: string;
+  x: number;
+  y: number;
+  scale?: number;
+  facingRight?: boolean;
+  closed_mouth?: string;
+}
+
+function addPose() {
+  if (!character) {
+    alert("Please upload a pose image");
+  }
+  if (!json) {
+    alert("Please upload a characters.json");
+  }
+  let gc: Map<string, number> = new Map();
+  var x = document.getElementById("form").elements;
+  for (const i of x) {
+    gc.set(i.name, i.value);
+  }
+
+  let pose: Pose = {
+    image: img_name,
+    x: mouth_pos[0] - border,
+    y: mouth_pos[1] - border,
+    scale: int(mScale.value()) / 100,
+    facingRight: !mirror_mouth,
+  };
+
+  if (gc.get("closed_mouth")! + "") {
+    pose["closed_mouth"] = gc.get("closed_mouth");
+  }
+  json["facesFolder"] = gc.get("facesFolder");
+
+  json[gc.get("pose_name")] = pose;
 }

@@ -21,4 +21,5 @@ A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Ma
   - Basic export settings
 - General
   - Allow the program to "flow" from one section to the next, so the user can make an animation without exiting the program
+  - Autobuild :heavy_check_mark:
   - Automatic updates

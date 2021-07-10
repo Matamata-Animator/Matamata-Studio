@@ -120,5 +120,5 @@ dist
 .pnp.*
 
 out/
-
+build/
 dist/

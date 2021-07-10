@@ -119,6 +119,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-out/
-build/
-dist/
+build

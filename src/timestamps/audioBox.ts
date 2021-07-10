@@ -146,7 +146,7 @@ async function createMarker() {
   let e = markers[markers.length - 1].el;
 
   if (e) {
-    e.children[1].children[0].onclick = (click: MouseEvent) => {
+    e.children[1].onclick = (click: MouseEvent) => {
       if (mode === Mode.Delete) {
         deleteMarker(click);
       }
@@ -183,6 +183,7 @@ function deleteMarker(click: MouseEvent) {
   marker.style.display = "none";
   marker.style.innerText = deletedMarkerName;
   //TODO: actually remove the marker from audio.markers.markers
+  mode = Mode.Select;
 }
 
 document.onkeypress = async (e) => {
@@ -194,6 +195,7 @@ document.onkeypress = async (e) => {
       mode = Mode.Select;
       break;
     case "a":
+      mode = Mode.Delete;
       createMarker();
       break;
     case "d":

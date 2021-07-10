@@ -8,7 +8,23 @@ import { autoUpdater } from "electron-updater";
 let isDev = electronIsDev;
 
 if (!isDev) {
-  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.autoDownload = false;
+  autoUpdater.autoInstallOnAppQuit = true;
+  autoUpdater.allowDowngrade = true;
+
+  let confirmDialog = {
+    buttons: ["Remind Me Later", "Download Now"],
+    message: "An update is available",
+  };
+
+  autoUpdater.checkForUpdates().then((r) => {
+    if (
+      r.updateInfo.version != autoUpdater.currentVersion.version &&
+      dialog.showMessageBoxSync(confirmDialog) == 1
+    ) {
+      autoUpdater.checkForUpdatesAndNotify();
+    }
+  });
 }
 
 try {

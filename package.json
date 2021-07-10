@@ -30,8 +30,8 @@
     "watch": "tsc-watch --onSuccess \"yarn run copy-files\"",
     "start": "yarn run build && electron .",
     "pack": "electron-builder --dir",
-    "full-dist": "ELECTRON_IS_DEV=0 && yarn run build && electron-builder -wl --publish always",
-    "dist": "ELECTRON_IS_DEV=0 && yarn run build && electron-builder --publish always",
+    "full-dist": "yarn run build && electron-builder -wl",
+    "dist": "yarn run build && electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
@@ -48,7 +48,6 @@
     "linux": {
       "target": [
         "snap",
-        "AppImage",
         "deb"
       ],
       "category": "Office",
@@ -58,6 +57,10 @@
           "edge"
         ]
       }
+    },
+    "snap": {
+      "confinement": "strict",
+      "grade": "stable"
     },
     "win": {
       "icon": "build/icons/icon.ico",

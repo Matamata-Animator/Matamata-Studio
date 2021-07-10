@@ -5,6 +5,11 @@ import { ipcRenderer } from "electron";
 import Dialogs from "dialogs";
 import exp from "constants";
 
+enum Mode {
+  Select,
+  Delete,
+}
+let deletedMarkerName = "DELETED-POSE-MARKER";
 // import { remote } from "electron";
 // var Dialogs = require("dialogs");
 
@@ -18,6 +23,8 @@ var audio = WaveSurfer.create({
   plugins: [MarkersPlugin.create([])],
   normalize: true,
 });
+
+let mode: Mode = Mode.Select;
 
 window.onresize = async () => {
   audio.setHeight((15 * innerHeight) / 100);
@@ -99,8 +106,10 @@ async function saveTimestamps() {
     //@ts-ignore
     let poseName: string = m.el.innerText;
     let time: number = Math.trunc(m.time * 1000);
-    let ts: Timestamp = { time: time, poseName: poseName };
-    timestamps.push(ts);
+    if (poseName != deletedMarkerName) {
+      let ts: Timestamp = { time: time, poseName: poseName };
+      timestamps.push(ts);
+    }
   }
   timestamps.sort((a, b) => {
     return a.time - b.time;
@@ -135,21 +144,26 @@ async function createMarker() {
   let e = markers[markers.length - 1].el;
 
   if (e) {
-    e.children[1].children[0].onclick = () => {
-      console.log(`Marker Click!`);
+    e.children[1].children[0].onclick = (click: MouseEvent) => {
+      if (mode === Mode.Delete) {
+        deleteMarker(click);
+      }
     };
-    e.children[1].children[1].onclick = async (click: MouseEvent) => {
-      console.log(click);
+    e.children[1].ondblclick = async (click: MouseEvent) => {
+      if (mode === Mode.Select) {
+        console.log(click);
 
-      dialogs.prompt("Pose Name:", "", (r) => {
-        if (r) {
-          //@ts-ignore
-          click.srcElement.innerText = r;
-        }
-      });
+        dialogs.prompt("Pose Name:", "", (r) => {
+          if (r) {
+            //@ts-ignore
+            click.path[0].innerText = r;
+          }
+        });
+      }
     };
   }
 }
+
 function togglePause() {
   if (!audio.isPlaying()) {
     audio.play();
@@ -158,15 +172,28 @@ function togglePause() {
   }
 }
 
+function deleteMarker(click: MouseEvent) {
+  console.log(click);
+  //@ts-ignore
+  let marker = click.path[2];
+  marker.style.display = "none";
+  marker.style.innerText = deletedMarkerName;
+  //TODO: actually remove the marker from audio.markers.markers
+}
+
 document.onkeypress = async (e) => {
-  switch (e.key) {
+  switch (e.key.toLowerCase()) {
     case " ":
       togglePause();
+      break;
+    case "s":
+      mode = Mode.Select;
       break;
     case "a":
       createMarker();
       break;
+    case "d":
+      mode = Mode.Delete;
+      break;
   }
 };
-
-export { createMarker };

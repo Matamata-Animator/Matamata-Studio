@@ -17,6 +17,11 @@ var audio = WaveSurfer.create({
   plugins: [MarkersPlugin.create([])],
   normalize: true,
 });
+
+window.onresize = async () => {
+  audio.setHeight((15 * innerHeight) / 100);
+};
+
 async function dropHandler(event: DragEvent) {
   event.preventDefault();
 

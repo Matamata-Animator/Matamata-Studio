@@ -35,7 +35,7 @@ try {
 
 var path = require("path");
 
-let win;
+let win: BrowserWindow;
 ipcMain.handle(
   "saveTo",
   (
@@ -71,6 +71,7 @@ app.on("ready", () => {
       contextIsolation: false,
     },
   });
+  win.maximize();
   const indexHTML = path.join(__dirname + "/index.html");
   win.loadFile(indexHTML);
 });

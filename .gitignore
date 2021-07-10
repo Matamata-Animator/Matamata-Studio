@@ -61,7 +61,7 @@ web_modules/
 .rts2_cache_cjs/
 .rts2_cache_es/
 .rts2_cache_umd/
-
+latest   amd64   stable     -          -
 # Optional REPL history
 .node_repl_history
 
@@ -120,3 +120,5 @@ dist
 .pnp.*
 
 out/
+
+dist/

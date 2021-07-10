@@ -55,7 +55,4 @@ app.on("ready", () => {
   });
   const indexHTML = path.join(__dirname + "/index.html");
   win.loadFile(indexHTML);
-  if (!isDev) {
-    win.webContents.openDevTools();
-  }
 });

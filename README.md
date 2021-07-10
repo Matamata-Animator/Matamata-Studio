@@ -2,7 +2,30 @@
 
 A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Matamata)
 
-### Timeline to v1.0rc1:
+## Installation
+
+### Windows
+
+Download and run the installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
+
+### Ubuntu
+
+Install snap if you do not already have it
+
+```shell
+sudo apt update
+sudo apt install snapd
+```
+
+Install Matamata
+
+```shell
+snap install matamata
+```
+
+
+
+## Timeline to v1.0:
 
 :heavy_check_mark: - Feature is completed
 
@@ -22,4 +45,4 @@ A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Ma
 - General
   - Allow the program to "flow" from one section to the next, so the user can make an animation without exiting the program
   - Autobuild :heavy_check_mark:
-  - Automatic updates
+  - Automatic updates:heavy_check_mark:

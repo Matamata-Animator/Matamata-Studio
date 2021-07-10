@@ -8,6 +8,7 @@ import exp from "constants";
 enum Mode {
   Select,
   Delete,
+  Typing,
 }
 let deletedMarkerName = "DELETED-POSE-MARKER";
 // import { remote } from "electron";
@@ -102,11 +103,12 @@ interface Timestamp {
 
 async function saveTimestamps() {
   let timestamps: Timestamp[] = [];
+  let restrictedNames = [deletedMarkerName, " ", ""];
   for (const m of audio.markers.markers) {
     //@ts-ignore
     let poseName: string = m.el.innerText;
     let time: number = Math.trunc(m.time * 1000);
-    if (poseName != deletedMarkerName) {
+    if (restrictedNames.indexOf(poseName) == -1) {
       let ts: Timestamp = { time: time, poseName: poseName };
       timestamps.push(ts);
     }
@@ -151,12 +153,14 @@ async function createMarker() {
     };
     e.children[1].ondblclick = async (click: MouseEvent) => {
       if (mode === Mode.Select) {
+        mode = Mode.Typing;
         console.log(click);
 
         dialogs.prompt("Pose Name:", "", (r) => {
           if (r) {
             //@ts-ignore
             click.path[0].innerText = r;
+            mode = Mode.Select;
           }
         });
       }

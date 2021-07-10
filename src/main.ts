@@ -12,9 +12,11 @@ if (!isDev) {
   autoUpdater.autoInstallOnAppQuit = true;
   autoUpdater.allowDowngrade = true;
 
-  let confirmDialog = {
+  let confirmDialog: Electron.MessageBoxSyncOptions = {
     buttons: ["Remind Me Later", "Download Now"],
     message: "An update is available",
+    defaultId: 1,
+    title: "Update Dialog",
   };
 
   autoUpdater.checkForUpdates().then((r) => {
@@ -22,7 +24,7 @@ if (!isDev) {
       r.updateInfo.version != autoUpdater.currentVersion.version &&
       dialog.showMessageBoxSync(confirmDialog) == 1
     ) {
-      autoUpdater.checkForUpdatesAndNotify();
+      autoUpdater.downloadUpdate();
     }
   });
 }

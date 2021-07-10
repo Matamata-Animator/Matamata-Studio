@@ -45,16 +45,14 @@ Install Matamata
 snap install matamata
 ```
 
-
-
 ## Timeline to v1.0:
 
 :heavy_check_mark: - Feature is completed
 
-- Timestamps
+- Timestamps :heavy_check_mark:
   - Load audio :heavy_check_mark:
   - Place markers :heavy_check_mark:
-  - Delete markers
+  - Delete markers :heavy_check_mark:
   - Rename markers :heavy_check_mark:
   - Export timestamps :heavy_check_mark:
 - Character Creator

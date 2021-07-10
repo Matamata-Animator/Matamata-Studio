@@ -9,7 +9,6 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v1

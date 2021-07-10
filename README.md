@@ -6,7 +6,7 @@ A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Ma
 
 ### Windows
 
-Download and run the installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
+Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
 
 ### Ubuntu
 
@@ -15,6 +15,26 @@ Install snap if you do not already have it
 ```shell
 sudo apt update
 sudo apt install snapd
+```
+
+Install Matamata
+
+```shell
+snap install matamata
+```
+
+### Mac
+
+Install [homebrew](https://brew.sh/#install)
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Install snap
+
+```shell
+brew install snap
 ```
 
 Install Matamata

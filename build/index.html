@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Matamata Desktop Autoupdate Test</title>
+  <link rel="stylesheet" href="main.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bulma-extensions@6.2.7/bulma-slider/dist/js/bulma-slider.min.js"
+    integrity="sha256-xyHFiCAhPIEcTS8BdzL/tYRVisN6wMFlFYEYwgtBKW0=" crossorigin="anonymous"></script>
+
+  <script>
+    var exports = {};
+
+
+  </script>
+  <script defer src='audioBox.js'></script>
+
+</head>
+
+
+<body>
+  <div class="is-vcentered" id="drop_zone" ondrop="dropHandler(event);" ondragover="event.preventDefault()"
+    onclick="audioClicked(event)">
+    <div id="waveform">
+      <p class="dragHelpText" id="dragHelpText">Drag your audio here</p>
+    </div>
+  </div>
+
+  <div class="columns">
+
+    <div class="column">
+      <p id='seconds'>Time: 0.000</p>
+    </div>
+    <div class="column" style="">
+      <div class="slidecontainer">
+        <input type="range" min="20" max="1000" value="20" class="slider" id="audioZoom">
+      </div>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="button" style="margin-left: 2.1vw;" onclick="saveTimestamps()">Save</div>
+  </div>
+
+</body>
+
+
+
+</html>

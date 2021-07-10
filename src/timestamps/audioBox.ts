@@ -34,9 +34,15 @@ async function dropHandler(event: DragEvent) {
     if (isLoaded()) {
       audio.pause();
     } else {
-      let x = document.getElementById("dragHelpText");
+      let x: any = document.getElementById("dragHelpText-container");
+      console.log(x);
       if (x) {
         x.style.display = "none";
+      }
+
+      x = document.getElementById("waveform");
+      if (x) {
+        x.style.display = "inherit";
       }
     }
     let path = event.dataTransfer.files[0].path;

@@ -72,6 +72,6 @@ app.on("ready", () => {
     },
   });
   win.maximize();
-  const indexHTML = path.join(__dirname + "/index.html");
+  const indexHTML = path.join(__dirname + "/timestamps/timestamps.html");
   win.loadFile(indexHTML);
 });

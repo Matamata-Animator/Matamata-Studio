@@ -82,12 +82,12 @@ ipcMain.on("run", (ev, command) => {
 
   child.stdout.on("data", (d) => {
     console.log("data", String(d));
-    ev.reply("data", d);
+    ev.reply("data", String(d));
   });
 
   child.on("exit", (e) => {
-    console.log("exit", e);
-    ev.reply("exit", e);
+    console.log("exit", String(e));
+    ev.reply("exit", String(e));
   });
 });
 
@@ -102,7 +102,7 @@ app.on("ready", () => {
   win.maximize();
   let indexHTML = path.join(__dirname + "/menu/index.html");
 
-  indexHTML = path.join(__dirname + "/render/render.html");
+  // indexHTML = path.join(__dirname + "/render/render.html");
 
   win.loadFile(indexHTML);
 });

@@ -34,7 +34,6 @@ if (!isDev) {
 // } catch (_) {}
 
 var path = require("path");
-
 let win: BrowserWindow;
 ipcMain.handle(
   "saveTo",
@@ -63,6 +62,9 @@ ipcMain.handle(
   }
 );
 
+ipcMain.on("getCurrentDir", (ev) => {
+  ev.returnValue = __dirname;
+});
 ipcMain.on("getOpenPath", (ev, item, options) => {
   let r = dialog.showOpenDialog(options).then((r) => {
     console.log(r);
@@ -82,12 +84,12 @@ ipcMain.on("run", (ev, command) => {
 
   child.stdout.on("data", (d) => {
     console.log("data", String(d));
-    ev.reply("data", d);
+    ev.reply("data", String(d));
   });
 
   child.on("exit", (e) => {
-    console.log("exit", e);
-    ev.reply("exit", e);
+    console.log("exit", String(e));
+    ev.reply("exit", String(e));
   });
 });
 
@@ -99,10 +101,12 @@ app.on("ready", () => {
       contextIsolation: false,
     },
   });
+  dialog.showMessageBoxSync({ message: __dirname });
+
   win.maximize();
   let indexHTML = path.join(__dirname + "/menu/index.html");
 
-  indexHTML = path.join(__dirname + "/render/render.html");
+  // indexHTML = path.join(__dirname + "/render/render.html");
 
   win.loadFile(indexHTML);
 });

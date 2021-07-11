@@ -49,12 +49,14 @@ snap install matamata
 
 :heavy_check_mark: - Feature is completed
 
-- Timestamps :heavy_check_mark:
+- Timestamps
   - Load audio :heavy_check_mark:
   - Place markers :heavy_check_mark:
   - Delete markers :heavy_check_mark:
   - Rename markers :heavy_check_mark:
   - Export timestamps :heavy_check_mark:
+  - Tool buttons
+  - Instructions
 - Character Creator (Eventually will be rewritten) :heavy_check_mark:
   - Port cc to electron :heavy_check_mark:
   - Start menu to choose a tool :heavy_check_mark:

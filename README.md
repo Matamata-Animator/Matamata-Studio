@@ -71,12 +71,12 @@ snap install matamata
 
 ## Tutorial
 ### Timestamps Creator
-- Drag your audio to the time line
+- Drag your audio to the timeline
 - `space` play and pause the audio
 - `a` key create a timestamp called POSE
 - Double click in a timestamp to rename it
-- Use the green slider to zoom in or out in your time line
-- When you click the button save you can name it extension as `.txt` in case you want to easily open and edit any information
+- Use the green slider to zoom in or out in your timeline
+- When you click the button **save** you can name it extension as `.txt` in case you want to easily open and edit any information
 
 ### Character Configurator
 - Drag your character image in the first option

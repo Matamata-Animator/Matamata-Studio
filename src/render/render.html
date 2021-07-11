@@ -13,13 +13,17 @@
 <body>
     <div class='columns is-flex-direction-column' id='settings'>
         <div class='column'>
-            <button class="button" onclick="uploadPath('corePath')">Find Matamata-Core Folder</button>
+            <button class="button" onclick="uploadPath('corePath', {properties: ['openDirectory']})">Find Matamata-Core
+                Folder</button>
         </div>
         <div class='column'>
-            <button class="button">Button</button>
+            <button class="button" onclick="uploadPath('audioPath')">Find Audio</button>
         </div>
         <div class='column'>
-            <button class="button">Button</button>
+            <button class="button" onclick="uploadPath('charactersPath')">Find Characters (optional)</button>
+        </div>
+        <div class='column'>
+            <button class="button" onclick="uploadPath('timestampPath')">Find Timestamps (optional)</button>
         </div>
     </div>
 </body>

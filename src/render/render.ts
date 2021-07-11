@@ -1,10 +1,16 @@
-const { ipcRenderer } = require("electron");
+import { ipcRenderer } from "electron";
 
 interface matamataRequest {
   corePath: string;
   audioPath: string;
   characterPath?: string;
   timestampsPath?: string;
+  charactersPath?: string;
+}
+
+interface PathReturn {
+  canceled: boolean;
+  filePaths: string[];
 }
 
 let data: matamataRequest = {
@@ -12,19 +18,13 @@ let data: matamataRequest = {
   audioPath: "",
 };
 
-async function uploadPath(
-  item,
-  options = {
-    title: "Chosse a path",
-    default: "/",
-    buttonLabel: "upload",
+ipcRenderer.on("path", (ev, item: string, r: PathReturn) => {
+  if (!r.canceled) {
+    data[item] = r.filePaths[0];
   }
-) {
+});
+
+async function uploadPath(item, options = {}) {
   // Renderer process
   ipcRenderer.send("getPath", item, options);
 }
-// // Main process
-// ipcMain.handle("some-name", async (event, someArgument) => {
-//   const result = await doSomeWork(someArgument);
-//   return result;
-// });

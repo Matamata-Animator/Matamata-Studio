@@ -55,9 +55,9 @@ snap install matamata
   - Delete markers :heavy_check_mark:
   - Rename markers :heavy_check_mark:
   - Export timestamps :heavy_check_mark:
-- Character Creator
-  - Port cc to electron
-  - Fix double drag bug
+- Character Creator (Eventually will be rewritten) :heavy_check_mark:
+  - Port cc to electron :heavy_check_mark:
+  - Start menu to choose a tool
 - Core
   - Interface between GUI and core
   - Choose export location

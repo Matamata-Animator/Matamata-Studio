@@ -11,7 +11,7 @@
     "url": "https://github.com/Matamata-Animator/Desktop.git"
   },
   "license": "MIT",
-  "version": "v0.1.10",
+  "version": "v0.2.0",
   "main": "build/main.js",
   "devDependencies": {
     "@types/node": "^14.17.5",
@@ -25,7 +25,8 @@
     "tsc-watch": "^4.4.0"
   },
   "scripts": {
-    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico build/",
+    "clean": "find build/ -name \"*.ts\" -type f -delete",
+    "copy-files": "cp -a src/. build/ && yarn run clean",
     "build": "tsc && yarn run copy-files",
     "watch": "tsc-watch --onSuccess \"yarn run copy-files\"",
     "start": "yarn run build && electron .",
@@ -35,9 +36,11 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "@types/p5": "^1.3.0",
     "dialogs": "^2.0.1",
     "electron-is-dev": "^2.0.0",
     "electron-updater": "^4.3.9",
+    "p5": "^1.4.0",
     "typescript": "^4.3.5",
     "update-electron-app": "^2.0.1",
     "wavesurfer.js": "^5.1.0"

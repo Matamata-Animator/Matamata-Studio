@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Momcake-Bold";
+  src: url("fonts/MomcakeBold-WyonA.woff") format("woff");
+}
+@font-face {
+  font-family: "Momcake-Thin";
+  src: url("fonts/MomcakeThin-9Y6aZ.woff") format("woff");
+}
+.column {
+  width: 50%;
+}
+h1 {
+  font-size: 8vw;
+  font-family: "Momcake-Thin";
+  color: black;
+}
+b {
+  font-family: "Momcake-Bold";
+}
+
+.button {
+  background-color: #c0c0c0;
+  color: black;
+}

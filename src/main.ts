@@ -63,6 +63,29 @@ ipcMain.handle(
   }
 );
 
+ipcMain.on("getPath", (ev, item, options) => {
+  console.log("upload");
+  let r = dialog.showOpenDialog(options).then((r) => {
+    console.log(r);
+    ev.reply("path", item, r);
+  });
+});
+
+ipcMain.on("run", (ev, command) => {
+  var spawnCommand = require("spawn-command"),
+    child = spawnCommand(command);
+
+  child.stdout.on("data", (d) => {
+    console.log("data", String(d));
+    ev.reply("data", d);
+  });
+
+  child.on("exit", (e) => {
+    console.log("exit", e);
+    ev.reply("exit", e);
+  });
+});
+
 app.on("ready", () => {
   win = new BrowserWindow({
     icon: __dirname + "/icons/icon.png",
@@ -72,8 +95,9 @@ app.on("ready", () => {
     },
   });
   win.maximize();
-  // const indexHTML = path.join(__dirname + "/timestamps/timestamps.html");
-  const indexHTML = path.join(__dirname + "/menu/index.html");
+  let indexHTML = path.join(__dirname + "/menu/index.html");
+
+  indexHTML = path.join(__dirname + "/render/render.html");
 
   win.loadFile(indexHTML);
 });

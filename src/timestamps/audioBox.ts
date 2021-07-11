@@ -79,8 +79,7 @@ function isLoaded() {
 }
 
 var seconds = 0;
-//@ts-ignore
-var inner = document.getElementById("seconds").innerHTML;
+
 setInterval(function () {
   //@ts-ignore
   document.getElementById("seconds")?.innerText = `Time: ${audio
@@ -148,6 +147,7 @@ async function createMarker() {
   if (e) {
     e.children[1].onclick = (click: MouseEvent) => {
       if (mode === Mode.Delete) {
+        console.log(mode);
         deleteMarker(click);
       }
     };
@@ -195,7 +195,7 @@ document.onkeypress = async (e) => {
       mode = Mode.Select;
       break;
     case "a":
-      mode = Mode.Delete;
+      mode = Mode.Select;
       createMarker();
       break;
     case "d":

@@ -56,17 +56,18 @@
     ],
     "linux": {
       "target": [
-        "snap",
-        "AppImage",
-        "deb"
+        "snap"
       ],
       "category": "Office",
       "publish": {
-        "provider": "github"
+        "provider": "snapStore",
+        "channels": [
+          "edge"
+        ]
       }
     },
     "snap": {
-      "confinement": "strict",
+      "confinement": "classic",
       "grade": "stable"
     },
     "win": {

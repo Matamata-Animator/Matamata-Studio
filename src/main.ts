@@ -29,9 +29,9 @@ if (!isDev) {
   });
 }
 
-// try {
-//   require("electron-reloader")(module);
-// } catch (_) {}
+try {
+  require("electron-reloader")(module);
+} catch (_) {}
 
 var path = require("path");
 let win: BrowserWindow;
@@ -100,6 +100,7 @@ app.on("ready", () => {
       nodeIntegration: true,
       contextIsolation: false,
     },
+    minWidth: 775,
   });
 
   win.maximize();

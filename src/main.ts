@@ -4,7 +4,8 @@ import { writeFile } from "fs";
 
 import electronIsDev from "electron-is-dev";
 import { autoUpdater } from "electron-updater";
-import { Console } from "console";
+
+import { exec } from "child_process";
 
 let isDev = electronIsDev;
 
@@ -69,6 +70,25 @@ ipcMain.on("getPath", (ev, item, options) => {
   let r = dialog.showOpenDialog(options).then((r) => {
     console.log(r);
     ev.reply("path", item, r);
+  });
+});
+
+ipcMain.on("run", (ev, command) => {
+  // exec(command, (err, stdout, stderr) => {
+  //   console.log(stdout);
+  //   ev.reply("data", stdout);
+  // });
+  var spawnCommand = require("spawn-command"),
+    child = spawnCommand(command);
+
+  child.stdout.on("data", (d) => {
+    console.log(d);
+    ev.reply("data", d);
+  });
+
+  child.on("exit", (e) => {
+    console.log(e);
+    ev.reply("exit", e);
   });
 });
 

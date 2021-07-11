@@ -16,7 +16,7 @@ interface matamataRequest {
   charactersPath?: string;
   phonemesPath?: string;
 }
-let fpath = "Matamata-Core";
+let fpath = "Core";
 
 interface PathReturn {
   canceled: boolean;
@@ -24,7 +24,7 @@ interface PathReturn {
 }
 
 let req: matamataRequest = {
-  corePath: "build/render/Matamata-Core/",
+  corePath: "build/render/Core/",
   audioPath: "",
   outputPath: "",
   characterPath: `defaults/characters.json`,
@@ -79,10 +79,7 @@ document.onkeypress = async (e: KeyboardEvent) => {
         .sendSync("getCurrentDir")
         .replace(/ /g, "\\ ");
       if (dir.includes("app.asar")) {
-        req.corePath = dir.replace(
-          "app.asar/build",
-          "build/render/Matamata-Core/"
-        );
+        req.corePath = dir.replace("app.asar/build", "build/render/Core/");
         cdCommand += "cd && ";
       }
       alert(req.corePath);

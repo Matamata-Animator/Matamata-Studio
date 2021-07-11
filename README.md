@@ -1,6 +1,6 @@
 # Matamata Desktop
 
-[![Build/Release](https://github.com/Matamata-Animator/Desktop/actions/workflows/build.yml/badge.svg)](https://github.com/Matamata-Animator/Desktop/actions/workflows/build.yml) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Matamata-Animator/Desktop?label=Curerent%20Version&style=flat-square) [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/matamata)
+[![Build/Release](https://github.com/Matamata-Animator/Desktop/actions/workflows/build.yml/badge.svg)](https://github.com/Matamata-Animator/Desktop/actions/workflows/build.yml) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Matamata-Animator/Desktop?label=Curerent%20Version&style=flat-square) 
 
 A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Matamata)
 
@@ -12,38 +12,11 @@ Download and run the Windows installer from the most recent [release](https://gi
 
 ### Ubuntu
 
-Install snap if you do not already have it
-
-```shell
-sudo apt update
-sudo apt install snapd
-```
-
-Install Matamata
-
-```shell
-snap install matamata
-```
+Download the `.deb` file from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
 
 ### Mac
 
-Install [homebrew](https://brew.sh/#install)
-
-```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-Install snap
-
-```shell
-brew install snap
-```
-
-Install Matamata
-
-```shell
-snap install matamata
-```
+Sadly, we are currently unable to support Macs. We recommend dual-booting in order to use this tool. 
 
 ## Timeline to v1.0:
 
@@ -81,13 +54,13 @@ snap install matamata
 ### Character Configurator
 - Drag your character image in the first option
   - If it loads as a small square, drag the image again, it will load this time
-- you don’t need to load a custom mouth
+- You don’t need to load a custom mouth
 - The blue slider change the mouth size
   - Click and drag it to the correct position
 - Rename the **Pose Name**
-  - confirm if is facing left (or not)
+  - Confirm if is facing left (or not)
 - Indicate the name of the folder *in relation to the **Matamata Core** folder*
 - You don’t need to fill the **Default Mouth** 
 - If everything is alright in the first pose click Add Pose
-  - Now you can drag a new image following the first part in this tutorial, and keep clicking Add Pose until you prepare all the pictures that you want to use
-- At the end Save your new file
+  - Now you can drag a new image following the first part in this tutorial, and keep clicking `Add Pose` until you prepare all the pictures that you want to use
+- Save your new file

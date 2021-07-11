@@ -101,7 +101,6 @@ app.on("ready", () => {
       contextIsolation: false,
     },
   });
-  dialog.showMessageBoxSync({ message: __dirname });
 
   win.maximize();
   let indexHTML = path.join(__dirname + "/menu/index.html");

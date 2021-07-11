@@ -74,7 +74,7 @@ document.onkeypress = async (e: KeyboardEvent) => {
     let cdCommand = "";
     if (os.platform() === "linux") {
       let sudoPswd = await dialogs.prompt("Sudo Password", "");
-      pyCommand = `echo "${sudoPswd}" | sudo -S ${pyCommand} --gen_dir ~/Matamata`;
+      pyCommand = `echo "${sudoPswd}" | sudo -S ${pyCommand}`;
       let dir: string = ipcRenderer
         .sendSync("getCurrentDir")
         .replace(/ /g, "\\ ");
@@ -82,7 +82,6 @@ document.onkeypress = async (e: KeyboardEvent) => {
         req.corePath = dir.replace("app.asar/build", "build/render/Core/");
         cdCommand += "cd && ";
       }
-      alert(req.corePath);
     }
     cdCommand += `cd ${req.corePath}`;
 

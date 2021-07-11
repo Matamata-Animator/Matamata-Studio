@@ -1,5 +1,6 @@
 body {
   /* overflow-x: hidden; */
+  background-color: #c0c0c0;
 }
 #canvas {
   /* position: absolute; */
@@ -23,8 +24,9 @@ body {
 }
 
 .drop {
+  margin-bottom: 1vw;
   padding: 0.7vw;
   border-style: dashed;
   font-size: 1vw;
-  width: 97.5%;
+  width: 100%;
 }

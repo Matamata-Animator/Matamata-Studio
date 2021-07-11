@@ -120,18 +120,18 @@ function drawMouth(x: number, y: number) {
   imageMode(CORNER);
 }
 function highlight() {
-  dropzone.style("background-color", "#ccc");
+  dropzone.style("background-color", "#848aac");
 }
 
 function unhighlight() {
-  dropzone.style("background-color", "#fff");
+  dropzone.style("background-color", "#626785");
 }
 function mhighlight() {
-  mdrop.style("background-color", "#ccc");
+  mdrop.style("background-color", "#848aac");
 }
 
 function munhighlight() {
-  mdrop.style("background-color", "#fff");
+  mdrop.style("background-color", "#626785");
 }
 
 function hovering() {

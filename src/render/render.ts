@@ -41,7 +41,7 @@ document.onkeypress = (e: KeyboardEvent) => {
   if (e.key.toLowerCase() == "r") {
     // let command = `sudo python3 ${fpath}/animate.py -a ${req.audioPath} --generate_folder ${fpath}/generate --vosk_model ${fpath}/model/ --config ${fpath}/config.txt -c ${req.characterPath} -m ${req.phonemesPath}`;
     let command = `cd Matamata-Core && sudo python3 animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath}`;
-
+    console.log(__dirname);
     console.log(command);
     let onData = (data) => {
       console.log("data", data);
@@ -49,7 +49,7 @@ document.onkeypress = (e: KeyboardEvent) => {
     let onExit = (exitCode) => {
       console.log("exit", exitCode);
     };
-    // ipcRenderer.send("run", command);
+    ipcRenderer.send("run", command);
     ipcRenderer.on("data", onData);
     ipcRenderer.on("exit", onExit);
   }

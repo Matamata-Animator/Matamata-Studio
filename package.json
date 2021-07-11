@@ -11,7 +11,7 @@
     "url": "https://github.com/Matamata-Animator/Desktop.git"
   },
   "license": "MIT",
-  "version": "v0.3.0",
+  "version": "v0.3.1",
   "main": "build/main.js",
   "devDependencies": {
     "@types/node": "^14.17.5",

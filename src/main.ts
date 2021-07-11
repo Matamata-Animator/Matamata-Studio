@@ -4,6 +4,7 @@ import { writeFile } from "fs";
 
 import electronIsDev from "electron-is-dev";
 import { autoUpdater } from "electron-updater";
+import { Console } from "console";
 
 let isDev = electronIsDev;
 
@@ -63,6 +64,14 @@ ipcMain.handle(
   }
 );
 
+ipcMain.on("getPath", (ev, item, options) => {
+  console.log("upload");
+  let r = dialog.showOpenDialog(options).then((r) => {
+    console.log(r);
+    ev.reply("path", item, r);
+  });
+});
+
 app.on("ready", () => {
   win = new BrowserWindow({
     icon: __dirname + "/icons/icon.png",
@@ -72,8 +81,9 @@ app.on("ready", () => {
     },
   });
   win.maximize();
-  // const indexHTML = path.join(__dirname + "/timestamps/timestamps.html");
-  const indexHTML = path.join(__dirname + "/menu/index.html");
+  let indexHTML = path.join(__dirname + "/menu/index.html");
+
+  indexHTML = path.join(__dirname + "/render/render.html");
 
   win.loadFile(indexHTML);
 });

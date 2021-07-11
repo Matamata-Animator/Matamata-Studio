@@ -1,14 +1,25 @@
 <head>
     <title>Matamata Desktop</title>
-
+    <script>exports = {}</script>
     <link rel="stylesheet" href="../styles/bulma.min.css">
     <script src="../styles/bulma-slider.min.js"></script>
     <link rel="stylesheet" href="../styles/main.css">
 
     <link rel="stylesheet" href="render.css" />
+    <script defer src="render.js"></script>
 
 </head>
 
 <body>
-
+    <div class='columns is-flex-direction-column' id='settings'>
+        <div class='column'>
+            <button class="button" onclick="uploadPath('corePath')">Find Matamata-Core Folder</button>
+        </div>
+        <div class='column'>
+            <button class="button">Button</button>
+        </div>
+        <div class='column'>
+            <button class="button">Button</button>
+        </div>
+    </div>
 </body>

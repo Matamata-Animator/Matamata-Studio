@@ -1,6 +1,5 @@
 body {
   /* overflow-x: hidden; */
-  background-color: #c0c0c0;
 }
 #canvas {
   /* position: absolute; */
@@ -11,6 +10,7 @@ body {
 }
 #form_parent {
   grid-row: span 2;
+  color: #c0c0c0;
 }
 
 .row {
@@ -29,4 +29,10 @@ body {
   border-style: dashed;
   font-size: 1vw;
   width: 100%;
+}
+
+b,
+p,
+label {
+  color: #c0c0c0;
 }

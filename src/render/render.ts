@@ -1,5 +1,8 @@
 import { ipcRenderer, remote } from "electron";
 import * as os from "os";
+import Dialogs from "dialogs";
+var dialogs = Dialogs({});
+
 interface matamataRequest {
   corePath: string;
   audioPath: string;
@@ -36,11 +39,20 @@ async function uploadPath(item, options = {}) {
   // Renderer process
   ipcRenderer.send("getPath", item, options);
 }
-
-document.onkeypress = (e: KeyboardEvent) => {
-  if (e.key.toLowerCase() == "r") {
+let running = false;
+document.onkeypress = async (e: KeyboardEvent) => {
+  if (e.key.toLowerCase() == "r" && !running) {
+    running = true;
     // let command = `sudo python3 ${fpath}/animate.py -a ${req.audioPath} --generate_folder ${fpath}/generate --vosk_model ${fpath}/model/ --config ${fpath}/config.txt -c ${req.characterPath} -m ${req.phonemesPath}`;
-    let command = `cd Matamata-Core && sudo python3 animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath}`;
+    let command = "echo 'hello world'";
+    let pyCommand = `python3 animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath}`;
+    let cdCommand = `cd Matamata-Core`;
+
+    if (os.platform() === "linux") {
+      let sudoPswd = await dialogs.prompt("Sudo Password", "");
+      pyCommand = `echo "${sudoPswd}" | sudo -S ${pyCommand}`;
+    }
+    command = `${cdCommand} && ${pyCommand}`;
     console.log(__dirname);
     console.log(command);
     let onData = (data) => {

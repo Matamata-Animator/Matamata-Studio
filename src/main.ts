@@ -5,8 +5,6 @@ import { writeFile } from "fs";
 import electronIsDev from "electron-is-dev";
 import { autoUpdater } from "electron-updater";
 
-import { exec } from "child_process";
-
 let isDev = electronIsDev;
 
 if (!isDev) {
@@ -82,12 +80,12 @@ ipcMain.on("run", (ev, command) => {
     child = spawnCommand(command);
 
   child.stdout.on("data", (d) => {
-    console.log(d);
+    console.log("data", String(d));
     ev.reply("data", d);
   });
 
   child.on("exit", (e) => {
-    console.log(e);
+    console.log("exit", e);
     ev.reply("exit", e);
   });
 });

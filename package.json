@@ -11,7 +11,7 @@
     "url": "https://github.com/Matamata-Animator/Desktop.git"
   },
   "license": "MIT",
-  "version": "v0.3.0",
+  "version": "v0.3.1",
   "main": "build/main.js",
   "devDependencies": {
     "@types/node": "^14.17.5",
@@ -56,19 +56,12 @@
     ],
     "linux": {
       "target": [
-        "snap"
+        "AppImage"
       ],
       "category": "Office",
       "publish": {
-        "provider": "snapStore",
-        "channels": [
-          "edge"
-        ]
+        "provider": "github"
       }
-    },
-    "snap": {
-      "confinement": "strict",
-      "grade": "stable"
     },
     "win": {
       "icon": "build/icons/icon.ico",

@@ -25,8 +25,7 @@
     "tsc-watch": "^4.4.0"
   },
   "scripts": {
-    "clean": "find build/ -name \"*.ts\" -type f -delete",
-    "copy-files": "cp -a src/. build/ && yarn run clean",
+    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico src/**/*.js src/**/**/*.woff src/**/**/*.css src/**/**/*.png build/",
     "build": "tsc && yarn run copy-files",
     "watch": "tsc-watch --onSuccess \"yarn run copy-files\"",
     "start": "yarn run build && electron .",

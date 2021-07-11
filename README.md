@@ -57,7 +57,7 @@ snap install matamata
   - Export timestamps :heavy_check_mark:
 - Character Creator (Eventually will be rewritten) :heavy_check_mark:
   - Port cc to electron :heavy_check_mark:
-  - Start menu to choose a tool
+  - Start menu to choose a tool :heavy_check_mark:
 - Core
   - Interface between GUI and core
   - Choose export location

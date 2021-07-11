@@ -29,9 +29,9 @@ if (!isDev) {
   });
 }
 
-try {
-  require("electron-reloader")(module);
-} catch (_) {}
+// try {
+//   require("electron-reloader")(module);
+// } catch (_) {}
 
 var path = require("path");
 
@@ -63,11 +63,16 @@ ipcMain.handle(
   }
 );
 
-ipcMain.on("getPath", (ev, item, options) => {
-  console.log("upload");
+ipcMain.on("getOpenPath", (ev, item, options) => {
   let r = dialog.showOpenDialog(options).then((r) => {
     console.log(r);
     ev.reply("path", item, r);
+  });
+});
+ipcMain.on("getSavePath", (ev, item, options) => {
+  let r = dialog.showSaveDialog(options).then((r) => {
+    console.log(r);
+    ev.reply("savePath", item, r);
   });
 });
 

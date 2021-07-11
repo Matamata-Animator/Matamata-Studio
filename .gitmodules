@@ -1,0 +1,3 @@
+[submodule "src/Matamata-Core"]
+	path = src/Matamata-Core
+	url = https://github.com/Matamata-Animator/Matamata-Core

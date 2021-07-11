@@ -47,6 +47,7 @@
   "build": {
     "appId": "com.aispawn.matamata",
     "productName": "Matamata Desktop",
+    "extraResources": "build/Matamata-Core",
     "linux": {
       "target": [
         "snap"

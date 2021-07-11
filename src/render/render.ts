@@ -74,7 +74,7 @@ document.onkeypress = async (e: KeyboardEvent) => {
     let cdCommand = "";
     if (os.platform() === "linux") {
       let sudoPswd = await dialogs.prompt("Sudo Password", "");
-      pyCommand = `echo "${sudoPswd}" | sudo -S ${pyCommand}`;
+      pyCommand = `echo "${sudoPswd}" | sudo -S ${pyCommand} --gen_dir ~/Matamata`;
       let dir: string = ipcRenderer
         .sendSync("getCurrentDir")
         .replace(/ /g, "\\ ");

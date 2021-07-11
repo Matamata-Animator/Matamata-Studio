@@ -25,7 +25,7 @@
     "tsc-watch": "^4.4.0"
   },
   "scripts": {
-    "copy-core-files": "copyfiles -u 1 src/render/Matamata-Core/* src/render/Matamata-Core/**/* src/render/Matamata-Core/**/**/* build/",
+    "copy-core-files": "copyfiles -u 1 src/render/Core/* src/render/Core/**/* src/render/Core/**/**/* build/",
     "copy-files": "yarn copy-core-files && copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico src/**/*.js src/**/**/*.woff src/**/**/*.css src/**/**/*.png build/",
     "build": "tsc && yarn run copy-files",
     "watch": "tsc-watch --onSuccess \"yarn run copy-files\"",
@@ -50,9 +50,9 @@
     "appId": "com.aispawn.matamata",
     "productName": "Matamata Desktop",
     "extraResources": [
-      "build/render/Matamata-Core/*",
-      "build/render/Matamata-Core/**/*",
-      "build/render/Matamata-Core/**/**/*"
+      "build/render/Core/*",
+      "build/render/Core/**/*",
+      "build/render/Core/**/**/*"
     ],
     "linux": {
       "target": [

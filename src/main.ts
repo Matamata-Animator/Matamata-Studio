@@ -34,7 +34,6 @@ if (!isDev) {
 // } catch (_) {}
 
 var path = require("path");
-
 let win: BrowserWindow;
 ipcMain.handle(
   "saveTo",
@@ -63,6 +62,9 @@ ipcMain.handle(
   }
 );
 
+ipcMain.on("getCurrentDir", (ev) => {
+  ev.returnValue = __dirname;
+});
 ipcMain.on("getOpenPath", (ev, item, options) => {
   let r = dialog.showOpenDialog(options).then((r) => {
     console.log(r);
@@ -99,6 +101,8 @@ app.on("ready", () => {
       contextIsolation: false,
     },
   });
+  dialog.showMessageBoxSync({ message: __dirname });
+
   win.maximize();
   let indexHTML = path.join(__dirname + "/menu/index.html");
 

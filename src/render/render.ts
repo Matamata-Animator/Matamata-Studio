@@ -1,7 +1,10 @@
-import { ipcRenderer, remote } from "electron";
+import { app, ipcRenderer, remote } from "electron";
 import * as os from "os";
 import Dialogs from "dialogs";
 import { runInNewContext } from "vm";
+
+import electronIsDev from "electron-is-dev";
+
 var dialogs = Dialogs({});
 
 interface matamataRequest {
@@ -21,7 +24,7 @@ interface PathReturn {
 }
 
 let req: matamataRequest = {
-  corePath: "Matamata-Core/",
+  corePath: "build/render/Matamata-Core/",
   audioPath: "",
   outputPath: "",
   characterPath: `defaults/characters.json`,
@@ -68,7 +71,13 @@ document.onkeypress = async (e: KeyboardEvent) => {
     // let command = `sudo python3 ${fpath}/animate.py -a ${req.audioPath} --generate_folder ${fpath}/generate --vosk_model ${fpath}/model/ --config ${fpath}/config.txt -c ${req.characterPath} -m ${req.phonemesPath}`;
     let command = "echo 'hello world'";
     let pyCommand = `python3 animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath} -o ${req.outputPath}`;
-    let cdCommand = `cd build/render/Matamata-Core/`;
+
+    let dir: string = ipcRenderer.sendSync("getCurrentDir");
+    if (dir.includes("app.asar")) {
+      req.corePath = `../../${req.corePath}`;
+    }
+    alert(req.corePath);
+    let cdCommand = `cd ${req.corePath}`;
 
     if (os.platform() === "linux") {
       let sudoPswd = await dialogs.prompt("Sudo Password", "");

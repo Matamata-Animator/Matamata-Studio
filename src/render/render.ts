@@ -53,8 +53,7 @@ document.onkeypress = async (e: KeyboardEvent) => {
       pyCommand = `echo "${sudoPswd}" | sudo -S ${pyCommand}`;
     }
     command = `${cdCommand} && ${pyCommand}`;
-    console.log(__dirname);
-    console.log(command);
+
     let onData = (data) => {
       console.log("data", data);
     };

@@ -72,10 +72,6 @@ ipcMain.on("getPath", (ev, item, options) => {
 });
 
 ipcMain.on("run", (ev, command) => {
-  // exec(command, (err, stdout, stderr) => {
-  //   console.log(stdout);
-  //   ev.reply("data", stdout);
-  // });
   var spawnCommand = require("spawn-command"),
     child = spawnCommand(command);
 

@@ -46,7 +46,7 @@ document.onkeypress = async (e: KeyboardEvent) => {
     // let command = `sudo python3 ${fpath}/animate.py -a ${req.audioPath} --generate_folder ${fpath}/generate --vosk_model ${fpath}/model/ --config ${fpath}/config.txt -c ${req.characterPath} -m ${req.phonemesPath}`;
     let command = "echo 'hello world'";
     let pyCommand = `python3 animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath}`;
-    let cdCommand = `cd Matamata-Core`;
+    let cdCommand = `cd build/render/Matamata-Core/`;
 
     if (os.platform() === "linux") {
       let sudoPswd = await dialogs.prompt("Sudo Password", "");

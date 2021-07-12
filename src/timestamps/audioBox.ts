@@ -4,15 +4,30 @@ import { ipcRenderer } from "electron";
 
 import Dialogs from "dialogs";
 import exp from "constants";
-// import Swal from "sweetalert2";
+
+import Swal from "sweetalert2";
+async function confirm(text: string) {
+  console.log("reeee");
+  let result = await Swal.fire({
+    title: text,
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: `Yes`,
+    denyButtonText: `No`,
+    customClass: {
+      confirmButton: "order-2",
+      denyButton: "order-3",
+    },
+  });
+  return result.isConfirmed;
+}
+
 enum Mode {
   Select,
   Delete,
   Typing,
 }
 let deletedMarkerName = "DELETED-POSE-MARKER";
-// import { remote } from "electron";
-var Dialogs = require("dialogs");
 
 var dialogs = Dialogs({});
 
@@ -31,28 +46,14 @@ window.onresize = async () => {
   audio.setHeight((9 * innerWidth) / 100);
 };
 
-// async function confirm(text: string) {
-//   let result = await Swal.fire({
-//     title: text,
-//     showDenyButton: true,
-//     showCancelButton: true,
-//     confirmButtonText: `Yes`,
-//     denyButtonText: `No`,
-//     customClass: {
-//       confirmButton: "order-2",
-//       denyButton: "order-3",
-//     },
-//   });
-//   return result.isConfirmed;
-// }
-
 async function dropHandler(event: DragEvent) {
   event.preventDefault();
+  let path = event.dataTransfer?.files[0].path;
 
   if (
     event.dataTransfer?.files[0].type === "audio/wav" &&
     (!isLoaded() ||
-      dialogs.confirm("Are you sure you want to overwrite current progress?"))
+      (await confirm("Are you sure you want to overwrite current progress?")))
   ) {
     if (isLoaded()) {
       audio.pause();
@@ -67,7 +68,6 @@ async function dropHandler(event: DragEvent) {
         x.style.display = "inherit";
       }
     }
-    let path = event.dataTransfer?.files[0].path;
 
     // audio = new Audio(path);
     if (path) {

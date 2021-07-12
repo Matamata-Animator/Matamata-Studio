@@ -1,4 +1,5 @@
 //@ts-nocheck
+import Swal from "sweetalert2";
 
 let dropzone: p5.Element;
 let mdrop: p5.Element;
@@ -42,7 +43,6 @@ function setup() {
   rectMode(CENTER);
 
   mouth_image = loadImage("mouths/Adown.png");
-  // alert("If you upload an image and it does not properly display, upload it again.");
 }
 
 function draw() {
@@ -165,11 +165,9 @@ interface Pose {
 
 function addPose() {
   if (!character) {
-    alert("Please upload a pose image");
+    Swal.fire("Please upload a pose image");
   }
-  if (!json) {
-    alert("Please upload a characters.json");
-  }
+
   let gc: Map<string, number> = new Map();
   var x = document.getElementById("form").elements;
   for (const i of x) {

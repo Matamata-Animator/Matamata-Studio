@@ -1,11 +1,10 @@
 import { app, ipcRenderer, remote } from "electron";
 import * as os from "os";
-import Dialogs from "dialogs";
 import { runInNewContext } from "vm";
 
 import electronIsDev from "electron-is-dev";
 
-var dialogs = Dialogs({});
+import Swal from "sweetalert2";
 
 interface matamataRequest {
   corePath: string;
@@ -59,21 +58,21 @@ async function savePath(item, options = {}) {
   ipcRenderer.send("getSavePath", item, options);
 }
 let running = false;
-document.onkeypress = async (e: KeyboardEvent) => {
+document.onkeyup = async (e: KeyboardEvent) => {
   if (e.key.toLowerCase() == "r" && !running) {
     if (req.audioPath == "" || req.outputPath == "") {
-      alert(
+      Swal.fire(
         "Please make sure you have selected an audio file and an output path."
       );
       return;
     }
     running = true;
-    // let command = `sudo python3 ${fpath}/animate.py -a ${req.audioPath} --generate_folder ${fpath}/generate --vosk_model ${fpath}/model/ --config ${fpath}/config.txt -c ${req.characterPath} -m ${req.phonemesPath}`;
+
     let command = "echo 'hello world'";
     let pyCommand = `python3 animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath} -o ${req.outputPath}`;
     let cdCommand = "";
     if (os.platform() === "linux") {
-      let sudoPswd = await dialogs.prompt("Sudo Password", "");
+      let sudoPswd = await getSudo();
       pyCommand = `echo "${sudoPswd}" | sudo -S ${pyCommand}`;
       let dir: string = ipcRenderer
         .sendSync("getCurrentDir")
@@ -98,3 +97,24 @@ document.onkeypress = async (e: KeyboardEvent) => {
     ipcRenderer.on("exit", onExit);
   }
 };
+
+async function getSudo() {
+  let psswd = await Swal.fire({
+    title:
+      "You need elevated permissions to do that. Enter your sudo password:",
+    html: `
+  <input type="password" id="password" class="swal2-input" placeholder="">`,
+    confirmButtonText: "Let's Go!",
+    focusConfirm: false,
+    preConfirm: async () => {
+      //@ts-ignore
+      let password = Swal.getPopup().querySelector("#password").value;
+
+      if (!password) {
+        Swal.showValidationMessage(`Please enter login and password`);
+      }
+      return password;
+    },
+  });
+  return psswd.value;
+}

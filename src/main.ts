@@ -52,11 +52,11 @@ if (!isDev) {
             autoUpdater.currentVersion.version &&
           dialog.showMessageBoxSync(confirmDialog) == 1
         ) {
-          let asset = res[0].assets.filter(
-            (a) => a.content_type == "application/vnd.debian.binary-package"
-          );
-          console.log(asset[0].browser_download_url);
-          require("open")(asset[0].browser_download_url);
+          let asset = res[0].assets.filter((a) => a.name.includes(".deb"));
+          if (asset[0]) {
+            console.log(asset[0].browser_download_url);
+            require("open")(asset[0].browser_download_url);
+          }
         }
       });
   }

@@ -2,15 +2,17 @@ import WaveSurfer from "wavesurfer.js";
 import MarkersPlugin from "wavesurfer.js/dist/plugin/wavesurfer.markers.js";
 import { ipcRenderer } from "electron";
 
-import Dialogs from "dialogs";
 import exp from "constants";
 
 import Swal from "sweetalert2";
-async function confirm(text: string) {
+
+async function confirmOverwrite(text: string) {
   console.log("reeee");
   let result = await Swal.fire({
     title: text,
     showDenyButton: true,
+    text: "You won't be able to revert this!",
+    icon: "warning",
     showCancelButton: false,
     confirmButtonText: `Yes`,
     denyButtonText: `No`,
@@ -22,14 +24,34 @@ async function confirm(text: string) {
   return result.isConfirmed;
 }
 
+async function getPoseName() {
+  let pname = await Swal.fire({
+    title: "Pose Name:",
+    html: `
+  <input type="poseName" id="poseName" class="swal2-input" placeholder="crossed">`,
+    confirmButtonText: "Let's Go!",
+    focusConfirm: false,
+    allowEnterKey: true,
+
+    preConfirm: async () => {
+      //@ts-ignore
+      let pname = Swal.getPopup().querySelector("#poseName").value;
+
+      if (!pname) {
+        Swal.showValidationMessage(`Please enter a pose name`);
+      }
+      return pname;
+    },
+  });
+  return pname.value;
+}
+
 enum Mode {
   Select,
   Delete,
   Typing,
 }
 let deletedMarkerName = "DELETED-POSE-MARKER";
-
-var dialogs = Dialogs({});
 
 var audio = WaveSurfer.create({
   container: "#waveform",
@@ -53,7 +75,9 @@ async function dropHandler(event: DragEvent) {
   if (
     event.dataTransfer?.files[0].type === "audio/wav" &&
     (!isLoaded() ||
-      (await confirm("Are you sure you want to overwrite current progress?")))
+      (await confirmOverwrite(
+        "Are you sure you want to overwrite current progress?"
+      )))
   ) {
     if (isLoaded()) {
       audio.pause();
@@ -175,7 +199,7 @@ async function createMarker() {
         mode = Mode.Typing;
         console.log(click);
 
-        dialogs.prompt("Pose Name:", "", (r) => {
+        getPoseName().then((r) => {
           if (r) {
             //@ts-ignore
             click.path[0].innerText = r;
@@ -188,6 +212,7 @@ async function createMarker() {
 }
 
 function togglePause() {
+  if (mode == Mode.Typing) return;
   if (!audio.isPlaying()) {
     audio.play();
   } else {

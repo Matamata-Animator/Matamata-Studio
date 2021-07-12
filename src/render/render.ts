@@ -64,7 +64,7 @@ let running = false;
 document.onkeyup = async (e: KeyboardEvent) => {
   if (e.key.toLowerCase() == "r" && !running) {
     if (req.audioPath == "" || req.outputPath == "") {
-      alert(
+      Swal.fire(
         "Please make sure you have selected an audio file and an output path."
       );
       return;

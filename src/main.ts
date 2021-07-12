@@ -1,37 +1,70 @@
-import { ipcMain, app, BrowserWindow, dialog } from "electron";
+import { ipcMain, app, BrowserWindow, dialog, shell } from "electron";
 
 import { writeFile } from "fs";
 
 import electronIsDev from "electron-is-dev";
-import { autoUpdater } from "electron-updater";
-
 let isDev = electronIsDev;
 
-if (!isDev) {
-  autoUpdater.autoDownload = false;
-  autoUpdater.autoInstallOnAppQuit = true;
-  autoUpdater.allowDowngrade = true;
+import { autoUpdater } from "electron-updater";
 
+import * as os from "os";
+
+import * as fetch from "node-fetch";
+
+function checkStatus(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw Error(res.statusText);
+  }
+}
+
+if (!isDev) {
   let confirmDialog: Electron.MessageBoxSyncOptions = {
     buttons: ["Remind Me Later", "Download Now"],
     message: "An update is available",
     defaultId: 1,
     title: "Update Dialog",
   };
+  if (os.platform() != "linux") {
+    autoUpdater.autoDownload = false;
+    autoUpdater.autoInstallOnAppQuit = true;
+    autoUpdater.allowDowngrade = true;
 
-  autoUpdater.checkForUpdates().then((r) => {
-    if (
-      r.updateInfo.version != autoUpdater.currentVersion.version &&
-      dialog.showMessageBoxSync(confirmDialog) == 1
-    ) {
-      autoUpdater.downloadUpdate();
-    }
-  });
+    autoUpdater.checkForUpdates().then((r) => {
+      console.log(r.updateInfo.version);
+      if (
+        r.updateInfo.version != autoUpdater.currentVersion.version &&
+        dialog.showMessageBoxSync(confirmDialog) == 1
+      ) {
+        autoUpdater.downloadUpdate();
+      }
+    });
+  } else {
+    fetch
+      .default(
+        `https://api.github.com/repos/Matamata-Animator/Desktop/releases`
+      )
+      .then(checkStatus)
+      .then((res) => {
+        if (
+          res[0].tag_name.replace("v", "") !=
+            autoUpdater.currentVersion.version &&
+          dialog.showMessageBoxSync(confirmDialog) == 1
+        ) {
+          let asset = res[0].assets.filter(
+            (a) => a.content_type == "application/vnd.debian.binary-package"
+          );
+          console.log(asset[0].browser_download_url);
+          require("open")(asset[0].browser_download_url);
+        }
+      });
+  }
 }
 
-try {
-  require("electron-reloader")(module);
-} catch (_) {}
+// try {
+//   require("electron-reloader")(module);
+// } catch (_) {}
 
 var path = require("path");
 let win: BrowserWindow;

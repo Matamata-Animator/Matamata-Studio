@@ -1,4 +1,4 @@
-# Install on windows
+# Install on Windows
 
 * Download python **and add it to path**
   * [Download python](https://www.python.org/downloads/)

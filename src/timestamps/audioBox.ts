@@ -4,7 +4,7 @@ import { ipcRenderer } from "electron";
 
 import Dialogs from "dialogs";
 import exp from "constants";
-
+// import Swal from "sweetalert2";
 enum Mode {
   Select,
   Delete,
@@ -12,7 +12,7 @@ enum Mode {
 }
 let deletedMarkerName = "DELETED-POSE-MARKER";
 // import { remote } from "electron";
-// var Dialogs = require("dialogs");
+var Dialogs = require("dialogs");
 
 var dialogs = Dialogs({});
 
@@ -31,6 +31,21 @@ window.onresize = async () => {
   audio.setHeight((9 * innerWidth) / 100);
 };
 
+// async function confirm(text: string) {
+//   let result = await Swal.fire({
+//     title: text,
+//     showDenyButton: true,
+//     showCancelButton: true,
+//     confirmButtonText: `Yes`,
+//     denyButtonText: `No`,
+//     customClass: {
+//       confirmButton: "order-2",
+//       denyButton: "order-3",
+//     },
+//   });
+//   return result.isConfirmed;
+// }
+
 async function dropHandler(event: DragEvent) {
   event.preventDefault();
 
@@ -39,12 +54,10 @@ async function dropHandler(event: DragEvent) {
     (!isLoaded() ||
       dialogs.confirm("Are you sure you want to overwrite current progress?"))
   ) {
-    console.log(isLoaded());
     if (isLoaded()) {
       audio.pause();
     } else {
       let x: any = document.getElementById("dragHelpText-container");
-      console.log(x);
       if (x) {
         x.style.display = "none";
       }
@@ -54,11 +67,17 @@ async function dropHandler(event: DragEvent) {
         x.style.display = "inherit";
       }
     }
-    let path = event.dataTransfer.files[0].path;
+    let path = event.dataTransfer?.files[0].path;
+
     // audio = new Audio(path);
-    audio.load(path);
-    audio.clearMarkers();
-    setTimeout(setZoomMin, 100);
+    if (path) {
+      audio.load(path);
+      audio.clearMarkers();
+      audio.on("ready", function () {
+        setZoomMin();
+      });
+    }
+    console.log("drag");
   }
 }
 

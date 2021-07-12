@@ -245,5 +245,20 @@ document.onkeypress = async (e) => {
     case "d":
       mode = Mode.Delete;
       break;
+    case "enter":
+      let x = document.getElementsByClassName("swal2-confirm")[0];
+      if (x) {
+        eventFire(x, "click");
+      }
+      break;
   }
 };
+function eventFire(el, etype) {
+  if (el.fireEvent) {
+    el.fireEvent("on" + etype);
+  } else {
+    var evObj = document.createEvent("Events");
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
+}

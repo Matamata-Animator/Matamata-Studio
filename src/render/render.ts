@@ -1,13 +1,10 @@
 import { app, ipcRenderer, remote } from "electron";
 import * as os from "os";
-import Dialogs from "dialogs";
 import { runInNewContext } from "vm";
 
 import electronIsDev from "electron-is-dev";
 
 import Swal from "sweetalert2";
-
-var dialogs = Dialogs({});
 
 interface matamataRequest {
   corePath: string;

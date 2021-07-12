@@ -1,7 +1,15 @@
+html {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+
 body {
   background-color: #626785;
-  min-height: 100vh;
-  min-width: 100vw;
+  margin: 0px;
+  min-height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* Slider from w3schools */
@@ -76,4 +84,7 @@ body {
 #seconds {
   padding-left: 1vw;
   color: black;
+}
+::-webkit-scrollbar {
+  width: 0px;
 }

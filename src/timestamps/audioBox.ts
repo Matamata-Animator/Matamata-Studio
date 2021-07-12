@@ -20,7 +20,7 @@ var audio = WaveSurfer.create({
   container: "#waveform",
   waveColor: "blue",
   progressColor: "purple",
-  height: (15 * innerHeight) / 100,
+  height: (9 * innerWidth) / 100,
   plugins: [MarkersPlugin.create([])],
   normalize: true,
 });
@@ -28,7 +28,7 @@ var audio = WaveSurfer.create({
 let mode: Mode = Mode.Select;
 
 window.onresize = async () => {
-  audio.setHeight((15 * innerHeight) / 100);
+  audio.setHeight((9 * innerWidth) / 100);
 };
 
 async function dropHandler(event: DragEvent) {

@@ -70,16 +70,20 @@ document.onkeyup = async (e: KeyboardEvent) => {
 
     let command = "echo 'hello world'";
     let pyCommand = `animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath} -o ${req.outputPath}`;
-    let cdCommand = "cd && ";
+    let cdCommand = "";
 
     let dir: string = ipcRenderer.sendSync("getCurrentDir");
     if (os.platform() === "linux") {
       let sudoPswd = await getSudo();
-      pyCommand = `echo "${sudoPswd}" | sudo -S python ${pyCommand} --codec FMP4`;
+      pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand} --codec FMP4`;
       dir = dir.replace(/ /g, "\\ ");
+
+      if(req.corePath.includes('app.asar')){
+      req.corePath = dir.replace("app.asar/build", "build/render/Core/");
+      cdCommand += 'cd && '
+      }
     }
 
-    req.corePath = dir.replace("app.asar/build", "build/render/Core/");
 
     let onData = async (ev, data) => {
       console.log("data", data);
@@ -91,6 +95,8 @@ document.onkeyup = async (e: KeyboardEvent) => {
     if (os.platform() === "win32") {
       pyCommand = `python ${pyCommand}`;
       req.corePath = req.corePath.replace('app.asar\\build','build\\render\\Core\\')
+      cdCommand += 'cd && '
+
     }
 
     cdCommand += `cd ${req.corePath}`;
@@ -123,4 +129,25 @@ async function getSudo() {
     },
   });
   return psswd.value;
+}
+
+
+document.onkeypress = async (e) => {
+  switch (e.key.toLowerCase()) {
+    case "enter":
+      let x = document.getElementsByClassName("swal2-confirm")[0];
+      if (x) {
+        eventFire(x, "click");
+      }
+      break;
+  }
+};
+function eventFire(el, etype) {
+  if (el.fireEvent) {
+    el.fireEvent("on" + etype);
+  } else {
+    var evObj = document.createEvent("Events");
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
 }

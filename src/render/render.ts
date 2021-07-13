@@ -73,17 +73,20 @@ document.onkeyup = async (e: KeyboardEvent) => {
     let cdCommand = "";
 
     let dir: string = ipcRenderer.sendSync("getCurrentDir");
+    console.log(dir);
     if (os.platform() === "linux") {
       let sudoPswd = await getSudo();
       pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand} --codec FMP4`;
-      dir = dir.replace(/ /g, "\\ ");
+      dir = __dirname.replace(/ /g, "\\ ");
 
-      if(req.corePath.includes('app.asar')){
-      req.corePath = dir.replace("app.asar/build", "build/render/Core/");
-      cdCommand += 'cd && '
+      if (req.corePath.includes("app.asar")) {
+        req.corePath = dir.replace(
+          "app.asar/build/render",
+          "build/render/Core/"
+        );
+        cdCommand += "cd && ";
       }
     }
-
 
     let onData = async (ev, data) => {
       console.log("data", data);
@@ -94,9 +97,11 @@ document.onkeyup = async (e: KeyboardEvent) => {
 
     if (os.platform() === "win32") {
       pyCommand = `python ${pyCommand}`;
-      req.corePath = req.corePath.replace('app.asar\\build','build\\render\\Core\\')
-      cdCommand += 'cd && '
-
+      req.corePath = req.corePath.replace(
+        "app.asar\\build",
+        "build\\render\\Core\\"
+      );
+      cdCommand += "cd && ";
     }
 
     cdCommand += `cd ${req.corePath}`;
@@ -130,7 +135,6 @@ async function getSudo() {
   });
   return psswd.value;
 }
-
 
 document.onkeypress = async (e) => {
   switch (e.key.toLowerCase()) {

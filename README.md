@@ -55,10 +55,10 @@ Sadly, we are currently unable to support Macs. We recommend dual-booting Window
 - Character Creator (Eventually will be rewritten) :heavy_check_mark:
   - Port cc to electron :heavy_check_mark:
   - Start menu to choose a tool :heavy_check_mark:
-- Core
-  - Interface between GUI and core
-  - Choose export location
-  - Basic export settings
+- Core :heavy_check_mark:
+  - Interface between GUI and core :heavy_check_mark:
+  - Choose export location :heavy_check_mark:
+  - Basic export settings :heavy_check_mark:
 - General
   - Allow the program to "flow" from one section to the next, so the user can make an animation without exiting the program
   - Autobuild :heavy_check_mark:

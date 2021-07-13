@@ -22,6 +22,19 @@ ${command}
 
 async function install() {
   if (os.platform() == "linux") {
-    let pswd = await getSudo();
+    let sudoPswd = await getSudo();
+    let onData = async (ev, data) => {
+      console.log("data", data);
+    };
+    let onExit = async (ev, exitCode) => {
+      console.log("exit", exitCode);
+    };
+
+    ipcRenderer.on("data", onData);
+    ipcRenderer.on("exit", onExit);
+    ipcRenderer.send(
+      "run",
+      command.replace("sudo", `echo "${sudoPswd}" | sudo -S`)
+    );
   }
 }

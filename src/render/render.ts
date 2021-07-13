@@ -79,12 +79,13 @@ document.onkeyup = async (e: KeyboardEvent) => {
       pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand} --codec FMP4`;
       dir = __dirname.replace(/ /g, "\\ ");
 
-      if (req.corePath.includes("app.asar")) {
+      if (dir.includes("app.asar")) {
         req.corePath = dir.replace(
           "app.asar/build/render",
           "build/render/Core/"
         );
         cdCommand += "cd && ";
+        console.log(req.corePath);
       }
     }
 

@@ -8,15 +8,37 @@ A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Ma
 
 ### Windows
 
-Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
+* Follow instructions [here](https://github.com/Matamata-Animator/Matamata-Core/blob/main/Windows_Install_Instructions.md) to setup your python environment. 
+* Install [Docker Desktop](https://www.docker.com/get-started)
+* Pull the Gentle container:
+
+```
+docker pull lowerquality/gentle
+```
+
+* Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
 
 ### Ubuntu
 
-Download the `.deb` file from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
+* Install the package requirements:
+
+```shell
+sudo apt install ffmpeg python3-pip python3-opencv docker.io
+curl -OL https://raw.githubusercontent.com/Matamata-Animator/Matamata-Core/main/requirements.txt
+sudo pip3 install -r requirements.txt
+```
+
+* Pull the Gentle container:
+
+```shell
+sudo docker pull lowerquality/gentle
+```
+
+* Download the `.deb` file from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
 
 ### Mac
 
-Sadly, we are currently unable to support Macs. We recommend dual-booting in order to use this tool. 
+Sadly, we are currently unable to support Macs. We recommend dual-booting Windows or Ubuntu, or setting up an Ubuntu virtual machine. 
 
 ## Timeline to v1.0:
 

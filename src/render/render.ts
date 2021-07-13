@@ -90,9 +90,7 @@ document.onkeyup = async (e: KeyboardEvent) => {
 
     if (os.platform() === "win32") {
       pyCommand = `python ${pyCommand}`;
-      req.corePath =
-        req.corePath.slice(0, req.corePath.lastIndexOf("build")) +
-        "build\\render\\core\\";
+      req.corePath = req.corePath.replace('app.asar\\build','build\\render\\Core\\')
     }
 
     cdCommand += `cd ${req.corePath}`;

@@ -69,29 +69,50 @@ document.onkeyup = async (e: KeyboardEvent) => {
     running = true;
 
     let command = "echo 'hello world'";
-    let pyCommand = `python3 animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath} -o ${req.outputPath}`;
+    let pyCommand = `animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath} -o ${req.outputPath}`;
     let cdCommand = "";
+
+    let dir: string = ipcRenderer.sendSync("getCurrentDir");
+    console.log(dir);
     if (os.platform() === "linux") {
       let sudoPswd = await getSudo();
-      pyCommand = `echo "${sudoPswd}" | sudo -S ${pyCommand}`;
-      let dir: string = ipcRenderer
-        .sendSync("getCurrentDir")
-        .replace(/ /g, "\\ ");
+      pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand} --codec FMP4`;
+      dir = __dirname.replace(/ /g, "\\ ");
+
       if (dir.includes("app.asar")) {
-        req.corePath = dir.replace("app.asar/build", "build/render/Core/");
+        req.corePath = dir.replace(
+          "app.asar/build/render",
+          "build/render/Core/"
+        );
         cdCommand += "cd && ";
+        console.log(req.corePath);
       }
     }
+
+    let onData = async (ev, data) => {
+      console.log("data", data);
+    };
+    let onExit = async (ev, exitCode) => {
+      console.log("exit", exitCode);
+    };
+
+    if (os.platform() === "win32") {
+      pyCommand = `python ${pyCommand}`;
+      if (dir.includes("app.asar")) {
+      req.corePath = dir
+      req.corePath = req.corePath.replace(
+        "app.asar\\build",
+        "build\\render\\Core"
+      );
+      }
+      cdCommand += "cd && ";
+    }
+
     cdCommand += `cd ${req.corePath}`;
 
     command = `${cdCommand} && ${pyCommand}`;
     console.log(command);
-    let onData = (data) => {
-      console.log("data", data);
-    };
-    let onExit = (exitCode) => {
-      console.log("exit", exitCode);
-    };
+
     ipcRenderer.send("run", command);
     ipcRenderer.on("data", onData);
     ipcRenderer.on("exit", onExit);
@@ -117,4 +138,24 @@ async function getSudo() {
     },
   });
   return psswd.value;
+}
+
+document.onkeypress = async (e) => {
+  switch (e.key.toLowerCase()) {
+    case "enter":
+      let x = document.getElementsByClassName("swal2-confirm")[0];
+      if (x) {
+        eventFire(x, "click");
+      }
+      break;
+  }
+};
+function eventFire(el, etype) {
+  if (el.fireEvent) {
+    el.fireEvent("on" + etype);
+  } else {
+    var evObj = document.createEvent("Events");
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
 }

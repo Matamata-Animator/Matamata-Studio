@@ -5,48 +5,52 @@
   <link rel="stylesheet" href="../styles/main.css" />
   <link rel="stylesheet" href="audioBox.css" />
 
-  <link rel="stylesheet" href="../styles/bulma.min.css">
+  <link rel="stylesheet" href="../styles/bulma.min.css" />
   <script src="../styles//bulma-slider.min.js"></script>
 
   <script>
     var exports = {};
-
-
   </script>
-  <script defer src='audioBox.js'></script>
-
+  <script defer src="audioBox.js"></script>
 </head>
 
-
 <body>
-  <div class="is-vcentered" id="drop_zone" ondrop="dropHandler(event);" ondragover="event.preventDefault()"
-    onclick="audioClicked(event)">
-    <div id='dragHelpText-container'>
+  <div
+    class="is-vcentered"
+    id="drop_zone"
+    ondrop="dropHandler(event);"
+    ondragover="event.preventDefault()"
+    onclick="audioClicked(event)"
+  >
+    <div id="dragHelpText-container">
       <p class="dragHelpText" id="dragHelpText">Drag your audio here</p>
     </div>
-    <div id="waveform"> </div>
+    <div id="waveform"></div>
   </div>
-
 
   <br />
   <div class="columns">
     <div class="column">
-      <p id='seconds'>Time: 0.000</p>
+      <p id="seconds">Time: 0.000</p>
     </div>
     <div class="column" style="">
       <div class="slidecontainer">
-        <input type="range" min="20" max="1000" value="20" class="slider" id="audioZoom">
+        <input
+          type="range"
+          min="20"
+          max="1000"
+          value="20"
+          class="slider"
+          id="audioZoom"
+        />
       </div>
     </div>
   </div>
 
   <br />
   <div class="columns">
-    <div class="button" style="margin-left: 2.1vw;" onclick="saveTimestamps()">Save</div>
+    <div class="button" style="margin-left: 2.1vw" onclick="saveTimestamps()">
+      Save
+    </div>
   </div>
-
 </body>
-
-
-
-</html>

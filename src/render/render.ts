@@ -98,10 +98,13 @@ document.onkeyup = async (e: KeyboardEvent) => {
 
     if (os.platform() === "win32") {
       pyCommand = `python ${pyCommand}`;
+      if (dir.includes("app.asar")) {
+      req.corePath = dir
       req.corePath = req.corePath.replace(
         "app.asar\\build",
-        "build\\render\\Core\\"
+        "build\\render\\Core"
       );
+      }
       cdCommand += "cd && ";
     }
 

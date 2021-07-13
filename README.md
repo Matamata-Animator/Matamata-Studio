@@ -23,7 +23,7 @@ docker pull lowerquality/gentle
 - Install the package requirements:
 
 ```shell
-sudo apt install ffmpeg python3-pip python3-opencv docker.io
+sudo docker pull lowerquality/gentlesudo apt install ffmpeg python3-pip python3-opencv docker.io
 curl -OL https://raw.githubusercontent.com/Matamata-Animator/Matamata-Core/main/requirements.txt
 sudo pip3 install -r requirements.txt
 ```
@@ -55,14 +55,18 @@ Sadly, we are currently unable to support Macs. We recommend dual-booting Window
 - Character Creator (Eventually will be rewritten) :heavy_check_mark:
   - Port cc to electron :heavy_check_mark:
   - Start menu to choose a tool :heavy_check_mark:
-- Core :heavy_check_mark:
+- Core 
   - Interface between GUI and core :heavy_check_mark:
   - Choose export location :heavy_check_mark:
   - Basic export settings :heavy_check_mark:
+  - Text box for additional options
 - General
   - Allow the program to "flow" from one section to the next, so the user can make an animation without exiting the program
   - Autobuild :heavy_check_mark:
   - Automatic updates:heavy_check_mark:
+  - Automatic dependency install
+    - Ubuntu
+    - Windows
 
 ## Tutorial
 

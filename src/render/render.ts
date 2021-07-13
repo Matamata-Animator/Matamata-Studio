@@ -69,29 +69,37 @@ document.onkeyup = async (e: KeyboardEvent) => {
     running = true;
 
     let command = "echo 'hello world'";
-    let pyCommand = `python3 animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath} -o ${req.outputPath}`;
-    let cdCommand = "";
+    let pyCommand = `animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath} -o ${req.outputPath}`;
+    let cdCommand = "cd && ";
+
+    let dir: string = ipcRenderer.sendSync("getCurrentDir");
     if (os.platform() === "linux") {
       let sudoPswd = await getSudo();
-      pyCommand = `echo "${sudoPswd}" | sudo -S ${pyCommand}`;
-      let dir: string = ipcRenderer
-        .sendSync("getCurrentDir")
-        .replace(/ /g, "\\ ");
-      if (dir.includes("app.asar")) {
-        req.corePath = dir.replace("app.asar/build", "build/render/Core/");
-        cdCommand += "cd && ";
-      }
+      pyCommand = `echo "${sudoPswd}" | sudo -S python ${pyCommand}`;
+      dir = dir.replace(/ /g, "\\ ");
     }
+
+    req.corePath = dir.replace("app.asar/build", "build/render/Core/");
+
+    let onData = async (ev, data) => {
+      console.log("data", data);
+    };
+    let onExit = async (ev, exitCode) => {
+      console.log("exit", exitCode);
+    };
+
+    if (os.platform() === "win32") {
+      pyCommand = `python ${pyCommand}`;
+      req.corePath =
+        req.corePath.slice(0, req.corePath.lastIndexOf("build")) +
+        "build\\render\\core\\";
+    }
+
     cdCommand += `cd ${req.corePath}`;
 
     command = `${cdCommand} && ${pyCommand}`;
     console.log(command);
-    let onData = (data) => {
-      console.log("data", data);
-    };
-    let onExit = (exitCode) => {
-      console.log("exit", exitCode);
-    };
+
     ipcRenderer.send("run", command);
     ipcRenderer.on("data", onData);
     ipcRenderer.on("exit", onExit);

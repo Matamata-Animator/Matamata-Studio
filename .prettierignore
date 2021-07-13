@@ -1,0 +1,5 @@
+build
+src/render/Core
+*.py
+*.min.css
+*.min.js

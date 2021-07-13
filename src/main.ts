@@ -62,9 +62,9 @@ if (!isDev) {
   }
 }
 
-try {
-  require("electron-reloader")(module);
-} catch (_) {}
+// try {
+//   require("electron-reloader")(module);
+// } catch (_) {}
 
 var path = require("path");
 let win: BrowserWindow;
@@ -112,18 +112,18 @@ ipcMain.on("getSavePath", (ev, item, options) => {
 });
 
 ipcMain.on("run", (ev, command) => {
-  var spawnCommand = require("spawn-command"),
-    child = spawnCommand(command);
-
-  child.stdout.on("data", (d) => {
+  let onData = (d) => {
     console.log("data", String(d));
     ev.reply("data", String(d));
-  });
-
-  child.on("exit", (e) => {
+  };
+  let onExit = (e) => {
     console.log("exit", String(e));
     ev.reply("exit", String(e));
-  });
+  };
+  var spawnCommand = require("spawn-command"),
+    child = spawnCommand(command);
+  child.stdout.on("data", onData);
+  child.on("exit", onExit);
 });
 
 app.on("ready", () => {

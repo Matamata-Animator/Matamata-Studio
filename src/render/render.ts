@@ -75,7 +75,7 @@ document.onkeyup = async (e: KeyboardEvent) => {
     let dir: string = ipcRenderer.sendSync("getCurrentDir");
     if (os.platform() === "linux") {
       let sudoPswd = await getSudo();
-      pyCommand = `echo "${sudoPswd}" | sudo -S python ${pyCommand}`;
+      pyCommand = `echo "${sudoPswd}" | sudo -S python ${pyCommand} --codec FMP4`;
       dir = dir.replace(/ /g, "\\ ");
     }
 

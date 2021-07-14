@@ -8,15 +8,15 @@ A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Ma
 
 ### Windows
 
-- Follow instructions [here](https://github.com/Matamata-Animator/Matamata-Core/blob/main/Windows_Install_Instructions.md) to setup your python environment.
-- Install [Docker Desktop](https://www.docker.com/get-started)
-- Pull the Gentle container:
+- Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases), then choose o
+
+* Follow instructions [here](https://github.com/Matamata-Animator/Matamata-Core/blob/main/Windows_Install_Instructions.md) to setup your python environment.
+* Install [Docker Desktop](https://www.docker.com/get-started)
+* Pull the Gentle container:
 
 ```
 docker pull lowerquality/gentle
 ```
-
-- Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
 
 ### Ubuntu
 
@@ -24,7 +24,7 @@ docker pull lowerquality/gentle
 
 #### Automatic Installation
 
-- Launch the app, and click the `install dependencies` button.
+- Launch the app, and click the `Install Requirements` button, then press `install`.
 
 #### Manual Installation
 

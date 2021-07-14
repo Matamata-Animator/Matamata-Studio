@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
 import Swal from "sweetalert2";
-
+import { existsSync, lstatSync } from "fs";
 let repo = "https://github.com/Matamata-Animator/Windows-Install-Files";
 
 function uninstallPython() {
@@ -35,6 +35,30 @@ function installDocker() {
 function dockerPull() {
   run(`docker pull lowerquality/gentle:latest`);
 }
+function rmFFmpeg() {
+  let dirPath = "C:\\ffmpeg";
+  let exists = existsSync(dirPath) && lstatSync(dirPath).isDirectory()
+  console.log(exists)
+  if (exists) {
+    run(`rmdir /S /Q C:\\ffmpeg`);
+  } else {
+    success();
+  }
+}
+function downloadFFmpeg() {
+  run(
+    `cd C:\\ && mkdir ffmpeg\\bin && cd ffmpeg\\bin && curl -OL ${repo}/raw/main/ffmpeg/bin/ffmpeg.exe && curl -OL ${repo}/raw/main/ffmpeg/bin/ffplay.exe && curl -OL ${repo}/raw/main/ffmpeg/bin/ffprobe.exe`
+  );
+}
+
+function success() {
+  Swal.fire({
+    title: "Success! Continue to the next step!",
+    text: "Warning: This does not account for if you clicked 'no' on an installer.",
+    icon: "success",
+    width: 700,
+  });
+}
 function run(command) {
   let onData = async (ev, data) => {
     console.log("data", data);
@@ -42,12 +66,7 @@ function run(command) {
   let onExit = async (ev, exitCode) => {
     console.log("exit", exitCode);
     if (exitCode == 0) {
-      Swal.fire({
-        title: "Success! Continue to the next step!",
-        text: "Warning: This does not account for if you clicked 'no' on an installer.",
-        icon: "success",
-        width: 700,
-      });
+      success();
     } else {
       Swal.fire(
         "Ouch!",

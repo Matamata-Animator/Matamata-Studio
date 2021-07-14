@@ -16,7 +16,7 @@ function installPackages() {
 }
 function enableWSL() {
   run(
-    `curl -OL${repo}/raw/main/wsl-batch-ps1/wsl1.ps1 && Powershell.exe -Command "& {Start-Process Powershell.exe -ArgumentList '-ExecutionPolicy Bypass -File %~dp0wsl1.ps1' -Verb RunAs}"`
+    `curl -OL ${repo}/raw/main/wsl-batch-ps1/wsl1.ps1 && Powershell.exe -Command "& {Start-Process Powershell.exe -ArgumentList '-ExecutionPolicy Bypass -File %~dp0wsl1.ps1' -Verb RunAs}"`
   );
 }
 function installKernal() {

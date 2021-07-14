@@ -1,5 +1,6 @@
 {
   "name": "matamata",
+  "version": "v0.5.1",
   "executableName": "Matamata Desktop",
   "description": "Desktop GUI for Matamata",
   "author": {
@@ -11,7 +12,6 @@
     "url": "https://github.com/Matamata-Animator/Desktop.git"
   },
   "license": "MIT",
-  "version": "v0.5.0",
   "main": "build/main.js",
   "devDependencies": {
     "@types/node": "^14.17.5",

@@ -8,25 +8,23 @@ A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Ma
 
 ### Windows
 
-- Follow instructions [here](https://github.com/Matamata-Animator/Matamata-Core/blob/main/Windows_Install_Instructions.md) to setup your python environment.
-- Install [Docker Desktop](https://www.docker.com/get-started)
-- Pull the Gentle container:
+- Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases), then choose o
+
+* Follow instructions [here](https://github.com/Matamata-Animator/Matamata-Core/blob/main/Windows_Install_Instructions.md) to setup your python environment.
+* Install [Docker Desktop](https://www.docker.com/get-started)
+* Pull the Gentle container:
 
 ```
 docker pull lowerquality/gentle
 ```
 
-- Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
-
-
-
 ### Ubuntu
 
 - Download and install the `.deb` file from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases), then choose one of the two options below:
 
-#### Automatic Installation 
+#### Automatic Installation
 
-* Launch the app, and click the `install dependencies` button. 
+- Launch the app, and click the `Install Requirements` button, then press `install`.
 
 #### Manual Installation
 
@@ -42,8 +40,6 @@ sudo pip3 install -r requirements.txt
 ```shell
 sudo docker pull lowerquality/gentle
 ```
-
-
 
 ### Mac
 
@@ -72,10 +68,10 @@ Sadly, we are currently unable to support Macs. We recommend dual-booting Window
 - General
   - Allow the program to "flow" from one section to the next, so the user can make an animation without exiting the program
   - Autobuild :heavy_check_mark:
-  - Automatic updates:heavy_check_mark:
-  - Automatic dependency install
-    - Ubuntu
-    - Windows
+  - Automatic updates :heavy_check_mark:
+  - Automatic dependency install :heavy_check_mark:
+    - Ubuntu :heavy_check_mark:
+    - Windows :heavy_check_mark:
 
 ## Tutorial
 

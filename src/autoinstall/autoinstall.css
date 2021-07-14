@@ -1,3 +1,11 @@
 p {
-  color: black;
+  color: white;
+}
+
+.button {
+  margin: 10px;
+}
+.button::after {
+  content: "\a";
+  white-space: pre;
 }

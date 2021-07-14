@@ -91,8 +91,8 @@ document.onkeyup = async (e: KeyboardEvent) => {
       console.log("data", data);
     };
     let onExit = async (ev, exitCode) => {
-      console.log("exit", exitCode);
-    };
+      console.log("exit", exitCode); 
+    }; 
 
     if (os.platform() === "win32") {
       pyCommand = `python ${pyCommand}`;

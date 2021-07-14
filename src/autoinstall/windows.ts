@@ -51,7 +51,7 @@ function downloadFFmpeg() {
   );
 }
 function pathFFmpeg() {
-  run(`echo setx /M path "%path%;C:\\ffmpeg\\bin" >> addPath.ps1 && Powershell.exe -Command "& {Start-Process Powershell.exe -ArgumentList '-ExecutionPolicy Bypass -File %~dp0addPath.ps1' -Verb RunAs}"`);
+  run(`setx /M path "%path%;C:\\ffmpeg\\bin"`);
 }
 
 function success() {
@@ -80,7 +80,7 @@ function run(command) {
     } else {
       Swal.fire(
         "Ouch!",
-        'Something went wrong!(unless this was on "Install WSL Kernal" and you\'ve already installed WSL before)',
+        'Something went wrong! (unless this was on "Install WSL Kernal" and you\'ve already installed WSL before)',
         "error"
       );
     }

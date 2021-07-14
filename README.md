@@ -8,7 +8,13 @@ A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Ma
 
 ### Windows
 
-- Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases), then choose o
+- Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases), then choose one of the following options:
+
+#### Automatic Install
+
+* Launch the app as an administrator (you only need to do this the first time), and click the `Install Requirements` button, then install each component there. 
+
+#### Manual Install
 
 * Follow instructions [here](https://github.com/Matamata-Animator/Matamata-Core/blob/main/Windows_Install_Instructions.md) to setup your python environment.
 * Install [Docker Desktop](https://www.docker.com/get-started)

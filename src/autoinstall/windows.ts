@@ -51,7 +51,7 @@ function downloadFFmpeg() {
   );
 }
 function pathFFmpeg() {
-  run(`setx /M path "%path%;C:\\ffmpeg\\bin"`, true);
+  run(`echo setx /M path "%path%;C:\\ffmpeg\\bin" >> addPath.ps1 && Powershell.exe -Command "& {Start-Process Powershell.exe -ArgumentList '-ExecutionPolicy Bypass -File %~dp0addPath.ps1' -Verb RunAs}"`);
 }
 
 function success() {
@@ -63,7 +63,7 @@ function success() {
   });
 }
 
-function run(command, path = false) {
+function run(command) {
   let onData = async (ev, data) => {
     console.log("data", data);
   };

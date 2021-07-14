@@ -68,6 +68,20 @@
         "provider": "github"
       }
     },
+    "deb": {
+      "depends": [
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3",
+        "ffmpeg",
+        "python3-pip",
+        "python3-opencv",
+        "docker.io"
+      ]
+    },
     "win": {
       "icon": "build/icons/icon.ico",
       "target": [

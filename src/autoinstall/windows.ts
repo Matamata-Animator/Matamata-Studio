@@ -37,8 +37,8 @@ function dockerPull() {
 }
 function rmFFmpeg() {
   let dirPath = "C:\\ffmpeg";
-  let exists = existsSync(dirPath) && lstatSync(dirPath).isDirectory()
-  console.log(exists)
+  let exists = existsSync(dirPath) && lstatSync(dirPath).isDirectory();
+  console.log(exists);
   if (exists) {
     run(`rmdir /S /Q C:\\ffmpeg`);
   } else {
@@ -50,6 +50,9 @@ function downloadFFmpeg() {
     `cd C:\\ && mkdir ffmpeg\\bin && cd ffmpeg\\bin && curl -OL ${repo}/raw/main/ffmpeg/bin/ffmpeg.exe && curl -OL ${repo}/raw/main/ffmpeg/bin/ffplay.exe && curl -OL ${repo}/raw/main/ffmpeg/bin/ffprobe.exe`
   );
 }
+function pathFFmpeg() {
+  run(`setx /M path "%path%;C:\\ffmpeg\\bin"`, true);
+}
 
 function success() {
   Swal.fire({
@@ -59,7 +62,8 @@ function success() {
     width: 700,
   });
 }
-function run(command) {
+
+function run(command, path = false) {
   let onData = async (ev, data) => {
     console.log("data", data);
   };
@@ -67,6 +71,12 @@ function run(command) {
     console.log("exit", exitCode);
     if (exitCode == 0) {
       success();
+    } else if (exitCode == 1) {
+      Swal.fire(
+        "Permission Denied! Please run the following in terminal as an administrator:",
+        command,
+        "warning"
+      );
     } else {
       Swal.fire(
         "Ouch!",

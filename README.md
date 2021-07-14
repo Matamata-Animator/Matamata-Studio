@@ -18,15 +18,13 @@ docker pull lowerquality/gentle
 
 - Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases).
 
-
-
 ### Ubuntu
 
 - Download and install the `.deb` file from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases), then choose one of the two options below:
 
-#### Automatic Installation 
+#### Automatic Installation
 
-* Launch the app, and click the `install dependencies` button. 
+- Launch the app, and click the `install dependencies` button.
 
 #### Manual Installation
 
@@ -42,8 +40,6 @@ sudo pip3 install -r requirements.txt
 ```shell
 sudo docker pull lowerquality/gentle
 ```
-
-
 
 ### Mac
 

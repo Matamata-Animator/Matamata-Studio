@@ -6,7 +6,6 @@ import electronIsDev from "electron-is-dev";
 let isDev = electronIsDev;
 
 import { autoUpdater } from "electron-updater";
-
 import * as os from "os";
 
 import * as fetch from "node-fetch";
@@ -124,6 +123,33 @@ ipcMain.on("run", (ev, command) => {
     child = spawnCommand(command);
   child.stdout.on("data", onData);
   child.on("exit", onExit);
+});
+
+ipcMain.on("pshell", (ev, command) => {
+  let onData = (d) => {
+    console.log("data", String(d));
+    ev.reply("data", String(d));
+  };
+  let onExit = (e) => {
+    console.log("exit", String(e));
+    ev.reply("exit", String(e));
+  };
+  const Shell = require("node-powershell");
+  const ps = new Shell({
+    executionPolicy: "Bypass",
+    noProfile: true,
+  });
+  ps.addCommand(command);
+  ps.invoke()
+    .then((output) => {
+      onData(output);
+      ev.reply("exit", 0);
+    })
+    .catch((err) => {
+      onData(err)
+      onExit(1)
+      console.log(err);
+    });
 });
 
 app.on("ready", () => {

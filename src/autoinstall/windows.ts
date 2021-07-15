@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 import { existsSync, lstatSync } from "fs";
 let repo = "https://github.com/Matamata-Animator/Windows-Install-Files";
 
+ipcRenderer.send("pshell", "echo node-powershell");
+
 function uninstallPython() {
   run(`curl -OL ${repo}/raw/main/py.exe && py.exe /uninstall `);
 }
@@ -16,7 +18,8 @@ function installPackages() {
 }
 function enableWSL() {
   run(
-    `curl -OL ${repo}/raw/main/wsl-batch-ps1/wsl1.ps1 && Powershell.exe -Command "& {Start-Process Powershell.exe -ArgumentList '-ExecutionPolicy Bypass -File %~dp0wsl1.ps1' -Verb RunAs}"`
+    `dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart; dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart`,
+    "pshell"
   );
 }
 function installKernal() {
@@ -24,7 +27,8 @@ function installKernal() {
 }
 function setWSL2() {
   run(
-    `curl -OL${repo}/raw/main/wsl-batch-ps1/wsl2.ps1 && Powershell.exe -Command "& {Start-Process Powershell.exe -ArgumentList '-ExecutionPolicy Bypass -File %~dp0wsl2.ps1' -Verb RunAs}"`
+    `wsl --set-default-version 2`,
+    "pshell'"
   );
 }
 function installDocker() {
@@ -63,7 +67,7 @@ function success() {
   });
 }
 
-function run(command) {
+function run(command, type = "run") {
   let onData = async (ev, data) => {
     console.log("data", data);
   };
@@ -80,7 +84,7 @@ function run(command) {
     } else {
       Swal.fire(
         "Ouch!",
-        'Something went wrong! (unless this was on "Install WSL Kernal" and you\'ve already installed WSL before)',
+        'Something went wrong! (Unless this was on "Install WSL Kernal" and you\'ve already installed WSL before)',
         "error"
       );
     }
@@ -89,5 +93,5 @@ function run(command) {
   console.log(command);
   ipcRenderer.on("data", onData);
   ipcRenderer.on("exit", onExit);
-  ipcRenderer.send("run", command);
+  ipcRenderer.send(type, command);
 }

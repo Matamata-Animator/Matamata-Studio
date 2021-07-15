@@ -16,20 +16,27 @@ function installPackages() {
     `curl -OL https://raw.githubusercontent.com/Matamata-Animator/Matamata-Core/main/requirements.txt && pip install -r requirements.txt`
   );
 }
+let wslC = 0;
 function enableWSL() {
   run(
     `dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart; dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart`,
     "pshell"
   );
+  if (wslC == 0) {
+    wslC++;
+  }
 }
 function installKernal() {
   run(`curl -OL ${repo}/raw/main/wsl-batch-ps1/wsl2.msi && wsl2.msi `);
+  if (wslC == 1) {
+    wslC++;
+  }
 }
 function setWSL2() {
-  run(
-    `wsl --set-default-version 2`,
-    "pshell'"
-  );
+  run(`wsl --set-default-version 2`, "pshell'");
+  if (wslC == 2) {
+    success();
+  }
 }
 function installDocker() {
   run(

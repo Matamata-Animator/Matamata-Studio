@@ -146,8 +146,8 @@ ipcMain.on("pshell", (ev, command) => {
       ev.reply("exit", 0);
     })
     .catch((err) => {
-      onData(err)
-      onExit(1)
+      onData(err);
+      onExit(1);
       console.log(err);
     });
 });

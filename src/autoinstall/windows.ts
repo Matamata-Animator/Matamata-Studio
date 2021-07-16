@@ -1,9 +1,29 @@
-import { ipcRenderer } from "electron";
+import { ipcRenderer, app } from "electron";
 import Swal from "sweetalert2";
 import { existsSync, lstatSync } from "fs";
 let repo = "https://github.com/Matamata-Animator/Windows-Install-Files";
 
-ipcRenderer.send("pshell", "echo node-powershell");
+let running = false;
+let approved = false;
+const isElevated = require("is-elevated");
+(async () => {
+  let e = await isElevated();
+  console.log(e);
+  approved = e
+  if (!e) {
+    Swal.fire({
+      title: "You need elevated permissions to use the autoinstaller!",
+      text: "Please relaunch this app as an administrator.",
+      icon: "error",
+      confirmButtonText: `Quit`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        ipcRenderer.send("quit");
+      }
+    });
+  }
+})();
 
 function uninstallPython() {
   run(`curl -OL ${repo}/raw/main/py.exe && py.exe /uninstall `);
@@ -75,30 +95,44 @@ function success() {
 }
 
 function run(command, type = "run") {
-  let onData = async (ev, data) => {
-    console.log("data", data);
-  };
-  let onExit = async (ev, exitCode) => {
-    console.log("exit", exitCode);
-    if (exitCode == 0) {
-      success();
-    } else if (exitCode == 1) {
-      Swal.fire(
-        "Permission Denied! Please run the following in terminal as an administrator:",
-        command,
-        "warning"
-      );
-    } else {
-      Swal.fire(
-        "Ouch!",
-        'Something went wrong! (Unless this was on "Install WSL Kernal" and you\'ve already installed WSL before)',
-        "error"
-      );
-    }
-  };
+  if (!running && approved) {
+    running = true;
+    let onData = async (ev, data) => {
+      console.log("data", data);
+    };
+    let onExit = async (ev, exitCode) => {
+      running = false;
+      setCursor("default");
 
-  console.log(command);
-  ipcRenderer.on("data", onData);
-  ipcRenderer.on("exit", onExit);
-  ipcRenderer.send(type, command);
+      console.log("exit", exitCode);
+      if (exitCode == 0) {
+        success();
+      } else if (exitCode == 1) {
+        Swal.fire(
+          "Permission Denied! Please run the following in terminal as an administrator:",
+          command,
+          "warning"
+        );
+      } else {
+        Swal.fire(
+          "Ouch!",
+          'Something went wrong! (Unless this was on "Install WSL Kernal" and you\'ve already installed WSL before)',
+          "error"
+        );
+      }
+    };
+    setCursor("progress");
+    console.log(command);
+    ipcRenderer.on("data", onData);
+    ipcRenderer.on("exit", onExit);
+    ipcRenderer.send(type, command);
+  }
+}
+function setCursor(name: string) {
+  document.body.style.cursor = name;
+  let buttons = document.getElementsByClassName("button");
+  for (const b of buttons) {
+    //@ts-ignore
+    b.style.cursor = name;
+  }
 }

@@ -69,6 +69,7 @@ window.onresize = async () => {
 };
 
 async function dropHandler(event: DragEvent) {
+  console.log(event);
   event.preventDefault();
   let path = event.dataTransfer?.files[0].path;
 

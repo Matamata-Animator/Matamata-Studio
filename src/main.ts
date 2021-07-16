@@ -151,7 +151,9 @@ ipcMain.on("pshell", (ev, command) => {
       console.log(err);
     });
 });
-
+ipcMain.on("quit", () => {
+  app.quit();
+});
 app.on("ready", () => {
   win = new BrowserWindow({
     icon: __dirname + "/icons/icon.png",

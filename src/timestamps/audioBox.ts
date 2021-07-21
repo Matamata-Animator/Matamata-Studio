@@ -168,7 +168,8 @@ async function saveTimestamps() {
   ipcRenderer.invoke("saveTo", ts_text);
 }
 
-async function createMarker() {
+async function createMarker(name = "POSE") {
+  mode = Mode.Select;
   let overlapping = false;
   for (const m of audio.markers.markers) {
     if (m.time == audio.getCurrentTime()) {
@@ -179,7 +180,7 @@ async function createMarker() {
 
   audio.addMarker({
     time: audio.getCurrentTime(),
-    label: "POSE",
+    label: name,
     color: "000000",
   });
 
@@ -189,14 +190,11 @@ async function createMarker() {
   let e = markers[markers.length - 1].el;
 
   if (e) {
-    e.children[1].onclick = (click: MouseEvent) => {
+    e.children[1].onclick = async (click: MouseEvent) => {
       if (mode === Mode.Delete) {
         console.log(mode);
         deleteMarker(click);
-      }
-    };
-    e.children[1].ondblclick = async (click: MouseEvent) => {
-      if (mode === Mode.Select) {
+      } else if (mode === Mode.Select) {
         mode = Mode.Typing;
         console.log(click);
 
@@ -222,12 +220,13 @@ function togglePause() {
 }
 
 function deleteMarker(click: MouseEvent) {
+  console.log("delete");
   console.log(click);
   //@ts-ignore
   let marker = click.path[2];
   marker.style.display = "none";
   marker.style.innerText = deletedMarkerName;
-  //TODO: actually remove the marker from audio.markers.markers
+  //TODO: actually remove the marker from audio.markers.markerss
   mode = Mode.Select;
 }
 
@@ -240,7 +239,6 @@ document.onkeypress = async (e) => {
       mode = Mode.Select;
       break;
     case "a":
-      mode = Mode.Select;
       createMarker();
       break;
     case "d":

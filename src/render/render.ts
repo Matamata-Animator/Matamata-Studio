@@ -1,5 +1,7 @@
+import { rejects } from "assert";
 import { ipcRenderer } from "electron";
 import * as os from "os";
+import { exit, exitCode } from "process";
 
 import Swal from "sweetalert2";
 import { getSudo } from "../getSudo";
@@ -68,9 +70,7 @@ document.onkeyup = async (e: KeyboardEvent) => {
 
     let command = "echo 'hello world'";
 
-    let pyCommand = `animate.py -a ${req.audioPath} -c ${
-      req.characterPath
-    } -o ${req.outputPath} ${getExtras()}`;
+    let pyCommand = `animate.py -a ${req.audioPath} -c ${req.characterPath} -o ${req.outputPath}`;
 
     let cdCommand = "";
 
@@ -87,16 +87,11 @@ document.onkeyup = async (e: KeyboardEvent) => {
           "build/render/Core/"
         );
         cdCommand += "cd && ";
+      } else {
+        req.corePath = "render/Core";
       }
       console.log(req.corePath);
     }
-
-    let onData = async (ev, data) => {
-      console.log("data", data);
-    };
-    let onExit = async (ev, exitCode) => {
-      console.log("exit", exitCode);
-    };
 
     if (os.platform() === "win32") {
       pyCommand = `python ${pyCommand}`;
@@ -112,15 +107,11 @@ document.onkeyup = async (e: KeyboardEvent) => {
 
     cdCommand += `cd ${req.corePath}`;
 
-    command = `${cdCommand} && ${pyCommand}`;
-    console.log(command);
+    command = `${pyCommand}`;
 
-    ipcRenderer.on("data", onData);
-    ipcRenderer.on("exit", onExit);
-
-    ipcRenderer.send("run", "pwd");
-
-    ipcRenderer.send("run", command);
+    await run("pwd");
+    await run(cdCommand);
+    await run(command);
   }
 };
 
@@ -128,4 +119,23 @@ function getExtras() {
   //@ts-ignore
   let extras: HTMLInputElement = document.getElementById("extras");
   return extras.value;
+}
+
+async function run(command: string) {
+  console.log(command);
+  let onData = async (ev, data) => {
+    console.log("data", data.toString());
+  };
+
+  ipcRenderer.on("data", onData);
+
+  let ran = new Promise((resolve, reject) => {
+    ipcRenderer.on("exit", (exitCode) => {
+      console.log(exitCode);
+      resolve(exitCode);
+    });
+
+    ipcRenderer.send("run", command);
+  });
+  return ran;
 }

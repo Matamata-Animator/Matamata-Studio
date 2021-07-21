@@ -4,3 +4,7 @@
 #advanced-dropdown {
   display: none;
 }
+div {
+  color: black;
+  user-select: none;
+}

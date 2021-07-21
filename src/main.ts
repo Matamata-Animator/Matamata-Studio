@@ -62,9 +62,9 @@ if (!isDev) {
   }
 }
 
-try {
-  require("electron-reloader")(module);
-} catch (_) {}
+// try {
+//   require("electron-reloader")(module);
+// } catch (_) {}
 
 var path = require("path");
 let win: BrowserWindow;
@@ -130,7 +130,7 @@ ipcMain.on("run", (ev, command) => {
       return;
     }
     if (stderr) {
-      onError(stderr, 1);
+      // onError(stderr, 1);
       // return;
     }
     onData(`stdout: ${stdout}`);

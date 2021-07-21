@@ -118,14 +118,15 @@ function getExtras() {
 
 async function run(command: string) {
   console.log(command);
-  let onData = async (ev, data) => {
-    console.log("data", data.toString());
-  };
-
-  ipcRenderer.on("data", onData);
+  ipcRenderer.on("data", (ev, data) => {
+    console.log("data", data);
+  });
+  ipcRenderer.on("error", (ev, err) => {
+    console.log("data", err);
+  });
 
   let ran = new Promise((resolve, reject) => {
-    ipcRenderer.on("exit", (exitCode) => {
+    ipcRenderer.on("exit", (ev, exitCode) => {
       console.log(exitCode);
       resolve(exitCode);
     });

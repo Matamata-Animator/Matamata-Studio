@@ -75,7 +75,6 @@ document.onkeyup = async (e: KeyboardEvent) => {
     let cdCommand = "";
 
     let dir: string = ipcRenderer.sendSync("getCurrentDir");
-    console.log(dir);
     if (os.platform() === "linux") {
       let sudoPswd = await getSudo();
       pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand} --codec FMP4`;
@@ -87,10 +86,7 @@ document.onkeyup = async (e: KeyboardEvent) => {
           "build/render/Core/"
         );
         cdCommand += "cd && ";
-      } else {
-        req.corePath = "render/Core";
       }
-      console.log(req.corePath);
     }
 
     if (os.platform() === "win32") {
@@ -107,10 +103,9 @@ document.onkeyup = async (e: KeyboardEvent) => {
 
     cdCommand += `cd ${req.corePath}`;
 
-    command = `${pyCommand}`;
+    command = `${cdCommand} && ${pyCommand}`;
 
     await run("pwd");
-    await run(cdCommand);
     await run(command);
   }
 };

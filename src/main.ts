@@ -9,6 +9,7 @@ import { autoUpdater } from "electron-updater";
 import * as os from "os";
 
 import * as fetch from "node-fetch";
+import { exec } from "child_process";
 
 function checkStatus(res) {
   if (res.ok) {
@@ -110,18 +111,31 @@ ipcMain.on("getSavePath", (ev, item, options) => {
 });
 
 ipcMain.on("run", (ev, command) => {
-  let onData = (d) => {
-    console.log("data", String(d));
-    ev.reply("data", String(d));
+  let onData = (d: string) => {
+    console.log(d);
+    ev.reply(d);
   };
   let onExit = (e) => {
     console.log("exit", String(e));
     ev.reply("exit", String(e));
   };
-  var spawnCommand = require("spawn-command"),
-    child = spawnCommand(command);
-  child.stdout.on("data", onData);
-  child.on("exit", onExit);
+  let onError = (e, code) => {
+    console.log(`Error ${code}: ${e}`);
+    ev.reply("error", `Error ${code}: ${e}`);
+  };
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      onError(error.message, 2);
+      return;
+    }
+    if (stderr) {
+      onError(stderr, 1);
+      // return;
+    }
+    onData(`stdout: ${stdout}`);
+    onExit(99);
+  });
 });
 
 ipcMain.on("pshell", (ev, command) => {

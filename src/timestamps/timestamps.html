@@ -28,11 +28,12 @@
     <div class="column">
       <p id="seconds">Time: 0.000</p>
     </div>
-    <div class="column">
-      <div class="button" onclick="(async ()=> {createMarker(await getPoseName())})()" title>Add Pose</div>
+    <div class="column has-text-centered">
+      <div class="button" title="Create a pose timestamp (a)"
+        onclick="(async ()=> {createMarker(await getPoseName())})()" title>Add Pose</div>
     </div>
-    <div class="column" style="">
-      <div class="slidecontainer">
+    <div class="column">
+      <div class="slidecontainer" title="Zoom in on the waveform">
         <input type="range" min="20" max="1000" value="20" class="slider" id="audioZoom" />
       </div>
     </div>
@@ -40,7 +41,7 @@
 
   <br />
   <div class="columns">
-    <div class="button" style="margin-left: 2.1vw" onclick="saveTimestamps()">
+    <div class="button" title="Output timestamps to a file" style="margin-left: 2.1vw" onclick="saveTimestamps()">
       Save
     </div>
   </div>

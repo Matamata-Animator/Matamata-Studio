@@ -67,7 +67,11 @@ document.onkeyup = async (e: KeyboardEvent) => {
     running = true;
 
     let command = "echo 'hello world'";
-    let pyCommand = `animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath} -o ${req.outputPath}`;
+
+    let pyCommand = `animate.py -a ${req.audioPath} -c ${
+      req.characterPath
+    } -o ${req.outputPath} ${getExtras()}`;
+
     let cdCommand = "";
 
     let dir: string = ipcRenderer.sendSync("getCurrentDir");
@@ -119,3 +123,9 @@ document.onkeyup = async (e: KeyboardEvent) => {
     ipcRenderer.send("run", command);
   }
 };
+
+function getExtras() {
+  //@ts-ignore
+  let extras: HTMLInputElement = document.getElementById("extras");
+  return extras.value;
+}

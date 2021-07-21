@@ -90,7 +90,6 @@ ipcMain.handle(
         }
       });
     });
-    // ev.returnValue = path;
   }
 );
 

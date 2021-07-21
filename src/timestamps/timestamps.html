@@ -15,13 +15,8 @@
 </head>
 
 <body>
-  <div
-    class="is-vcentered"
-    id="drop_zone"
-    ondrop="dropHandler(event);"
-    ondragover="event.preventDefault()"
-    onclick="audioClicked(event)"
-  >
+  <div class="is-vcentered" id="drop_zone" ondrop="dropHandler(event);" ondragover="event.preventDefault()"
+    onclick="audioClicked(event)">
     <div id="dragHelpText-container">
       <p class="dragHelpText" id="dragHelpText">Drag your audio here</p>
     </div>
@@ -33,16 +28,12 @@
     <div class="column">
       <p id="seconds">Time: 0.000</p>
     </div>
+    <div class="column">
+      <div class="button" onclick="(async ()=> {createMarker(await getPoseName())})()" title>Add Pose</div>
+    </div>
     <div class="column" style="">
       <div class="slidecontainer">
-        <input
-          type="range"
-          min="20"
-          max="1000"
-          value="20"
-          class="slider"
-          id="audioZoom"
-        />
+        <input type="range" min="20" max="1000" value="20" class="slider" id="audioZoom" />
       </div>
     </div>
   </div>

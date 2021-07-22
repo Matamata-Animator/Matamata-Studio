@@ -36,8 +36,9 @@ async function getPoseName() {
     allowEnterKey: true,
 
     preConfirm: async () => {
-      //@ts-ignore
-      let pname = Swal.getPopup().querySelector("#poseName").value;
+      let pname = (
+        Swal.getPopup()?.querySelector("#poseName") as HTMLInputElement
+      ).value;
 
       if (!pname) {
         Swal.showValidationMessage(`Please enter a pose name`);
@@ -244,9 +245,7 @@ function deleteMarker(click: MouseEvent) {
   console.log(click);
   //@ts-ignore
   let marker = click.path[2];
-  marker.style.display = "none";
-  marker.style.innerText = deletedMarkerName;
-  //TODO: actually remove the marker from audio.markers.markerss
+  marker.remove();
   mode = Mode.Select;
 }
 

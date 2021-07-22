@@ -53,7 +53,7 @@ function getExtras() {
   return extras.value;
 }
 
-async function run(command: string) {
+async function run(command: string): Promise<string> {
   console.log(command);
   ipcRenderer.on("data", (ev, data) => {
     console.log("data", data);
@@ -62,7 +62,7 @@ async function run(command: string) {
     console.log("data", err);
   });
 
-  let ran = new Promise((resolve, reject) => {
+  let ran: Promise<string> = new Promise((resolve, reject) => {
     ipcRenderer.on("exit", (ev, exitCode) => {
       console.log(exitCode);
       resolve(exitCode);
@@ -125,7 +125,14 @@ async function render() {
 
   command = `${cdCommand} && ${pyCommand}`;
 
-  await run(command);
+  let a: string = await run(command);
+  running = false;
+
+  if (a == "0" || a == "99") {
+    Swal.fire({ title: "Animation Complete", icon: "success" });
+  } else {
+    Swal.fire({ title: "Animation Complete", icon: "error" });
+  }
 }
 
 ////////////////////////

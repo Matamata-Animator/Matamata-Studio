@@ -90,3 +90,4 @@ app.on("ready", () => {
     app.quit();
   });
 });
+console.log(app.getPath("userData"));

@@ -12,18 +12,26 @@ export function showDefaultsMenu() {
       ${getFormOptions()}
     </select>
 
-    <input type="text" id="argDefault" class="swal2-input" placeholder="Username">
+    <input type="text" id="argDefault" class="swal2-input" value="${store.get(
+      "audio"
+    )}">
 `,
     confirmButtonText: "Save",
     focusConfirm: false,
-    preConfirm: () => {},
+    preConfirm: () => {
+      //@ts-ignore
+      var parameter = Swal.getPopup().querySelector("#args").value;
+      //@ts-ignore
+      const value = Swal.getPopup().querySelector("#argDefault").value;
+      store.set(parameter, value);
+    },
   });
 }
 
 function getFormOptions() {
   let options = "";
-  for (const kv of store) {
-    options += `<option value="${kv[0]}">${kv[0]}</option>`;
+  for (const [k, v] of store) {
+    options += `<option value="${k}">${k}</option>`;
   }
   return options;
 }

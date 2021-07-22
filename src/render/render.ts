@@ -85,7 +85,7 @@ async function run(command: string) {
 }
 
 async function render() {
-  if (!req["audio"] || !req["output"]) {
+  if (!(req["audio"] || store.get("audio")) || !req["output"]) {
     Swal.fire(
       "Please make sure you have selected an audio file and an output path."
     );
@@ -93,10 +93,11 @@ async function render() {
   }
 
   let pyArgs = "";
-  for (const key of store) {
-    pyArgs += `--${key} ${
-      req[key.toString()] || store.get(key.toString())
-    } ${getExtras()}`;
+  for (const [k, v] of store) {
+    let value = req[k] || v;
+    if (value && k != "defaults-set") {
+      pyArgs += `--${k} ${value} ${getExtras()}`;
+    }
   }
 
   running = true;

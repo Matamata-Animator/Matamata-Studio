@@ -16,30 +16,64 @@
 <body>
   <div id='options'>
     <div class="columns is-flex-direction-column" id="settings">
-      <!-- <div class='column'>
-            <button class="button" onclick="uploadPath('corePath', {properties: ['openDirectory']})">Find Matamata-Core
-                Folder</button>
-        </div> -->
+
       <div class="column">
-        <button class="button" onclick="uploadPath('audioPath')">
-          Find Audio
-        </button>
+        <div id='file_path' class="file has-name" onclick="uploadPath('audio')">
+          <label class="file-label">
+            <span class="file-cta">
+              <span class="file-label">
+                Audio File
+              </span>
+            </span>
+            <span class="file-name" id='audio'>
+            </span>
+          </label>
+        </div>
       </div>
+
       <div class="column">
-        <button class="button" onclick="savePath('outputPath')">
-          outputFile
-        </button>
+        <div id='file_path' class="file has-name" onclick="savePath('output') ">
+          <label class="file-label">
+            <span class="file-cta">
+              <span class="file-label">
+                Output File
+              </span>
+            </span>
+            <span class="file-name" id='output'>
+            </span>
+          </label>
+        </div>
       </div>
+
       <div class="column">
-        <button class="button" onclick="uploadPath('characterPath')">
-          Find Characters (optional)
-        </button>
+        <div id='file_path' class="file has-name" onclick=" uploadPath('character')">
+          <label class="file-label">
+            <span class="file-cta">
+              <span class="file-label">
+                Character File (optional)
+              </span>
+            </span>
+            <span class="file-name" id='character'>
+            </span>
+          </label>
+        </div>
       </div>
+
       <div class="column">
-        <button class="button" onclick="uploadPath('timestampPath')">
-          Find Timestamps (optional)
-        </button>
+        <div id='file_path' class="file has-name" onclick="uploadPath('timestamps') ">
+          <label class="file-label">
+            <span class="file-cta">
+              <span class="file-label">
+                Timestamps File (optional)
+              </span>
+            </span>
+            <span class="file-name" id='timestamps'>
+            </span>
+          </label>
+        </div>
       </div>
+
+
     </div>
 
     <div id="advanced-dropdown-controller" style="width: 100px">Advanced ▶</div>
@@ -48,5 +82,9 @@
     </div>
 
     <div class="button" style="margin-top: 1vw;" onclick="if(!running) render()">Render</div>
+
+
+    <div class='button' id='adjust-defaults' onclick="showDefaultsMenu()">Adjust Defaults</div>
+
   </div>
 </body>

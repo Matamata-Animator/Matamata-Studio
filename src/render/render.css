@@ -8,3 +8,12 @@ div {
   color: black;
   user-select: none;
 }
+.file-name {
+  color: white;
+}
+
+#adjust-defaults {
+  position: fixed;
+  bottom: 1vw;
+  right: 1vw;
+}

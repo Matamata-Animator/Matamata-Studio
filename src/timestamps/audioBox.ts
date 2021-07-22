@@ -6,6 +6,8 @@ import exp from "constants";
 
 import Swal from "sweetalert2";
 
+let audioPath = "";
+
 async function confirmOverwrite(text: string) {
   console.log("reeee");
   let result = await Swal.fire({
@@ -96,6 +98,7 @@ async function dropHandler(event: DragEvent) {
 
     // audio = new Audio(path);
     if (path) {
+      audioPath = path;
       audio.load(path);
       audio.clearMarkers();
       audio.on("ready", function () {
@@ -143,8 +146,7 @@ interface Timestamp {
   time: number;
   poseName: string;
 }
-
-async function saveTimestamps() {
+async function exportTimestamps() {
   let timestamps: Timestamp[] = [];
   let restrictedNames = [deletedMarkerName, " ", ""];
   for (const m of audio.markers.markers) {
@@ -164,8 +166,26 @@ async function saveTimestamps() {
   for (const t of timestamps) {
     ts_text += `${t.time} ${t.poseName}\n`;
   }
+  return ts_text;
+}
+
+async function saveTimestamps() {
+  let ts_text = await exportTimestamps();
   console.log("send");
-  ipcRenderer.invoke("saveTo", ts_text);
+  let path = ipcRenderer.sendSync("getSavePath").filePath;
+  console.log(path);
+  ipcRenderer.send("saveTo", path, ts_text);
+}
+
+async function animateThis() {
+  let ts_text = await exportTimestamps();
+  let path = ipcRenderer.sendSync("userDataPath");
+  path = `${path}/timestamps.txt`;
+  ipcRenderer.send("saveTo", path, ts_text);
+  ipcRenderer.send("tempSet", "timestamps", path);
+  ipcRenderer.send("tempSet", "audio", audioPath);
+
+  document.location.href = "../render/render.html";
 }
 
 async function createMarker(name = "POSE") {

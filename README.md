@@ -55,24 +55,26 @@ Sadly, we are currently unable to support Macs. We recommend dual-booting Window
 
 :heavy_check_mark: - Feature is completed
 
-- Timestamps
+- Timestamps  :heavy_check_mark:
   - Load audio :heavy_check_mark:
   - Place markers :heavy_check_mark:
   - Delete markers :heavy_check_mark:
   - Rename markers :heavy_check_mark:
   - Export timestamps :heavy_check_mark:
-  - Tool buttons
-  - Instructions
+  - Tool buttons  :heavy_check_mark:
+  - Instructions  :heavy_check_mark:
 - Character Creator (Eventually will be rewritten) :heavy_check_mark:
   - Port cc to electron :heavy_check_mark:
   - Start menu to choose a tool :heavy_check_mark:
-- Core
+- Core  :heavy_check_mark:
   - Interface between GUI and core :heavy_check_mark:
   - Choose export location :heavy_check_mark:
   - Basic export settings :heavy_check_mark:
-  - Text box for additional options
-- General
-  - Allow the program to "flow" from one section to the next, so the user can make an animation without exiting the program
+  - Text box for additional options  :heavy_check_mark:
+- Render
+  - Alerts on error/success
+- General  :heavy_check_mark:
+  - Allow the program to "flow" from one section to the next, so the user can make an animation without exiting the program  :heavy_check_mark:
   - Autobuild :heavy_check_mark:
   - Automatic updates :heavy_check_mark:
   - Automatic dependency install :heavy_check_mark:

@@ -91,7 +91,17 @@ p {
   width: 0px;
 }
 
-.button {
+.button,
+.file-cta {
   background-color: #c0c0c0;
+  color: black;
+}
+
+.file-cta:hover {
+  background-color: red;
+  color: #363636;
+}
+
+.file-label {
   color: black;
 }

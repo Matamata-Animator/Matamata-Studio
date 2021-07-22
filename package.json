@@ -1,6 +1,6 @@
 {
   "name": "matamata",
-  "version": "v0.7.0",
+  "version": "v0.8.0",
   "executableName": "Matamata Desktop",
   "description": "Desktop GUI for Matamata",
   "author": {
@@ -41,6 +41,7 @@
     "@types/p5": "^1.3.0",
     "dialogs": "^2.0.1",
     "electron-is-dev": "^2.0.0",
+    "electron-store": "^8.0.0",
     "electron-updater": "^4.3.9",
     "is-elevated": "^3.0.0",
     "node-fetch": "^2.6.1",

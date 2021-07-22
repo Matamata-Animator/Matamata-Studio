@@ -1,53 +1,41 @@
 import { rejects } from "assert";
-import { ipcRenderer } from "electron";
+import { ipcMain, ipcRenderer } from "electron";
 import * as os from "os";
 import { exit, exitCode } from "process";
 
 import Swal from "sweetalert2";
 import { getSudo } from "../getSudo";
 
-interface matamataRequest {
-  corePath: string;
-  audioPath: string;
-  outputPath: string;
-  characterPath?: string;
-  timestampsPath?: string;
-  charactersPath?: string;
-  phonemesPath?: string;
-}
-let fpath = "Core";
+import Store from "electron-store";
+
+const store = new Store();
 
 interface PathReturn {
   canceled: boolean;
   filePaths: string[];
 }
 
-let req: matamataRequest = {
+let req = {
   corePath: "build/render/Core/",
-  audioPath: "",
-  outputPath: "",
-  characterPath: `defaults/characters.json`,
-  phonemesPath: `defaults/phonemes.json`,
 };
 
 ipcRenderer.on("path", (ev, item: string, r: PathReturn) => {
   if (!r.canceled) {
     let path = r.filePaths[0];
-    if (os.platform() === "linux") {
-      path = path.replace(`/home/${os.userInfo().username}`, "~");
-    }
-    req[item] = path;
+    assignPath(path, item);
   }
 });
 ipcRenderer.on("savePath", (ev, item: string, r: any) => {
   if (!r.canceled) {
     let path = r.filePath;
-    if (os.platform() === "linux") {
-      path = path.replace(`/home/${os.userInfo().username}`, "~");
-    }
-    req[item] = path;
+    assignPath(path, item);
   }
 });
+function assignPath(path, item) {
+  req[item] = path;
+  let preview = document.getElementById(item);
+  if (preview) preview.innerText = path;
+}
 
 async function uploadPath(item, options = {}) {
   // Renderer process
@@ -58,11 +46,6 @@ async function savePath(item, options = {}) {
   ipcRenderer.send("getSavePath", item, options);
 }
 let running = false;
-document.onkeyup = async (e: KeyboardEvent) => {
-  if (e.key.toLowerCase() == "r" && !running) {
-    render();
-  }
-};
 
 function getExtras() {
   //@ts-ignore
@@ -91,17 +74,26 @@ async function run(command: string) {
 }
 
 async function render() {
-  if (req.audioPath == "" || req.outputPath == "") {
+  if (!(req["audio"] || store.get("audio")) || !req["output"]) {
     Swal.fire(
       "Please make sure you have selected an audio file and an output path."
     );
     return;
   }
+
+  let pyArgs = "";
+  for (const [k, v] of store) {
+    let value = req[k] ?? v;
+    if (value && k != "defaults-set") {
+      pyArgs += `--${k} ${value} ${getExtras()}`;
+    }
+  }
+
   running = true;
 
   let command = "echo 'hello world'";
 
-  let pyCommand = `animate.py -a ${req.audioPath} -c ${req.characterPath} -o ${req.outputPath}`;
+  let pyCommand = `animate.py ${pyArgs}`;
 
   let cdCommand = "";
 
@@ -134,4 +126,54 @@ async function render() {
   command = `${cdCommand} && ${pyCommand}`;
 
   await run(command);
+}
+
+////////////////////////
+/// Defaults Manager ///
+////////////////////////
+function showDefaultsMenu() {
+  Swal.fire({
+    title: "Set Default",
+    html: `
+    <label for="args" >Choose an argument:</label>
+    <select id="args" class='swal2-input' name="args" onchange="selectChange()">
+      ${getFormOptions()}
+    </select>
+
+    <input type="text" id="argDefault" class="swal2-input" value="${store.get(
+      "audio"
+    )}">
+`,
+    confirmButtonText: "Save",
+    focusConfirm: false,
+    preConfirm: () => {
+      //@ts-ignore
+      var parameter = Swal.getPopup().querySelector("#args").value;
+      //@ts-ignore
+      let value = Swal.getPopup().querySelector("#argDefault").value;
+
+      if (value == "") value = null;
+      store.set(parameter, value);
+      assignPath(value, parameter);
+    },
+  });
+}
+
+function selectChange() {
+  //@ts-ignore
+  var parameter = Swal.getPopup().querySelector("#args").value;
+  //@ts-ignore
+  Swal.getPopup().querySelector("#argDefault").value = store.get(parameter);
+}
+
+function getFormOptions() {
+  let options = "";
+  for (const [k, v] of store) {
+    options += `<option value="${k}">${k}</option>`;
+  }
+  return options;
+}
+
+for (const [k, v] of store) {
+  assignPath(ipcRenderer.sendSync("tempGet", k) ?? v, k);
 }

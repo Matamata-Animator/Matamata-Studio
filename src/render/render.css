@@ -11,3 +11,9 @@ div {
 .file-name {
   color: white;
 }
+
+#adjust-defaults {
+  position: fixed;
+  bottom: 1vw;
+  right: 1vw;
+}

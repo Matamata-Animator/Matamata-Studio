@@ -133,6 +133,5 @@ async function render() {
 
   command = `${cdCommand} && ${pyCommand}`;
 
-  await run("pwd");
   await run(command);
 }

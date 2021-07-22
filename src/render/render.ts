@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { getSudo } from "../getSudo";
 
 import Store from "electron-store";
+import { UrlWithStringQuery } from "url";
 
 const store = new Store();
 
@@ -48,8 +49,7 @@ async function savePath(item, options = {}) {
 let running = false;
 
 function getExtras() {
-  //@ts-ignore
-  let extras: HTMLInputElement = document.getElementById("extras");
+  let extras = document.getElementById("extras") as HTMLInputElement;
   return extras.value;
 }
 
@@ -154,23 +154,22 @@ function showDefaultsMenu() {
     confirmButtonText: "Save",
     focusConfirm: false,
     preConfirm: () => {
-      //@ts-ignore
-      var parameter = Swal.getPopup().querySelector("#args").value;
-      //@ts-ignore
-      let value = Swal.getPopup().querySelector("#argDefault").value;
+      let parameter =
+        Swal.getPopup()!.querySelector<HTMLInputElement>("#args")!.value;
+      let value =
+        Swal.getPopup()!.querySelector<HTMLInputElement>("#argDefault")!.value;
 
-      if (value == "") value = null;
-      store.set(parameter, value);
+      value == "" ? store.set(parameter, null) : store.set(parameter, value);
       assignPath(value, parameter);
     },
   });
 }
 
 function selectChange() {
-  //@ts-ignore
-  var parameter = Swal.getPopup().querySelector("#args").value;
-  //@ts-ignore
-  Swal.getPopup().querySelector("#argDefault").value = store.get(parameter);
+  var parameter =
+    Swal.getPopup()!.querySelector<HTMLInputElement>("#args")!.value;
+  Swal.getPopup()!.querySelector<HTMLInputElement>("#argDefault")!.value =
+    store.get(parameter, null) as string;
 }
 
 function getFormOptions() {

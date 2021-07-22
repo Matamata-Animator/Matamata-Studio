@@ -81,16 +81,8 @@ export function setupHandlers() {
   });
   ipcMain.on("saveTo", (ev, path, data) => {
     console.log("save");
-
-    //@ts-ignore
-    writeFileSync(path, data, (err) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-    });
+    writeFileSync(path, data);
   });
-
   ipcMain.on("tempSet", (ev, key, value) => {
     tempStore[key] = value;
   });

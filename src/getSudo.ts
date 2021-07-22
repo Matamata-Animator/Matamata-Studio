@@ -9,8 +9,8 @@ export async function getSudo(): Promise<string> {
     confirmButtonText: "Let's Go!",
     focusConfirm: false,
     preConfirm: async () => {
-      //@ts-ignore
-      let password = Swal.getPopup().querySelector("#password").value;
+      let password =
+        Swal.getPopup()!.querySelector<HTMLInputElement>("#password")!.value;
 
       if (!password) {
         Swal.showValidationMessage(`Please enter login and password`);
@@ -18,7 +18,7 @@ export async function getSudo(): Promise<string> {
       return password;
     },
   });
-  return psswd.value;
+  return psswd.value ?? "";
 }
 
 document.onkeypress = async (e) => {

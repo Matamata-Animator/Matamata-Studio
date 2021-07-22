@@ -9,7 +9,7 @@ const isElevated = require("is-elevated");
 (async () => {
   let e = await isElevated();
   console.log(e);
-  approved = e
+  approved = e;
   if (!e) {
     Swal.fire({
       title: "You need elevated permissions to use the autoinstaller!",
@@ -130,9 +130,10 @@ function run(command, type = "run") {
 }
 function setCursor(name: string) {
   document.body.style.cursor = name;
-  let buttons = document.getElementsByClassName("button");
+  let buttons = document.getElementsByClassName(
+    "button"
+  ) as HTMLCollectionOf<HTMLElement>;
   for (const b of buttons) {
-    //@ts-ignore
     b.style.cursor = name;
   }
 }

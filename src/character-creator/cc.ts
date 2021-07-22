@@ -29,13 +29,11 @@ function setup() {
   stroke(0);
   strokeWeight(1);
 
-  //@ts-ignore
   dropzone = select("#dropzone");
   dropzone.dragOver(highlight);
   dropzone.dragLeave(unhighlight);
   dropzone.drop(gotFile, unhighlight);
 
-  //@ts-ignore
   mdrop = select("#mdrop");
   mdrop.dragOver(mhighlight);
   mdrop.dragLeave(munhighlight);
@@ -58,7 +56,6 @@ function draw() {
     mouth_pos = [mouseX, mouseY];
   }
 
-  //@ts-ignore
   var x = document.getElementById("form").elements;
   if (x["facingLeft"].checked != mirror_mouth) {
     mirror_mouth = !mirror_mouth;
@@ -83,7 +80,6 @@ function gotFile(file: p5.File) {
 
     //set form values
     let gc: Map<string, number> = new Map();
-    //@ts-ignore
     var x = document.getElementById("form").elements;
     x["facesFolder"].value = json.facesFolder;
   }

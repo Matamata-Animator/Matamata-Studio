@@ -8,8 +8,15 @@ import Swal from "sweetalert2";
 
 let audioPath = "";
 
+interface MarkerWithElement {
+  el: HTMLElement;
+  color: string;
+  label: string;
+  position: string;
+  time: number;
+}
+
 async function confirmOverwrite(text: string) {
-  console.log("reeee");
   let result = await Swal.fire({
     title: text,
     showDenyButton: true,
@@ -129,17 +136,14 @@ function isLoaded() {
 var seconds = 0;
 
 setInterval(function () {
-  //@ts-ignore
-  document.getElementById("seconds")?.innerText = `Time: ${audio
+  document.getElementById("seconds")!.innerText = `Time: ${audio
     .getCurrentTime()
     .toFixed(3)}`;
   seconds += 1;
 }, 10);
 
-//@ts-ignore
-document.getElementById("audioZoom").oninput = function () {
-  //@ts-ignore
-  let zoomLevel = Number(this.value);
+document.getElementById("audioZoom")!.oninput = function () {
+  let zoomLevel = Number((this as HTMLInputElement).value);
   audio.zoom(zoomLevel);
 };
 
@@ -151,8 +155,7 @@ async function exportTimestamps() {
   let timestamps: Timestamp[] = [];
   let restrictedNames = [deletedMarkerName, " ", ""];
   for (const m of audio.markers.markers) {
-    //@ts-ignore
-    let poseName: string = m.el.innerText;
+    let poseName: string = (m as MarkerWithElement).el.innerText;
     let time: number = Math.trunc(m.time * 1000);
     if (restrictedNames.indexOf(poseName) == -1) {
       let ts: Timestamp = { time: time, poseName: poseName };
@@ -207,11 +210,10 @@ async function createMarker(name = "POSE") {
 
   var markers = audio.markers.markers;
 
-  //@ts-ignore
-  let e = markers[markers.length - 1].el;
+  let e = (markers[markers.length - 1] as MarkerWithElement).el;
 
   if (e) {
-    e.children[1].onclick = async (click: MouseEvent) => {
+    (e.children[1] as HTMLElement).onclick = function (click: MouseEvent) {
       if (mode === Mode.Delete) {
         console.log(mode);
         deleteMarker(click);
@@ -221,8 +223,7 @@ async function createMarker(name = "POSE") {
 
         getPoseName().then((r) => {
           if (r) {
-            //@ts-ignore
-            click.path[0].innerText = r;
+            (e.children[1].children[1] as HTMLElement).innerText = r;
             mode = Mode.Select;
           }
         });
@@ -243,8 +244,7 @@ function togglePause() {
 function deleteMarker(click: MouseEvent) {
   console.log("delete");
   console.log(click);
-  //@ts-ignore
-  let marker = click.path[2];
+  let marker = click.composedPath()[2] as HTMLElement;
   marker.remove();
   mode = Mode.Select;
 }

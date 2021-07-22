@@ -14,8 +14,8 @@ const defaults = {
   output: null,
   offset: null,
 
-  character: "defaults/characters.json",
-  mouths: "defaults/phonemes.json",
+  character: null,
+  mouths: null,
 
   dimensions: null,
   dimension_scaler: null,

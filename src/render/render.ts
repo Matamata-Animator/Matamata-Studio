@@ -141,7 +141,7 @@ function showDefaultsMenu() {
     title: "Set Default",
     html: `
     <label for="args" >Choose an argument:</label>
-    <select id="args" class='swal2-input' name="args">
+    <select id="args" class='swal2-input' name="args" onchange="selectChange()">
       ${getFormOptions()}
     </select>
 
@@ -162,10 +162,21 @@ function showDefaultsMenu() {
   });
 }
 
+function selectChange() {
+  //@ts-ignore
+  var parameter = Swal.getPopup().querySelector("#args").value;
+  //@ts-ignore
+  Swal.getPopup().querySelector("#argDefault").value = store.get(parameter);
+}
+
 function getFormOptions() {
   let options = "";
   for (const [k, v] of store) {
     options += `<option value="${k}">${k}</option>`;
   }
   return options;
+}
+
+for (const [k, v] of store) {
+  assignPath(v, k);
 }

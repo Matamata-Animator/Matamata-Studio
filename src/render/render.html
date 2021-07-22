@@ -31,26 +31,49 @@
         </div>
       </div>
 
-
-
-
-
+      <div class="column">
+        <div id='file_path' class="file has-name" onclick="savePath('outputPath') ">
+          <label class="file-label">
+            <span class="file-cta">
+              <span class="file-label">
+                Output File
+              </span>
+            </span>
+            <span class="file-name" id='outputPath'>
+            </span>
+          </label>
+        </div>
+      </div>
 
       <div class="column">
-        <button class="button" onclick="savePath('outputPath')">
-          outputFile
-        </button>
+        <div id='file_path' class="file has-name" onclick=" uploadPath('characterPath')">
+          <label class="file-label">
+            <span class="file-cta">
+              <span class="file-label">
+                Character File (optional)
+              </span>
+            </span>
+            <span class="file-name" id='characterPath'>
+            </span>
+          </label>
+        </div>
       </div>
+
       <div class="column">
-        <button class="button" onclick="uploadPath('characterPath')">
-          Find Characters (optional)
-        </button>
+        <div id='file_path' class="file has-name" onclick="uploadPath('timestampPath') ">
+          <label class="file-label">
+            <span class="file-cta">
+              <span class="file-label">
+                Timestamps File (optional)
+              </span>
+            </span>
+            <span class="file-name" id='timestampPath'>
+            </span>
+          </label>
+        </div>
       </div>
-      <div class="column">
-        <button class="button" onclick="uploadPath('timestampPath')">
-          Find Timestamps (optional)
-        </button>
-      </div>
+
+
     </div>
 
     <div id="advanced-dropdown-controller" style="width: 100px">Advanced ▶</div>

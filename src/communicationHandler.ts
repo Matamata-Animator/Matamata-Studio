@@ -1,7 +1,8 @@
 import { exec } from "child_process";
-import { ipcMain, dialog } from "electron";
+import { ipcMain, dialog, app } from "electron";
 
 import Store from "electron-store";
+import { writeFileSync } from "fs";
 Store.initRenderer();
 
 let tempStore = {};
@@ -16,10 +17,11 @@ export function setupHandlers() {
       ev.reply("path", item, r);
     });
   });
-  ipcMain.on("getSavePath", (ev, item, options) => {
+  ipcMain.on("getSavePath", (ev, item = "", options = {}) => {
     let r = dialog.showSaveDialog(options).then((r) => {
       console.log(r);
       ev.reply("savePath", item, r);
+      ev.returnValue = r;
     });
   });
 
@@ -77,36 +79,25 @@ export function setupHandlers() {
         console.log(err);
       });
   });
-  ipcMain.handle(
-    "saveTo",
-    (
-      ev,
-      data,
-      options = {
-        title: "Save timestamps",
-        default: "/",
-        buttonLabel: "Save",
-      }
-    ) => {
-      console.log("save");
+  ipcMain.on("saveTo", (ev, path, data) => {
+    console.log("save");
 
-      dialog.showSaveDialog(options).then((r) => {
-        console.log(r.filePath);
-        //@ts-ignore
-        writeFile(r.filePath, data, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      });
-    }
-  );
+    //@ts-ignore
+    writeFileSync(path, data, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
+  });
 
   ipcMain.on("tempSet", (ev, key, value) => {
     tempStore[key] = value;
   });
   ipcMain.on("tempGet", (ev, key) => {
     ev.returnValue = tempStore[key];
+  });
+  ipcMain.on("userDataPath", (ev) => {
+    ev.returnValue = app.getPath("userData");
   });
 }

@@ -46,11 +46,6 @@ async function savePath(item, options = {}) {
   ipcRenderer.send("getSavePath", item, options);
 }
 let running = false;
-document.onkeyup = async (e: KeyboardEvent) => {
-  if (e.key.toLowerCase() == "r" && !running) {
-    render();
-  }
-};
 
 function getExtras() {
   //@ts-ignore

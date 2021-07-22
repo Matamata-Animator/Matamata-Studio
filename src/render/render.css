@@ -8,3 +8,6 @@ div {
   color: black;
   user-select: none;
 }
+.file-name {
+  color: white;
+}

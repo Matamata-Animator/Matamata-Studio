@@ -16,15 +16,26 @@
 <body>
   <div id='options'>
     <div class="columns is-flex-direction-column" id="settings">
-      <!-- <div class='column'>
-            <button class="button" onclick="uploadPath('corePath', {properties: ['openDirectory']})">Find Matamata-Core
-                Folder</button>
-        </div> -->
+
       <div class="column">
-        <button class="button" onclick="uploadPath('audioPath')">
-          Find Audio
-        </button>
+        <div id='file_path' class="file has-name" onclick="uploadPath('audioPath')">
+          <label class="file-label">
+            <span class="file-cta">
+              <span class="file-label">
+                Audio File
+              </span>
+            </span>
+            <span class="file-name" id='audioPath'>
+            </span>
+          </label>
+        </div>
       </div>
+
+
+
+
+
+
       <div class="column">
         <button class="button" onclick="savePath('outputPath')">
           outputFile

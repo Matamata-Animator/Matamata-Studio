@@ -37,6 +37,7 @@ ipcRenderer.on("path", (ev, item: string, r: PathReturn) => {
       path = path.replace(`/home/${os.userInfo().username}`, "~");
     }
     req[item] = path;
+    document.getElementById(item)!.innerText = path;
   }
 });
 ipcRenderer.on("savePath", (ev, item: string, r: any) => {
@@ -46,6 +47,7 @@ ipcRenderer.on("savePath", (ev, item: string, r: any) => {
       path = path.replace(`/home/${os.userInfo().username}`, "~");
     }
     req[item] = path;
+    document.getElementById(item)!.innerText = path;
   }
 });
 

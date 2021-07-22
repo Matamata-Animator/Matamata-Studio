@@ -18,56 +18,56 @@
     <div class="columns is-flex-direction-column" id="settings">
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick="uploadPath('audioPath')">
+        <div id='file_path' class="file has-name" onclick="uploadPath('audio')">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
                 Audio File
               </span>
             </span>
-            <span class="file-name" id='audioPath'>
+            <span class="file-name" id='audio'>
             </span>
           </label>
         </div>
       </div>
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick="savePath('outputPath') ">
+        <div id='file_path' class="file has-name" onclick="savePath('output') ">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
                 Output File
               </span>
             </span>
-            <span class="file-name" id='outputPath'>
+            <span class="file-name" id='output'>
             </span>
           </label>
         </div>
       </div>
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick=" uploadPath('characterPath')">
+        <div id='file_path' class="file has-name" onclick=" uploadPath('character')">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
                 Character File (optional)
               </span>
             </span>
-            <span class="file-name" id='characterPath'>
+            <span class="file-name" id='character'>
             </span>
           </label>
         </div>
       </div>
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick="uploadPath('timestampPath') ">
+        <div id='file_path' class="file has-name" onclick="uploadPath('timestamps') ">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
                 Timestamps File (optional)
               </span>
             </span>
-            <span class="file-name" id='timestampPath'>
+            <span class="file-name" id='timestamps'>
             </span>
           </label>
         </div>
@@ -84,6 +84,6 @@
     <div class="button" style="margin-top: 1vw;" onclick="if(!running) render()">Render</div>
 
 
-    <div class='button' id='adjust-defaults'>Adjust Defaults</div>
+    <div class='button' id='adjust-defaults' onclick="adjustDefaults()">Adjust Defaults</div>
   </div>
 </body>

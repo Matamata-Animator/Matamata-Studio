@@ -1,6 +1,9 @@
 import { exec } from "child_process";
 import { ipcMain, dialog } from "electron";
 
+import Store from "electron-store";
+Store.initRenderer();
+
 export function setupHandlers() {
   ipcMain.on("getCurrentDir", (ev) => {
     ev.returnValue = __dirname;

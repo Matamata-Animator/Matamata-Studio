@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { getSudo } from "../getSudo";
 
 import Store from "electron-store";
+import { showDefaultsMenu } from "./defaultsDropdown";
+
 const store = new Store();
 
 interface PathReturn {
@@ -53,6 +55,9 @@ document.onkeyup = async (e: KeyboardEvent) => {
   }
 };
 
+function adjustDefaults() {
+  showDefaultsMenu();
+}
 function getExtras() {
   //@ts-ignore
   let extras: HTMLInputElement = document.getElementById("extras");

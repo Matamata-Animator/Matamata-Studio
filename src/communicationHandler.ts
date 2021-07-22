@@ -4,6 +4,8 @@ import { ipcMain, dialog } from "electron";
 import Store from "electron-store";
 Store.initRenderer();
 
+let tempStore = {};
+
 export function setupHandlers() {
   ipcMain.on("getCurrentDir", (ev) => {
     ev.returnValue = __dirname;
@@ -100,4 +102,11 @@ export function setupHandlers() {
       });
     }
   );
+
+  ipcMain.on("tempSet", (ev, key, value) => {
+    tempStore[key] = value;
+  });
+  ipcMain.on("tempGet", (ev, key) => {
+    ev.returnValue = tempStore[key];
+  });
 }

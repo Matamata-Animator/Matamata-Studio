@@ -1,5 +1,5 @@
 import { rejects } from "assert";
-import { ipcRenderer } from "electron";
+import { ipcMain, ipcRenderer } from "electron";
 import * as os from "os";
 import { exit, exitCode } from "process";
 
@@ -88,7 +88,7 @@ async function render() {
 
   let pyArgs = "";
   for (const [k, v] of store) {
-    let value = req[k] || v;
+    let value = req[k] ?? v;
     if (value && k != "defaults-set") {
       pyArgs += `--${k} ${value} ${getExtras()}`;
     }
@@ -134,7 +134,7 @@ async function render() {
 }
 
 ////////////////////////
-/// Dropdown Manager ///
+/// Defaults Manager ///
 ////////////////////////
 function showDefaultsMenu() {
   Swal.fire({
@@ -155,7 +155,9 @@ function showDefaultsMenu() {
       //@ts-ignore
       var parameter = Swal.getPopup().querySelector("#args").value;
       //@ts-ignore
-      const value = Swal.getPopup().querySelector("#argDefault").value;
+      let value = Swal.getPopup().querySelector("#argDefault").value;
+
+      if (value == "") value = null;
       store.set(parameter, value);
       assignPath(value, parameter);
     },
@@ -178,5 +180,5 @@ function getFormOptions() {
 }
 
 for (const [k, v] of store) {
-  assignPath(v, k);
+  assignPath(ipcRenderer.sendSync("tempGet", k) ?? v, k);
 }

@@ -6,28 +6,18 @@ import { exit, exitCode } from "process";
 import Swal from "sweetalert2";
 import { getSudo } from "../getSudo";
 
-interface matamataRequest {
-  corePath: string;
-  audioPath: string;
-  outputPath: string;
-  characterPath?: string;
-  timestampsPath?: string;
-  charactersPath?: string;
-  phonemesPath?: string;
-}
-let fpath = "Core";
+import Store from "electron-store";
+const store = new Store();
 
 interface PathReturn {
   canceled: boolean;
   filePaths: string[];
 }
 
-let req: matamataRequest = {
+let req = {
   corePath: "build/render/Core/",
-  audioPath: "",
-  outputPath: "",
-  characterPath: `defaults/characters.json`,
-  phonemesPath: `defaults/phonemes.json`,
+  audio: null,
+  output: null,
 };
 
 ipcRenderer.on("path", (ev, item: string, r: PathReturn) => {
@@ -93,17 +83,23 @@ async function run(command: string) {
 }
 
 async function render() {
-  if (req.audioPath == "" || req.outputPath == "") {
+  if (!req.audio || !req.output) {
     Swal.fire(
       "Please make sure you have selected an audio file and an output path."
     );
     return;
   }
+
+  let pyArgs = "";
+  for (const key of store) {
+    pyArgs += `--${key} ${req[key.toString()] || store.get(key.toString())} `;
+  }
+
   running = true;
 
   let command = "echo 'hello world'";
 
-  let pyCommand = `animate.py -a ${req.audioPath} -c ${req.characterPath} -o ${req.outputPath}`;
+  let pyCommand = `animate.py ${pyArgs}`;
 
   let cdCommand = "";
 

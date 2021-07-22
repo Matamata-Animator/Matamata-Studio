@@ -8,7 +8,7 @@ import { autoUpdater } from "electron-updater";
 import * as os from "os";
 
 import * as fetch from "node-fetch";
-
+import { checkDefaults } from "./renderDefaults";
 function checkStatus(res) {
   if (res.ok) {
     return res.json();
@@ -85,6 +85,7 @@ app.on("ready", () => {
   win.loadFile(indexHTML);
 
   setupHandlers();
+  checkDefaults();
   ipcMain.on("quit", () => {
     app.quit();
   });

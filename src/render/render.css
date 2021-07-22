@@ -1,7 +1,10 @@
-/* form {
-  width: 50%;
-  color: white;
+#options {
+  margin: 1vw;
 }
-.file-input {
-  background-color: #c0c0c0;
-} */
+#advanced-dropdown {
+  display: none;
+}
+div {
+  color: black;
+  user-select: none;
+}

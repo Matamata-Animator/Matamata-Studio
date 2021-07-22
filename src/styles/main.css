@@ -11,7 +11,9 @@ body {
   width: 100%;
   overflow: hidden;
 }
-
+p {
+  color: white;
+}
 /* Slider from w3schools */
 .slidecontainer {
   width: 40%; /* Width of the outside container */
@@ -87,4 +89,9 @@ body {
 }
 ::-webkit-scrollbar {
   width: 0px;
+}
+
+.button {
+  background-color: #c0c0c0;
+  color: black;
 }

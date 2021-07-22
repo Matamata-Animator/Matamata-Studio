@@ -9,33 +9,44 @@
 
   <link rel="stylesheet" href="render.css" />
   <script defer src="render.js"></script>
+  <script defer src="advanced_menu.js"></script>
+
 </head>
 
 <body>
-  <div class="columns is-flex-direction-column" id="settings">
-    <!-- <div class='column'>
+  <div id='options'>
+    <div class="columns is-flex-direction-column" id="settings">
+      <!-- <div class='column'>
             <button class="button" onclick="uploadPath('corePath', {properties: ['openDirectory']})">Find Matamata-Core
                 Folder</button>
         </div> -->
-    <div class="column">
-      <button class="button" onclick="uploadPath('audioPath')">
-        Find Audio
-      </button>
+      <div class="column">
+        <button class="button" onclick="uploadPath('audioPath')">
+          Find Audio
+        </button>
+      </div>
+      <div class="column">
+        <button class="button" onclick="savePath('outputPath')">
+          outputFile
+        </button>
+      </div>
+      <div class="column">
+        <button class="button" onclick="uploadPath('characterPath')">
+          Find Characters (optional)
+        </button>
+      </div>
+      <div class="column">
+        <button class="button" onclick="uploadPath('timestampPath')">
+          Find Timestamps (optional)
+        </button>
+      </div>
     </div>
-    <div class="column">
-      <button class="button" onclick="savePath('outputPath')">
-        outputFile
-      </button>
+
+    <div id="advanced-dropdown-controller" style="width: 100px">Advanced ▶</div>
+    <div id="advanced-dropdown">
+      <input type="text" id="extras">
     </div>
-    <div class="column">
-      <button class="button" onclick="uploadPath('characterPath')">
-        Find Characters (optional)
-      </button>
-    </div>
-    <div class="column">
-      <button class="button" onclick="uploadPath('timestampPath')">
-        Find Timestamps (optional)
-      </button>
-    </div>
+
+    <div class="button" style="margin-top: 1vw;" onclick="if(!running) render()">Render</div>
   </div>
 </body>

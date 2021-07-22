@@ -1,5 +1,7 @@
+import { rejects } from "assert";
 import { ipcRenderer } from "electron";
 import * as os from "os";
+import { exit, exitCode } from "process";
 
 import Swal from "sweetalert2";
 import { getSudo } from "../getSudo";
@@ -58,64 +60,79 @@ async function savePath(item, options = {}) {
 let running = false;
 document.onkeyup = async (e: KeyboardEvent) => {
   if (e.key.toLowerCase() == "r" && !running) {
-    if (req.audioPath == "" || req.outputPath == "") {
-      Swal.fire(
-        "Please make sure you have selected an audio file and an output path."
-      );
-      return;
-    }
-    running = true;
-
-    let command = "echo 'hello world'";
-    let pyCommand = `animate.py -a ${req.audioPath} -c ${req.characterPath} -m ${req.phonemesPath} -o ${req.outputPath}`;
-    let cdCommand = "";
-
-    let dir: string = ipcRenderer.sendSync("getCurrentDir");
-    console.log(dir);
-    if (os.platform() === "linux") {
-      let sudoPswd = await getSudo();
-      pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand} --codec FMP4`;
-      dir = __dirname.replace(/ /g, "\\ ");
-
-      if (dir.includes("app.asar")) {
-        req.corePath = dir.replace(
-          "app.asar/build/render",
-          "build/render/Core/"
-        );
-        cdCommand += "cd && ";
-      }
-      console.log(req.corePath);
-    }
-
-    let onData = async (ev, data) => {
-      console.log("data", data);
-    };
-    let onExit = async (ev, exitCode) => {
-      console.log("exit", exitCode);
-    };
-
-    if (os.platform() === "win32") {
-      pyCommand = `python ${pyCommand}`;
-      if (dir.includes("app.asar")) {
-        req.corePath = dir;
-        req.corePath = req.corePath.replace(
-          "app.asar\\build",
-          "build\\render\\Core"
-        );
-      }
-      cdCommand += "cd && ";
-    }
-
-    cdCommand += `cd ${req.corePath}`;
-
-    command = `${cdCommand} && ${pyCommand}`;
-    console.log(command);
-
-    ipcRenderer.on("data", onData);
-    ipcRenderer.on("exit", onExit);
-
-    ipcRenderer.send("run", "pwd");
-
-    ipcRenderer.send("run", command);
+    render();
   }
 };
+
+function getExtras() {
+  //@ts-ignore
+  let extras: HTMLInputElement = document.getElementById("extras");
+  return extras.value;
+}
+
+async function run(command: string) {
+  console.log(command);
+  ipcRenderer.on("data", (ev, data) => {
+    console.log("data", data);
+  });
+  ipcRenderer.on("error", (ev, err) => {
+    console.log("data", err);
+  });
+
+  let ran = new Promise((resolve, reject) => {
+    ipcRenderer.on("exit", (ev, exitCode) => {
+      console.log(exitCode);
+      resolve(exitCode);
+    });
+
+    ipcRenderer.send("run", command);
+  });
+  return ran;
+}
+
+async function render() {
+  if (req.audioPath == "" || req.outputPath == "") {
+    Swal.fire(
+      "Please make sure you have selected an audio file and an output path."
+    );
+    return;
+  }
+  running = true;
+
+  let command = "echo 'hello world'";
+
+  let pyCommand = `animate.py -a ${req.audioPath} -c ${req.characterPath} -o ${req.outputPath}`;
+
+  let cdCommand = "";
+
+  let dir: string = ipcRenderer.sendSync("getCurrentDir");
+  if (os.platform() === "linux") {
+    let sudoPswd = await getSudo();
+    pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand} --codec FMP4`;
+    dir = __dirname.replace(/ /g, "\\ ");
+
+    if (dir.includes("app.asar")) {
+      req.corePath = dir.replace("app.asar/build/render", "build/render/Core/");
+      cdCommand += "cd && ";
+    }
+  }
+
+  if (os.platform() === "win32") {
+    pyCommand = `python ${pyCommand}`;
+    if (dir.includes("app.asar")) {
+      req.corePath = dir;
+      req.corePath = req.corePath.replace(
+        "app.asar\\build",
+        "build\\render\\Core"
+      );
+    }
+    cdCommand += "cd && ";
+  }
+
+  cdCommand += `cd ${req.corePath}`;
+
+  command = `${cdCommand} && ${pyCommand}`;
+
+  await run("pwd");
+  await run(command);
+}

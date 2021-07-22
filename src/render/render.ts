@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import { getSudo } from "../getSudo";
 
 import Store from "electron-store";
-import { showDefaultsMenu } from "./defaultsDropdown";
 
 const store = new Store();
 
@@ -33,11 +32,9 @@ ipcRenderer.on("savePath", (ev, item: string, r: any) => {
   }
 });
 function assignPath(path, item) {
-  if (os.platform() === "linux") {
-    path = path.replace(`/home/${os.userInfo().username}`, "~");
-  }
   req[item] = path;
-  document.getElementById(item)!.innerText = path;
+  let preview = document.getElementById(item);
+  if (preview) preview.innerText = path;
 }
 
 async function uploadPath(item, options = {}) {
@@ -55,9 +52,6 @@ document.onkeyup = async (e: KeyboardEvent) => {
   }
 };
 
-function adjustDefaults() {
-  showDefaultsMenu();
-}
 function getExtras() {
   //@ts-ignore
   let extras: HTMLInputElement = document.getElementById("extras");
@@ -137,4 +131,41 @@ async function render() {
   command = `${cdCommand} && ${pyCommand}`;
 
   await run(command);
+}
+
+////////////////////////
+/// Dropdown Manager ///
+////////////////////////
+function showDefaultsMenu() {
+  Swal.fire({
+    title: "Set Default",
+    html: `
+    <label for="args" >Choose an argument:</label>
+    <select id="args" class='swal2-input' name="args">
+      ${getFormOptions()}
+    </select>
+
+    <input type="text" id="argDefault" class="swal2-input" value="${store.get(
+      "audio"
+    )}">
+`,
+    confirmButtonText: "Save",
+    focusConfirm: false,
+    preConfirm: () => {
+      //@ts-ignore
+      var parameter = Swal.getPopup().querySelector("#args").value;
+      //@ts-ignore
+      const value = Swal.getPopup().querySelector("#argDefault").value;
+      store.set(parameter, value);
+      assignPath(value, parameter);
+    },
+  });
+}
+
+function getFormOptions() {
+  let options = "";
+  for (const [k, v] of store) {
+    options += `<option value="${k}">${k}</option>`;
+  }
+  return options;
 }

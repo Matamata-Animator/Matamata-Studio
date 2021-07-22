@@ -16,30 +16,27 @@ interface PathReturn {
 
 let req = {
   corePath: "build/render/Core/",
-  audio: null,
-  output: null,
 };
 
 ipcRenderer.on("path", (ev, item: string, r: PathReturn) => {
   if (!r.canceled) {
     let path = r.filePaths[0];
-    if (os.platform() === "linux") {
-      path = path.replace(`/home/${os.userInfo().username}`, "~");
-    }
-    req[item] = path;
-    document.getElementById(item)!.innerText = path;
+    assignPath(path, item);
   }
 });
 ipcRenderer.on("savePath", (ev, item: string, r: any) => {
   if (!r.canceled) {
     let path = r.filePath;
-    if (os.platform() === "linux") {
-      path = path.replace(`/home/${os.userInfo().username}`, "~");
-    }
-    req[item] = path;
-    document.getElementById(item)!.innerText = path;
+    assignPath(path, item);
   }
 });
+function assignPath(path, item) {
+  if (os.platform() === "linux") {
+    path = path.replace(`/home/${os.userInfo().username}`, "~");
+  }
+  req[item] = path;
+  document.getElementById(item)!.innerText = path;
+}
 
 async function uploadPath(item, options = {}) {
   // Renderer process
@@ -83,7 +80,7 @@ async function run(command: string) {
 }
 
 async function render() {
-  if (!req.audio || !req.output) {
+  if (!req["audio"] || !req["output"]) {
     Swal.fire(
       "Please make sure you have selected an audio file and an output path."
     );
@@ -92,7 +89,9 @@ async function render() {
 
   let pyArgs = "";
   for (const key of store) {
-    pyArgs += `--${key} ${req[key.toString()] || store.get(key.toString())} `;
+    pyArgs += `--${key} ${
+      req[key.toString()] || store.get(key.toString())
+    } ${getExtras()}`;
   }
 
   running = true;

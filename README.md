@@ -51,58 +51,32 @@ sudo docker pull lowerquality/gentle
 
 Sadly, we are currently unable to support Macs. We recommend dual-booting Windows or Ubuntu, or setting up an Ubuntu virtual machine.
 
-## Timeline to v1.0:
+## Usage
 
-:heavy_check_mark: - Feature is completed
-
-- Timestamps :heavy_check_mark:
-  - Load audio :heavy_check_mark:
-  - Place markers :heavy_check_mark:
-  - Delete markers :heavy_check_mark:
-  - Rename markers :heavy_check_mark:
-  - Export timestamps :heavy_check_mark:
-  - Tool buttons :heavy_check_mark:
-  - Instructions :heavy_check_mark:
-- Character Creator (Eventually will be rewritten) :heavy_check_mark:
-  - Port cc to electron :heavy_check_mark:
-  - Start menu to choose a tool :heavy_check_mark:
-- Core :heavy_check_mark:
-  - Interface between GUI and core :heavy_check_mark:
-  - Choose export location :heavy_check_mark:
-  - Basic export settings :heavy_check_mark:
-  - Text box for additional options :heavy_check_mark:
-- Render :heavy_check_mark:
-  - Alerts on error/success :heavy_check_mark:
-- General :heavy_check_mark:
-  - Allow the program to "flow" from one section to the next, so the user can make an animation without exiting the program :heavy_check_mark:
-  - Autobuild :heavy_check_mark:
-  - Automatic updates :heavy_check_mark:
-  - Automatic dependency install :heavy_check_mark:
-    - Ubuntu :heavy_check_mark:
-    - Windows :heavy_check_mark:
-
-## Tutorial
-
-### Timestamps Creator
-
-- Drag your audio to the timeline
-- `space` play and pause the audio
-- `a` key create a timestamp called POSE
-- Double click in a timestamp to rename it
-- Use the green slider to zoom in or out in your timeline
-- When you click the button **save** you can name it extension as `.txt` in case you want to easily open and edit any information
-
-### Character Configurator
+### Character Configuration
 
 - Drag your character image in the first option
   - If it loads as a small square, drag the image again, it will load this time
-- You don’t need to load a custom mouth
-- The blue slider change the mouth size
-  - Click and drag it to the correct position
+- Drag the blue slider change the mouth size
+  - Click and drag the mouth to the correct position on your character
 - Rename the **Pose Name**
-  - Confirm if is facing left (or not)
-- Indicate the name of the folder _in relation to the **Matamata Core** folder_
-- You don’t need to fill the **Default Mouth**
-- If everything is alright in the first pose click Add Pose
-  - Now you can drag a new image following the first part in this tutorial, and keep clicking `Add Pose` until you prepare all the pictures that you want to use
-- Save your new file
+- Set `Faces Folder` to the **absolute path** to the folder containing your pose images
+- Press `Add Pose`
+  - Now you can drag in a new pose image, change the `Pose Name`, and press `Add Pose`
+- Save your character file
+
+### Timestamps Creator
+
+- Drag your audio into the timeline
+- Press `space` to play and pause the audio
+- Press `New Marker` key create and name a new pose marker
+- Click on a timestamp marker to rename it
+- Use the slider to zoom in or out of your timeline
+- Press `Animate This` if you want to create an animation now, or press save if you want to save the timestamps file for use later
+
+### Video Render
+
+* Press on an option, and select the proper file
+* You can set a default value for any of the options through the `Adjust Defaults` panel in the bottom right
+* Once you have chose selected your options, press the `render` button
+* That's it, have fun animating!

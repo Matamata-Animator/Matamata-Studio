@@ -40,5 +40,3 @@ function eventFire(el, etype) {
     el.dispatchEvent(evObj);
   }
 }
-
-// exports = { getSudo };

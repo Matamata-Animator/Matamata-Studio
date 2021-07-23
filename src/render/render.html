@@ -18,11 +18,12 @@
     <div class="columns is-flex-direction-column" id="settings">
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick="uploadPath('audio')">
+        <div id='file_path' class="file has-name"
+          onclick="uploadPath('audio', {filters: {name: 'audio',extensions:['wav']}})">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
-                Audio File
+                Audio (Required)
               </span>
             </span>
             <span class="file-name" id='audio'>
@@ -36,7 +37,7 @@
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
-                Output File
+                Output (Required)
               </span>
             </span>
             <span class="file-name" id='output'>
@@ -50,7 +51,7 @@
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
-                Character File (optional)
+                Character
               </span>
             </span>
             <span class="file-name" id='character'>
@@ -64,10 +65,24 @@
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
-                Timestamps File (optional)
+                Timestamps
               </span>
             </span>
             <span class="file-name" id='timestamps'>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="column">
+        <div id='file_path' class="file has-name" onclick="uploadPath('text') ">
+          <label class="file-label">
+            <span class="file-cta">
+              <span class="file-label">
+                Transcript
+              </span>
+            </span>
+            <span class="file-name" id='text'>
             </span>
           </label>
         </div>

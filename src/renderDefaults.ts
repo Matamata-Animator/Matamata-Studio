@@ -1,8 +1,10 @@
 import Store from "electron-store";
+import * as os from "os";
+
 const store = new Store();
 
 export function checkDefaults() {
-  if (!store.has("defaults-set")) {
+  if (!store.has("defaults-set") || store.get("defaults-set") != true) {
     setDefaults();
   }
 }
@@ -22,7 +24,7 @@ const defaults = {
 
   emotion_detection_env: null,
 
-  codec: null,
+  codec: "",
 
   [Symbol.iterator]: function* () {
     let properties = Object.keys(this);
@@ -33,6 +35,9 @@ const defaults = {
 };
 
 function setDefaults() {
+  if (os.platform() === "linux") {
+    defaults.codec = "FMP4";
+  }
   for (const [k, v] of defaults) {
     store.set(k, v);
   }

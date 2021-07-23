@@ -100,7 +100,7 @@ async function render() {
   let dir: string = ipcRenderer.sendSync("getCurrentDir");
   if (os.platform() === "linux") {
     let sudoPswd = await getSudo();
-    pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand} --codec FMP4`;
+    pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand}`;
     dir = __dirname.replace(/ /g, "\\ ");
 
     if (dir.includes("app.asar")) {

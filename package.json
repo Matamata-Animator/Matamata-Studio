@@ -1,6 +1,6 @@
 {
   "name": "matamata",
-  "version": "v0.8.1",
+  "version": "v1.0.0rc1",
   "executableName": "Matamata Desktop",
   "description": "Desktop GUI for Matamata",
   "author": {
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "copy-core-files": "copyfiles -u 1 src/render/Core/* src/render/Core/**/* src/render/Core/**/**/* build/",
-    "copy-files": "yarn copy-core-files && copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico src/**/*.js src/**/**/*.woff src/**/**/*.css src/**/**/*.png build/",
+    "copy-files": "yarn copy-core-files && copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico src/**/*.js src/**/**/*.woff src/**/**/*.css src/**/**/*.png src/styles/fa/* src/styles/fa/**/* src/styles/fa/**/**/* src/styles/fa/**/**/**/* build/",
     "build": "tsc && yarn run copy-files",
     "watch": "tsc-watch --onSuccess \"yarn run copy-files\"",
     "start": "yarn run build && electron .",
@@ -83,7 +83,9 @@
         "ffmpeg",
         "python3-pip",
         "python3-opencv",
-        "docker.io"
+        "docker.io",
+        "curl",
+        "gstreamer1.0-libav"
       ]
     },
     "win": {

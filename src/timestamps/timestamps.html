@@ -7,6 +7,8 @@
 
   <link rel="stylesheet" href="../styles/bulma.min.css" />
   <script src="../styles//bulma-slider.min.js"></script>
+  <link defer rel="stylesheet" href="../styles/fa/css/all.min.css" />
+
 
   <script>
     var exports = {};
@@ -30,7 +32,7 @@
     </div>
     <div class="column has-text-centered">
       <div class="button" title="Create a pose timestamp (a)"
-        onclick="(async ()=> {createMarker(await getPoseName())})()" title>Add Pose</div>
+        onclick="(async ()=> {createMarker(await getPoseName())})()" title>New Marker</div>
     </div>
     <div class="column">
       <div class="slidecontainer" title="Zoom in on the waveform">
@@ -51,5 +53,9 @@
   </div>
 
 
-
+  <a href='../menu/index.html'>
+    <div class='home-button'>
+      <i class="fas fa-home fa-2x"></i>
+    </div>
+  </a>
 </body>

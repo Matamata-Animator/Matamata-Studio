@@ -4,6 +4,8 @@
     exports = {};
   </script>
   <link rel="stylesheet" href="../styles/bulma.min.css" />
+  <link defer rel="stylesheet" href="../styles/fa/css/all.min.css" />
+
   <script src="../styles/bulma-slider.min.js"></script>
   <link rel="stylesheet" href="../styles/main.css" />
 
@@ -19,7 +21,7 @@
 
       <div class="column">
         <div id='file_path' class="file has-name"
-          onclick="uploadPath('audio', {filters: {name: 'audio',extensions:['wav']}})">
+          onclick="uploadPath('audio', {filters: [{name: 'WAV File',extensions:['wav']}]})">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
@@ -33,7 +35,8 @@
       </div>
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick="savePath('output') ">
+        <div id='file_path' class="file has-name"
+          onclick="savePath('output', {defaultPath: 'myAnimation.mov', filters: [{name: 'Video File',extensions:['mp4', 'mov']}]}) ">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
@@ -47,7 +50,8 @@
       </div>
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick=" uploadPath('character')">
+        <div id='file_path' class="file has-name"
+          onclick=" uploadPath('character', {filters: [{name: 'Character File',extensions:['json']}]})">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
@@ -61,7 +65,8 @@
       </div>
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick="uploadPath('timestamps') ">
+        <div id='file_path' class="file has-name"
+          onclick="uploadPath('timestamps', {filters: [{name: 'Timestamps File',extensions:['txt']}]}) ">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
@@ -75,7 +80,8 @@
       </div>
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick="uploadPath('text') ">
+        <div id='file_path' class="file has-name"
+          onclick="uploadPath('text', {filters: [{name: 'Text Transcript',extensions:['txt']}]}) ">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">
@@ -102,4 +108,10 @@
     <div class='button' id='adjust-defaults' onclick="showDefaultsMenu()">Adjust Defaults</div>
 
   </div>
+  <a href='../menu/index.html'>
+    <div class='home-button'>
+      <i class="fas fa-home fa-2x"></i>
+    </div>
+  </a>
+
 </body>

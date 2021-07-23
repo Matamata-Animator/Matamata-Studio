@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="cc.css" />
   <script src="p5.min.js"></script>
   <script src="cc.js"></script>
+  <link defer rel="stylesheet" href="../styles/fa/css/all.min.css" />
+
 </head>
 
 <body>
@@ -24,34 +26,30 @@
       <form id="form" action="javascript:void(0);" onsubmit="addPose()">
         <b>Pose Settings:</b><br />
         Pose Name:
-        <input
-          class="input"
-          type="text"
-          name="pose_name"
-          value="Talking_1"
-        /><br />
+        <input class="input" type="text" name="pose_name" placeholder="Talking_1" /><br />
         <input type="checkbox" id="facingLeft" name="facingLeft" />
         <label for="facingLeft"> Facing Left?</label><br />
         <br />
         <b>JSON Settings:</b><br />
         Faces Folder:
-        <input
-          class="input"
-          type="text"
-          name="facesFolder"
-          value="SampleFace/"
-        /><br />
+        <input class="input" type="text" name="facesFolder" placeholder="C:/faces/character1/" /><br />
 
         <br />
         <b>Advanced Settings:</b><br />
         Default Mouth:
         <input class="input" type="text" name="closed_mouth" value="" /><br />
 
-        <input type="submit" value="Add Pose" />
+        <input class='button' type="submit" value="Add Pose" />
       </form>
     </div>
   </div>
   <form id="form" action="javascript:void(0);" onsubmit="save(json, json_name)">
-    <input type="submit" value="Save" />
+    <input type="submit" class='button' value="Save" />
   </form>
+
+  <a href='../menu/index.html'>
+    <div class='home-button'>
+      <i class="fas fa-home fa-2x"></i>
+    </div>
+  </a>
 </body>

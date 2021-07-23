@@ -75,8 +75,8 @@ app.on("ready", () => {
       contextIsolation: false,
     },
     minWidth: 775,
+    minHeight: 650,
   });
-
   win.maximize();
   let indexHTML = path.join(__dirname + "/menu/index.html");
 

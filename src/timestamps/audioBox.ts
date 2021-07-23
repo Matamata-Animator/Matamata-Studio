@@ -7,6 +7,7 @@ import exp from "constants";
 import Swal from "sweetalert2";
 
 let audioPath = "";
+let markerCounter = 0;
 
 interface MarkerWithElement {
   el: HTMLElement;
@@ -127,19 +128,14 @@ async function setZoomMin() {
   }
 }
 
-async function audioClicked(event: MouseEvent) {}
-
 function isLoaded() {
   return audio.getDuration() > 0;
 }
-
-var seconds = 0;
 
 setInterval(function () {
   document.getElementById("seconds")!.innerText = `Time: ${audio
     .getCurrentTime()
     .toFixed(3)}`;
-  seconds += 1;
 }, 10);
 
 document.getElementById("audioZoom")!.oninput = function () {
@@ -194,10 +190,8 @@ async function animateThis() {
 
 async function createMarker(name = "POSE") {
   mode = Mode.Select;
-  let overlapping = false;
   for (const m of audio.markers.markers) {
     if (m.time == audio.getCurrentTime()) {
-      overlapping = true;
       return;
     }
   }
@@ -213,6 +207,8 @@ async function createMarker(name = "POSE") {
   let e = (markers[markers.length - 1] as MarkerWithElement).el;
 
   if (e) {
+    e.id = `marker-${markerCounter}`;
+    markerCounter++;
     (e.children[1] as HTMLElement).onclick = function (click: MouseEvent) {
       if (mode === Mode.Delete) {
         console.log(mode);
@@ -244,9 +240,19 @@ function togglePause() {
 function deleteMarker(click: MouseEvent) {
   console.log("delete");
   console.log(click);
-  let marker = click.composedPath()[2] as HTMLElement;
+  let path = click.composedPath() as HTMLElement[];
+  console.log(path);
+  let marker = path.filter((a) =>
+    a.className?.includes("wavesurfer-marker")
+  )[0];
+  console.log(marker);
+
+  (audio.markers.markers as MarkerWithElement[]).forEach((m) => {
+    if (m.el.id == marker.id)
+      m.el.children[1]!.children[1].innerHTML = deletedMarkerName;
+  });
+
   marker.remove();
-  mode = Mode.Select;
 }
 
 document.onkeypress = async (e) => {

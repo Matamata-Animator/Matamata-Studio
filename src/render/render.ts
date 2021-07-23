@@ -58,11 +58,12 @@ async function run(command: string): Promise<string> {
   ipcRenderer.on("data", (ev, data) => {
     console.log("data", data);
   });
-  ipcRenderer.on("error", (ev, err) => {
-    console.log("data", err);
-  });
 
   let ran: Promise<string> = new Promise((resolve, reject) => {
+    ipcRenderer.on("error", (ev, err) => {
+      console.log("Error: ", err);
+      resolve(err);
+    });
     ipcRenderer.on("exit", (ev, exitCode) => {
       console.log(exitCode);
       resolve(exitCode);
@@ -98,8 +99,9 @@ async function render() {
   let cdCommand = "";
 
   let dir: string = ipcRenderer.sendSync("getCurrentDir");
+  let sudoPswd = "";
   if (os.platform() === "linux") {
-    let sudoPswd = await getSudo();
+    sudoPswd = await getSudo();
     pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand}`;
     dir = __dirname.replace(/ /g, "\\ ");
 
@@ -131,8 +133,13 @@ async function render() {
   if (a == "0" || a == "99") {
     Swal.fire({ title: "Animation Complete", icon: "success" });
   } else {
-    Swal.fire({ title: "Animation Complete", icon: "error" });
+    Swal.fire({
+      title: "Error",
+      text: a.replace(`"${sudoPswd}"`, "SUDO_PASSWORD"),
+      icon: "error",
+    });
   }
+  console.log("done");
 }
 
 ////////////////////////

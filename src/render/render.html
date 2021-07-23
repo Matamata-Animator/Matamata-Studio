@@ -18,7 +18,8 @@
     <div class="columns is-flex-direction-column" id="settings">
 
       <div class="column">
-        <div id='file_path' class="file has-name" onclick="uploadPath('audio')">
+        <div id='file_path' class="file has-name"
+          onclick="uploadPath('audio', {filters: {name: 'audio',extensions:['wav']}})">
           <label class="file-label">
             <span class="file-cta">
               <span class="file-label">

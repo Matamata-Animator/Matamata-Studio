@@ -105,3 +105,10 @@ p {
 .file-label {
   color: black;
 }
+
+.home-button {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+}

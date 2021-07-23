@@ -76,7 +76,6 @@ app.on("ready", () => {
     },
     minWidth: 775,
   });
-  win.removeMenu();
   win.maximize();
   let indexHTML = path.join(__dirname + "/menu/index.html");
 

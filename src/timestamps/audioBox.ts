@@ -80,7 +80,6 @@ window.onresize = async () => {
 };
 
 async function dropHandler(event: DragEvent) {
-  console.log(event);
   event.preventDefault();
   let path = event.dataTransfer?.files[0].path;
 
@@ -114,7 +113,6 @@ async function dropHandler(event: DragEvent) {
         setZoomMin();
       });
     }
-    console.log("drag");
   }
 }
 
@@ -171,9 +169,7 @@ async function exportTimestamps() {
 
 async function saveTimestamps() {
   let ts_text = await exportTimestamps();
-  console.log("send");
   let path = ipcRenderer.sendSync("getSavePath").filePath;
-  console.log(path);
   ipcRenderer.send("saveTo", path, ts_text);
 }
 
@@ -211,11 +207,9 @@ async function createMarker(name = "POSE") {
     markerCounter++;
     (e.children[1] as HTMLElement).onclick = function (click: MouseEvent) {
       if (mode === Mode.Delete) {
-        console.log(mode);
         deleteMarker(click);
       } else if (mode === Mode.Select) {
         mode = Mode.Typing;
-        console.log(click);
 
         getPoseName().then((r) => {
           if (r) {
@@ -238,14 +232,10 @@ function togglePause() {
 }
 
 function deleteMarker(click: MouseEvent) {
-  console.log("delete");
-  console.log(click);
   let path = click.composedPath() as HTMLElement[];
-  console.log(path);
   let marker = path.filter((a) =>
     a.className?.includes("wavesurfer-marker")
   )[0];
-  console.log(marker);
 
   (audio.markers.markers as MarkerWithElement[]).forEach((m) => {
     if (m.el.id == marker.id)

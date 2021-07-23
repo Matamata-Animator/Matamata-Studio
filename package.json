@@ -83,7 +83,9 @@
         "ffmpeg",
         "python3-pip",
         "python3-opencv",
-        "docker.io"
+        "docker.io",
+        "curl",
+        "gstreamer1.0-libav"
       ]
     },
     "win": {

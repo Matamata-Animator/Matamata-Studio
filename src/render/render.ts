@@ -49,8 +49,9 @@ async function savePath(item, options = {}) {
 let running = false;
 
 function getExtras() {
-  let extras = document.getElementById("extras") as HTMLInputElement;
-  return extras.value;
+  return "";
+  // let extras = document.getElementById("extras") as HTMLInputElement;
+  // return extras.value;
 }
 
 async function run(command: string): Promise<string> {

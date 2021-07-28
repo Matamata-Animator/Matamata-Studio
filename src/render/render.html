@@ -1,117 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-  <title>Matamata Desktop</title>
-  <script>
-    exports = {};
-  </script>
-  <link rel="stylesheet" href="../styles/bulma.min.css" />
-  <link defer rel="stylesheet" href="../styles/fa/css/all.min.css" />
-
-  <script src="../styles/bulma-slider.min.js"></script>
-  <link rel="stylesheet" href="../styles/main.css" />
-
-  <link rel="stylesheet" href="render.css" />
-  <script defer src="render.js"></script>
-  <script defer src="advanced_menu.js"></script>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Matamata Desktop</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap">
+    <link rel="stylesheet" href="../assets/css/Momcake.css">
+    <link rel="stylesheet" href="../assets/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/render.css">
 </head>
 
 <body>
-  <div id='options'>
-    <div class="columns is-flex-direction-column" id="settings">
+    <div class="render_option"><span><button class="btn btn-primary" id="audioBtn" type="button" style="background: var(--mm-button-color);">Audio (Required)</button></span><span class="file_name_cont"><span id="audio" class="file_name" style="color: var(--mm-foreground);"></span></span></div>
+    <div class="render_option"><span><button class="btn btn-primary" id="outputBtn" type="button" style="background: var(--mm-button-color);">Output (Required)</button></span><span class="file_name_cont"><span id="output" class="file_name" style="color: var(--mm-foreground);"></span></span></div>
+    <div class="render_option"><span><button class="btn btn-primary" id="characterBtn" type="button" style="background: var(--mm-button-color);">Character</button></span><span class="file_name_cont"><span id="character" class="file_name" style="color: var(--mm-foreground);"></span></span></div>
+    <div class="render_option"><span><button class="btn btn-primary" id="timestampsBtn" type="button" style="background: var(--mm-button-color);">Timestamps</button></span><span class="file_name_cont"><span id="timestamps" class="file_name" style="color: var(--mm-foreground);"></span></span></div>
+    <div class="render_option"><span><button class="btn btn-primary" id="textBtn" type="button" style="background: var(--mm-button-color);">Transcript</button></span><span class="file_name_cont"><span id="text" class="file_name" style="color: var(--mm-foreground);"></span></span></div><button class="btn btn-primary render_option" id="renderBtn" type="button" style="background: var(--mm-button-color);">Render</button><button class="btn btn-primary" id="adjustDefaults" type="button" style="background: var(--mm-button-color);">Adjust Defaults</button>    <script>exports={}</script>
+    <script src='render.js'></script>
+    <script defer>
+        window.$ = window.jQuery = require('jquery');
+        
+        $("#audioBtn").on("click", ()=>{
+            uploadPath('audio', {filters: [{name: 'WAV File',extensions:['wav']}]}) 
+        });
 
-      <div class="column">
-        <div id='file_path' class="file has-name"
-          onclick="uploadPath('audio', {filters: [{name: 'WAV File',extensions:['wav']}]})">
-          <label class="file-label">
-            <span class="file-cta">
-              <span class="file-label">
-                Audio (Required)
-              </span>
-            </span>
-            <span class="file-name" id='audio'>
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <div class="column">
-        <div id='file_path' class="file has-name"
-          onclick="savePath('output', {defaultPath: 'myAnimation.mov', filters: [{name: 'Video File',extensions:['mp4', 'mov']}]}) ">
-          <label class="file-label">
-            <span class="file-cta">
-              <span class="file-label">
-                Output (Required)
-              </span>
-            </span>
-            <span class="file-name" id='output'>
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <div class="column">
-        <div id='file_path' class="file has-name"
-          onclick=" uploadPath('character', {filters: [{name: 'Character File',extensions:['json']}]})">
-          <label class="file-label">
-            <span class="file-cta">
-              <span class="file-label">
-                Character
-              </span>
-            </span>
-            <span class="file-name" id='character'>
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <div class="column">
-        <div id='file_path' class="file has-name"
-          onclick="uploadPath('timestamps', {filters: [{name: 'Timestamps File',extensions:['txt']}]}) ">
-          <label class="file-label">
-            <span class="file-cta">
-              <span class="file-label">
-                Timestamps
-              </span>
-            </span>
-            <span class="file-name" id='timestamps'>
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <div class="column">
-        <div id='file_path' class="file has-name"
-          onclick="uploadPath('text', {filters: [{name: 'Text Transcript',extensions:['txt']}]}) ">
-          <label class="file-label">
-            <span class="file-cta">
-              <span class="file-label">
-                Transcript
-              </span>
-            </span>
-            <span class="file-name" id='text'>
-            </span>
-          </label>
-        </div>
-      </div>
-
-
-    </div>
-
-    <div id="advanced-dropdown-controller" style="width: 100px">Advanced ▶</div>
-    <div id="advanced-dropdown">
-      <input type="text" id="extras">
-    </div>
-
-    <div class="button" style="margin-top: 1vw;" onclick="if(!running) render()">Render</div>
-
-
-    <div class='button' id='adjust-defaults' onclick="showDefaultsMenu()">Adjust Defaults</div>
-
-  </div>
-  <a href='../menu/index.html'>
-    <div class='home-button'>
-      <i class="fas fa-home fa-2x"></i>
-    </div>
-  </a>
-
+       $("#outputBtn").on("click", ()=>{
+            uploadPath('output', {defaultPath: 'myAnimation.mov', filters: [{name: 'Video File',extensions:['mp4', 'mov']}]}) 
+        });
+        
+       $("#outputBtn").on("click", ()=>{
+            uploadPath('character', {filters: [{name: 'Character File',extensions:['json']}]}) 
+        });
+        
+        $("#timestampsBtn").on("click", ()=>{
+            uploadPath('timestamps', {filters: [{name: 'Timestamps File',extensions:['txt']}]})
+        });
+        
+        $("#renderBtn").on("click", ()=>{
+            if(!running) render()
+        });
+        
+        $("#adjustDefaults").on('click', ()=>{
+            showDefaultsMenu()
+        })
+    </script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
+
+</html>

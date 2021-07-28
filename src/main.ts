@@ -74,6 +74,7 @@ app.on("ready", () => {
       nodeIntegration: true,
       contextIsolation: false,
     },
+    width: 1045,
     minWidth: 775,
     minHeight: 650,
   });

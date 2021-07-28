@@ -46,3 +46,11 @@ input:focus ~ label, input:valid ~ label {
   margin-left: 0px;
 }
 
+.container {
+  height: max(4vw,60px);
+}
+
+.btn {
+  margin: 0px;
+}
+

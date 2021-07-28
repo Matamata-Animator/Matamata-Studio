@@ -1,33 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-  <title>Matamata Desktop</title>
-  <script>
-    exports = {};
-  </script>
-  <link rel="stylesheet" href="../styles/bulma.min.css" />
-  <script src="../styles/bulma-slider.min.js"></script>
-  <link rel="stylesheet" href="../styles/main.css" />
-
-  <link rel="stylesheet" href="autoinstall.css" />
-  <script defer src="linux.js"></script>
-  <link defer rel="stylesheet" href="../styles/fa/css/all.min.css" />
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Matamata Desktop</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap">
+    <link rel="stylesheet" href="../assets/css/Momcake.css">
+    <link rel="stylesheet" href="../assets/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
 <body>
-  <div class="columns">
-    <div class="column has-text-centered">
-      <p id="commandText">COMMAND TEXT HERE</p>
+    <p id="commandText" style="text-align: center;margin: 1vw;">Command Text Here</p>
+    <div class="row">
+        <div class="col" style="text-align: center;"><button class="btn btn-primary" id="installButton" type="button"
+                style="color: var(--mm-foreground);background: var(--mm-button-color);">Install</button></div>
     </div>
-  </div>
-  <div class="columns">
-    <div class="column has-text-centered">
-      <div class="button" onclick="install()">Install</div>
-    </div>
-  </div>
-
-  <a href='../menu/index.html'>
-    <div class='home-button'>
-      <i class="fas fa-home fa-2x"></i>
-    </div>
-  </a>
+    <script>exports = {}</script>
+    <script src='linux.js'></script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
+
+</html>

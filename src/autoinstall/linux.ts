@@ -4,6 +4,8 @@ import { ipcRenderer } from "electron";
 import { getSudo } from "../getSudo";
 
 import * as os from "os";
+import { applyTheme } from "../themes";
+applyTheme();
 
 let command = "";
 

@@ -1,5 +1,7 @@
 //@ts-nocheck
 import Swal from "sweetalert2";
+import { applyTheme } from "../themes";
+applyTheme();
 
 document.getElementById("addPoseButton")!.onclick = addPose;
 document.getElementById("savePosesButton")!.onclick = () => {

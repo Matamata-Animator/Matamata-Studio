@@ -1,0 +1,22 @@
+{
+  "Dracula": {
+    "--mm-background": "#282a36",
+    "--mm-foreground": "#f8f8f2",
+
+    "--mm-button-background": "#bd93f9",
+    "--mm-button-color": "#000000",
+
+    "--mm-selection": "#44475a",
+    "--mm-waveform-color": "#50fa7b"
+  },
+  "Light": {
+    "--mm-background": "#FFF",
+    "--mm-foreground": "#000",
+
+    "--mm-button-background": "#000",
+    "--mm-button-color": "#FFF",
+
+    "--mm-selection": "#AAAAA",
+    "--mm-waveform-color": "#2b2b2b"
+  }
+}

@@ -11,6 +11,8 @@ import { UrlWithStringQuery } from "url";
 
 import * as jQuery from "jquery";
 
+import { applyTheme } from "../themes";
+applyTheme();
 const store = new Store();
 
 interface PathReturn {

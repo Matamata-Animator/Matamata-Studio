@@ -29,7 +29,7 @@
   "scripts": {
     "copy-core-files": "copyfiles -u 1 src/render/Core/* src/render/Core/**/* src/render/Core/**/**/* build/",
     "copy-asset-files": "copyfiles -u 1 src/assets/* src/assets/**/* src/assets/**/**/* build/",
-    "copy-files": "yarn copy-core-files && yarn copy-asset-files && copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico src/**/*.js src/**/**/*.woff src/**/**/*.css src/**/**/*.png src/styles/fa/* src/styles/fa/**/* src/styles/fa/**/**/* src/styles/fa/**/**/**/* build/",
+    "copy-files": "yarn copy-core-files && yarn copy-asset-files && copyfiles -u 1 src/*.json src/**/*.json src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico src/**/*.js src/**/**/*.woff src/**/**/*.css src/**/**/*.png src/styles/fa/* src/styles/fa/**/* src/styles/fa/**/**/* src/styles/fa/**/**/**/* build/",
     "build": "tsc && yarn run copy-files",
     "watch": "tsc-watch --onSuccess \"yarn run copy-files\"",
     "start": "yarn run build && electron .",

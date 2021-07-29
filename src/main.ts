@@ -8,7 +8,7 @@ import { autoUpdater } from "electron-updater";
 import * as os from "os";
 
 import * as fetch from "node-fetch";
-import { checkDefaults } from "./renderDefaults";
+import { checkDefaults } from "./userDefaults";
 function checkStatus(res) {
   if (res.ok) {
     return res.json();

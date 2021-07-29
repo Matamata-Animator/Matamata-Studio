@@ -6,6 +6,8 @@ import exp from "constants";
 
 import Swal from "sweetalert2";
 import * as jQuery from "jquery";
+import { applyTheme } from "../themes";
+applyTheme();
 
 let audioPath = "";
 let markerCounter = 0;

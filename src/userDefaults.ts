@@ -12,7 +12,7 @@ export function checkDefaults() {
   }
 }
 
-const defaults = {
+const renderDefaults = {
   audio: null,
   timestamps: null,
   text: null,
@@ -40,10 +40,12 @@ const defaults = {
 function setDefaults() {
   store.clear();
   if (os.platform() === "linux") {
-    defaults.codec = "FMP4";
+    renderDefaults.codec = "FMP4";
   }
-  for (const [k, v] of defaults) {
+  for (const [k, v] of renderDefaults) {
     store.set(`renderDefaults.${k}`, v);
   }
   store.set("renderDefaults.defaults-set", true);
+
+  store.set("themes.currentTheme", "Dracula");
 }

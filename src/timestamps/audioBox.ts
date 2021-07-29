@@ -206,7 +206,7 @@ async function createMarker(name = "POSE") {
   audio.addMarker({
     time: audio.getCurrentTime(),
     label: name,
-    color: "000000",
+    color: getComputedStyle(document.body).getPropertyValue("--mm-background"),
   });
 
   var markers = audio.markers.markers;

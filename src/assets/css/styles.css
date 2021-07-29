@@ -33,10 +33,6 @@ html {
   adding-left: 0px;
 }
 
-input:focus ~ label, input:valid ~ label {
-  color: var(--mm-foreground);
-}
-
 .checkbox {
   width: 20px;
   margin-top: 0.5vw;

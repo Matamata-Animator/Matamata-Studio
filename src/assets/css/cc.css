@@ -1,0 +1,4 @@
+input:focus ~ label, input:valid ~ label {
+  color: var(--mm-foreground);
+}
+

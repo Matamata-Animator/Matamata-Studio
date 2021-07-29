@@ -4,7 +4,10 @@ import * as os from "os";
 const store = new Store();
 
 export function checkDefaults() {
-  if (!store.has("defaults-set") || store.get("defaults-set") != true) {
+  if (
+    !store.has("renderDefaults.defaults-set") ||
+    store.get("renderDefaults.defaults-set") != true
+  ) {
     setDefaults();
   }
 }
@@ -35,11 +38,12 @@ const defaults = {
 };
 
 function setDefaults() {
+  store.clear();
   if (os.platform() === "linux") {
     defaults.codec = "FMP4";
   }
   for (const [k, v] of defaults) {
-    store.set(k, v);
+    store.set(`renderDefaults.${k}`, v);
   }
-  store.set("defaults-set", true);
+  store.set("renderDefaults.defaults-set", true);
 }

@@ -15,7 +15,10 @@
  :root {
    --mm-background: #282a36;
    --mm-foreground: #f8f8f2;
-   --mm-button-color: #6272a4;
+   
+   --mm-button-background: #bd93f9;
+   --mm-button-color: #000000;
+   
    --mm-selection: #44475a;
    --mm-waveform-color: #50fa7b;
    

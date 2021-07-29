@@ -1,0 +1,15 @@
+@font-face {
+	font-family: 'Momcake';
+	src: url(../../assets/fonts/Momcake-Thin.woff2) format('woff2'),
+	url(../../assets/fonts/Momcake-Thin.woff) format('woff');
+	font-weight: 100;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Momcake';
+	src: url(../../assets/fonts/Momcake-Bold.woff2) format('woff2'),
+	url(../../assets/fonts/Momcake-Bold.woff) format('woff');
+	font-weight: bold;
+	font-style: normal;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Matamata Desktop</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap">
+    <link rel="stylesheet" href="../assets/css/Momcake.css">
+    <link rel="stylesheet" href="../assets/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/render.css">
+    <link rel="stylesheet" href="../assets/css/Simple-Slider.css">
+    <link rel="stylesheet" href="../assets/css/timestamps.css">
+</head>
+
+<body style="background: var(--mm-background);">
+    <div id="drop_zone" style="background: var(--mm-selection);">
+        <div id="dragHelpText-container">
+            <p id="dragHelpText">Drag your audio here</p>
+        </div>
+        <div id="waveform"></div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p id="seconds" style="margin-left: 1vw;">Time: 0.000</p>
+        </div>
+        <div class="col">
+            <div style="display: flex;align-items: center;justify-content: center;">
+                <p><button class="btn btn-primary" id="addPose" type="button" style="color: var(--mm-foreground);background: var(--mm-button-color);">Add Pose</button></p>
+            </div>
+        </div>
+        <div class="col"><input class="form-range" type="range" id="audioZoom" min="20" max="1000" value="20" style="width: 10vw;position: absolute;right: 1vw;"></div>
+    </div>
+    <div class="row" style="width: max(400px, 30vw);">
+        <div class="col"><button class="btn btn-primary" id="animateThis" type="button" style="margin-left: 1vw;color: var(--mm-foreground);background: var(--mm-button-color);">Animate This</button></div>
+        <div class="col"><button class="btn btn-primary" id="saveThis" type="button" style="margin-left: 1vw;color: var(--mm-foreground);background: var(--mm-button-color);">Save</button></div>
+    </div>    <script>exports={}</script>
+    <script src='audioBox.js'></script>
+    <script defer>
+        window.$ = window.jQuery = require('jquery');
+        
+        $("#drop_zone").on("drop", dropHandler);
+        $("#drop_zone").on("dragover", (e)=> e.preventDefault());
+
+        $("#addPose").on("drop", async ()=> {createMarker(await getPoseName())});
+
+        $("#animateThis").on("click", animateThis);
+        
+        $("#saveThis").on("click", saveTimestamps);
+
+    </script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+button {
+  margin-right: 5vw;
+  margin-left: 5vw;
+  margin-top: 3vw;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+.dropzone {
+  /*margin-bottom: 1vw;*/
+  /*padding: 0.7vw;*/
+  border-style: dashed;
+  font-size: 1.2vw;
+  width: 98vw;
+  margin-left: 1vw;
+  margin-top: 1vw;
+  height: 3vw;
+  vertical-align: middle;
+}
+
+.poseSettings {
+  width: 30vw;
+  right: 10vw;
+  position: absolute;
+  margin-top: 1vw;
+}
+
+.dropText {
+  left: .1vw;
+  margin-left: 0;
+  adding-left: 0px;
+}
+
+input:focus ~ label, input:valid ~ label {
+  color: var(--mm-foreground);
+}
+
+.checkbox {
+  width: 20px;
+  margin-top: 0.5vw;
+}
+
+.submit-button {
+  margin-left: 0px;
+}
+
+.container {
+  height: max(4vw,60px);
+}
+
+.btn {
+  margin: 0px;
+}
+

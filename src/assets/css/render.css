@@ -1,0 +1,43 @@
+.col {
+  height: 38px;
+  /*margin-right: 0px;*/
+  margin-top: 1vw;
+}
+
+.btn {
+  margin: auto;
+  margin-left: 0px;
+  border-radius: 0px;
+}
+
+.file_name_cont {
+  border: 4px solid var(--mm-button-color);
+  margin-left: 0px;
+  min-height: 36px;
+  display: inline-block;
+}
+
+.btn-col {
+  margin: auto;
+  margin-top: 1vw;
+  margin-left: 1vw;
+  margin-right: 0px;
+  width: initial;
+}
+
+.file_name {
+  min-width: 3vw;
+  display: inline-block;
+  /*height: 30px;*/
+}
+
+.render_option {
+  margin: 1vw;
+}
+
+#adjustDefaults {
+  position: absolute;
+  right: 1vw;
+  bottom: 1vw;
+}
+

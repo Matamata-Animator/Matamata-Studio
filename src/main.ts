@@ -75,7 +75,7 @@ app.on("ready", () => {
       contextIsolation: false,
     },
     width: 1045,
-    minWidth: 775,
+    minWidth: 920,
     minHeight: 650,
   });
   win.maximize();

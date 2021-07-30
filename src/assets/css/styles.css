@@ -50,3 +50,9 @@ html {
   margin: 0px;
 }
 
+.home-button {
+  position: absolute;
+  bottom: 1vw;
+  left: 1vw;
+}
+

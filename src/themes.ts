@@ -34,3 +34,5 @@ export function setTheme(theme: string) {
   store.set("themes.currentTheme", theme);
   applyTheme();
 }
+
+//TODO: User custom themes

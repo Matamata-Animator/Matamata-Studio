@@ -26,8 +26,8 @@
     "--mm-title-color": "#859900",
     "--mm-button-background": "#2aa198",
     "--mm-button-color": "#000",
-    "--mm-selection": "#586e75",
-    "--mm-waveform-color": "#268bd2",
+    "--mm-selection": "#073642",
+    "--mm-waveform-color": "#dc322f",
 
     "--mm-foreground": "#FFF"
   },
@@ -37,7 +37,7 @@
     "--mm-button-background": "#2aa198",
     "--mm-button-color": "#000",
     "--mm-selection": "#eee8d5",
-    "--mm-waveform-color": "#268bd2",
+    "--mm-waveform-color": "#dc322f",
 
     "--mm-foreground": "#000"
   }

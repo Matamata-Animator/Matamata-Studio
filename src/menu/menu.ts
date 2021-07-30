@@ -12,7 +12,7 @@ function themeSettings() {
     title: "Choose a theme",
     html: `
         <select id="themeSelect" class='swal2-input' name="theme""> 
-          ${getThemeSettings()}  
+          ${getThemeSettings()}   
         </select> 
     `,
     confirmButtonText: "Save",

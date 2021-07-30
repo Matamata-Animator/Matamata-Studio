@@ -1,7 +1,7 @@
 {
   "Dracula": {
     "--mm-background": "#282a36",
-    "--mm-title-color": "#f8f8f2",
+    "--mm-title-color": "#FFF",
 
     "--mm-button-background": "#bd93f9",
     "--mm-button-color": "#000000",
@@ -11,15 +11,15 @@
 
     "--mm-foreground": "#f8f8f2"
   },
-  "Solarized Light": {
-    "--mm-background": "#fdf6e3",
-    "--mm-title-color": "#859900",
-    "--mm-button-background": "#2aa198",
+  "Nord": {
+    "--mm-background": "#2e3440",
+    "--mm-title-color": "#88c0d0",
+    "--mm-button-background": "#5e81ac",
     "--mm-button-color": "#000",
-    "--mm-selection": "#eee8d5",
-    "--mm-waveform-color": "#268bd2",
+    "--mm-selection": "#4c566a",
+    "--mm-waveform-color": "#8fbcbb",
 
-    "--mm-foreground": "#000"
+    "--mm-foreground": "#FFF"
   },
   "Solarized Dark": {
     "--mm-background": "#002b36",
@@ -30,5 +30,15 @@
     "--mm-waveform-color": "#268bd2",
 
     "--mm-foreground": "#FFF"
+  },
+  "Solarized Light": {
+    "--mm-background": "#fdf6e3",
+    "--mm-title-color": "#859900",
+    "--mm-button-background": "#2aa198",
+    "--mm-button-color": "#000",
+    "--mm-selection": "#eee8d5",
+    "--mm-waveform-color": "#268bd2",
+
+    "--mm-foreground": "#000"
   }
 }

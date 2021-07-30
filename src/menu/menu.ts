@@ -11,9 +11,9 @@ function themeSettings() {
   Swal.fire({
     title: "Choose a theme",
     html: `
-        <select id="themeSelect" class='swal2-input' name="theme"">
-          ${getThemeSettings()} 
-        </select>
+        <select id="themeSelect" class='swal2-input' name="theme""> 
+          ${getThemeSettings()}  
+        </select> 
     `,
     confirmButtonText: "Save",
     focusConfirm: false,

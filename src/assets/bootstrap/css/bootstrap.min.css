@@ -13,14 +13,15 @@
  */
  @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap");
  :root {
-   --mm-background: #282a36;
-   --mm-foreground: #f8f8f2;
-   
-   --mm-button-background: #bd93f9;
-   --mm-button-color: #000000;
-   
-   --mm-selection: #44475a;
-   --mm-waveform-color: #50fa7b;
+	--mm-background: #282a36;
+	--mm-title-color: #f8f8f2;
+	--mm-button-background: #bd93f9;
+	--mm-button-color: #000000;
+
+	--mm-selection: #44475a;
+	--mm-waveform-color: #50fa7b;
+
+	--mm-foreground: #f8f8f2;
    
    --bs-font-sans-serif: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;

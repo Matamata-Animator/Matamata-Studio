@@ -1,6 +1,6 @@
 {
   "name": "matamata",
-  "version": "v1.0.0rc1",
+  "version": "v1.0.1",
   "executableName": "Matamata Desktop",
   "description": "Desktop GUI for Matamata",
   "author": {
@@ -14,6 +14,7 @@
   "license": "MIT",
   "main": "build/main.js",
   "devDependencies": {
+    "@types/jquery": "^3.5.6",
     "@types/node": "^14.17.5",
     "@types/sound-play": "^1.1.0",
     "@types/wavesurfer.js": "^5.1.0",
@@ -27,7 +28,8 @@
   },
   "scripts": {
     "copy-core-files": "copyfiles -u 1 src/render/Core/* src/render/Core/**/* src/render/Core/**/**/* build/",
-    "copy-files": "yarn copy-core-files && copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico src/**/*.js src/**/**/*.woff src/**/**/*.css src/**/**/*.png src/styles/fa/* src/styles/fa/**/* src/styles/fa/**/**/* src/styles/fa/**/**/**/* build/",
+    "copy-asset-files": "copyfiles -u 1 src/assets/* src/assets/**/* src/assets/**/**/* build/",
+    "copy-files": "yarn copy-core-files && yarn copy-asset-files && copyfiles -u 1 src/*.json src/**/*.json src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico src/**/*.js src/**/**/*.woff src/**/**/*.css src/**/**/*.png src/styles/fa/* src/styles/fa/**/* src/styles/fa/**/**/* src/styles/fa/**/**/**/* build/",
     "build": "tsc && yarn run copy-files",
     "watch": "tsc-watch --onSuccess \"yarn run copy-files\"",
     "start": "yarn run build && electron .",
@@ -44,6 +46,7 @@
     "electron-store": "^8.0.0",
     "electron-updater": "^4.3.9",
     "is-elevated": "^3.0.0",
+    "jquery": "^3.6.0",
     "node-fetch": "^2.6.1",
     "node-powershell": "^4.0.0",
     "open": "^8.2.1",

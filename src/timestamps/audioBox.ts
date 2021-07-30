@@ -5,6 +5,9 @@ import { ipcRenderer } from "electron";
 import exp from "constants";
 
 import Swal from "sweetalert2";
+import * as jQuery from "jquery";
+import { applyTheme } from "../themes";
+applyTheme();
 
 let audioPath = "";
 let markerCounter = 0;
@@ -66,8 +69,16 @@ let deletedMarkerName = "DELETED-POSE-MARKER";
 
 var audio = WaveSurfer.create({
   container: "#waveform",
-  waveColor: "blue",
-  progressColor: "purple",
+  waveColor: getComputedStyle(document.body).getPropertyValue(
+    "--mm-waveform-color"
+  ),
+  progressColor: getComputedStyle(document.body).getPropertyValue(
+    "--mm-waveform-color"
+  ),
+  cursorColor: getComputedStyle(document.body).getPropertyValue(
+    "--mm-foreground"
+  ),
+  // progressColor: "#50fa7b",
   height: (9 * innerWidth) / 100,
   plugins: [MarkersPlugin.create([])],
   normalize: true,
@@ -79,12 +90,13 @@ window.onresize = async () => {
   audio.setHeight((9 * innerWidth) / 100);
 };
 
-async function dropHandler(event: DragEvent) {
+async function dropHandler(event: JQuery.DragEvent) {
+  console.log(event);
   event.preventDefault();
-  let path = event.dataTransfer?.files[0].path;
+  let path = event.originalEvent?.dataTransfer?.files[0].path;
 
   if (
-    event.dataTransfer?.files[0].type === "audio/wav" &&
+    event.originalEvent?.dataTransfer?.files[0].type === "audio/wav" &&
     (!isLoaded() ||
       (await confirmOverwrite(
         "Are you sure you want to overwrite current progress?"
@@ -105,6 +117,7 @@ async function dropHandler(event: DragEvent) {
     }
 
     // audio = new Audio(path);
+    console.log(path);
     if (path) {
       audioPath = path;
       audio.load(path);
@@ -195,7 +208,7 @@ async function createMarker(name = "POSE") {
   audio.addMarker({
     time: audio.getCurrentTime(),
     label: name,
-    color: "000000",
+    color: getComputedStyle(document.body).getPropertyValue("--mm-background"),
   });
 
   var markers = audio.markers.markers;
@@ -246,6 +259,7 @@ function deleteMarker(click: MouseEvent) {
 }
 
 document.onkeypress = async (e) => {
+  console.log(e);
   switch (e.key.toLowerCase()) {
     case " ":
       togglePause();
@@ -267,6 +281,7 @@ document.onkeypress = async (e) => {
       break;
   }
 };
+
 function eventFire(el, etype) {
   if (el.fireEvent) {
     el.fireEvent("on" + etype);

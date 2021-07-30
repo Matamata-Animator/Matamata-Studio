@@ -1,61 +1,59 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>Matamata Desktop - Timestamps Creator</title>
-  <link rel="stylesheet" href="../styles/main.css" />
-  <link rel="stylesheet" href="audioBox.css" />
-
-  <link rel="stylesheet" href="../styles/bulma.min.css" />
-  <script src="../styles//bulma-slider.min.js"></script>
-  <link defer rel="stylesheet" href="../styles/fa/css/all.min.css" />
-
-
-  <script>
-    var exports = {};
-  </script>
-  <script defer src="audioBox.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Matamata Desktop</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap">
+    <link rel="stylesheet" href="../assets/css/Momcake.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/render.css">
+    <link rel="stylesheet" href="../assets/css/timestamps.css">
 </head>
 
-<body>
-  <div class="is-vcentered" id="drop_zone" ondrop="dropHandler(event);" ondragover="event.preventDefault()"
-    onclick="audioClicked(event)">
-    <div id="dragHelpText-container">
-      <p class="dragHelpText" id="dragHelpText">Drag your audio here</p>
+<body style="background: var(--mm-background);">
+    <div id="drop_zone" style="background: var(--mm-selection);">
+        <div id="dragHelpText-container">
+            <p id="dragHelpText" style="color: var(--mm-foreground);">Drag your audio here</p>
+        </div>
+        <div id="waveform"></div>
     </div>
-    <div id="waveform"></div>
-  </div>
+    <div class="row">
+        <div class="col">
+            <p id="seconds" style="margin-left: 1vw;">Time: 0.000</p>
+        </div>
+        <div class="col">
+            <div style="display: flex;align-items: center;justify-content: center;">
+                <p><button class="btn btn-primary" id="addPose" type="button" style="color: var(--mm-button-color);background: var(--mm-button-background);">Add Pose</button></p>
+            </div>
+        </div>
+        <div class="col"><input class="form-range" type="range" id="audioZoom" min="20" max="1000" value="20" style="width: 10vw;position: absolute;right: 1vw;"></div>
+    </div>
+    <div class="row" style="width: max(400px, 30vw);">
+        <div class="col"><button class="btn btn-primary" id="animateThis" type="button" style="margin-left: 1vw;color: var(--mm-button-color);background: var(--mm-button-background);">Animate This</button></div>
+        <div class="col"><button class="btn btn-primary" id="saveThis" type="button" style="margin-left: 1vw;color: var(--mm-button-color);background: var(--mm-button-background);">Save</button></div>
+    </div><a class="home-button" href="../menu/index.html"><i class="fa fa-home" style="color: var(--mm-button-background);font-size: 32px;"></i></a>    <script>exports={}</script>
+    <script src='audioBox.js'></script>
+    <script defer>
+        window.$ = window.jQuery = require('jquery');
+        
+        $("#drop_zone").on("drop", dropHandler);
+        $("#drop_zone").on("dragover", (e)=> e.preventDefault());
 
-  <br />
-  <div class="columns">
-    <div class="column">
-      <p id="seconds">Time: 0.000</p>
-    </div>
-    <div class="column has-text-centered">
-      <div class="button" title="Create a pose timestamp (a)"
-        onclick="(async ()=> {createMarker(await getPoseName())})()" title>New Marker</div>
-    </div>
-    <div class="column">
-      <div class="slidecontainer" title="Zoom in on the waveform">
-        <input type="range" min="20" max="1000" value="20" class="slider" id="audioZoom" />
-      </div>
-    </div>
-  </div>
+        $("#addPose").on("click", async ()=> {createMarker(await getPoseName())});
 
-  <br />
-  <div class="columns">
-    <div class="button" title="Open the 'Video Render' page with this file as the timestamps" style="margin-left: 2.1vw"
-      onclick="animateThis()">
-      Animate This
-    </div>
-    <div class="button" title="Output timestamps to a file" style="margin-left: 2.1vw" onclick="saveTimestamps()">
-      Save
-    </div>
-  </div>
+        $("#animateThis").on("click", animateThis);
+        
+        $("#saveThis").on("click", saveTimestamps);
 
-
-  <a href='../menu/index.html'>
-    <div class='home-button'>
-      <i class="fas fa-home fa-2x"></i>
-    </div>
-  </a>
+    </script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
+
+</html>

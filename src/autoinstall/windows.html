@@ -1,63 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-  <title>Matamata Desktop</title>
-  <script>
-    exports = {};
-  </script>
-  <link rel="stylesheet" href="../styles/bulma.min.css" />
-  <script src="../styles/bulma-slider.min.js"></script>
-  <link rel="stylesheet" href="../styles/main.css" />
-
-  <link rel="stylesheet" href="autoinstall.css" />
-  <link defer rel="stylesheet" href="../styles/fa/css/all.min.css" />
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Matamata Desktop</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap">
+    <link rel="stylesheet" href="../assets/css/Momcake.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/render.css">
 </head>
 
 <body>
-  <div class="columns is-vcentered">
-    <div class="column has-text-centered">
-      <p>Go down the list of buttons, wait for a success before continuing.</p>
-      <p>---- Python ----</p>
-      <div class="button" onclick="uninstallPython()">Uninstall Old Python</div>
-      <br />
-      <div class="button" onclick="installPython()">Install Python</div>
-      <br />
-      <p>Restart this app</p>
-      <div class="button" onclick="installPackages()">
-        Install Required Packages
-      </div>
-      <br />
-      <p>---- WSL ----</p>
-      <div class="button" onclick="enableWSL()">Enable WSL</div>
-      <br />
-      <p>Restart/Update your computer</p>
-      <div class="button" onclick="installKernal()">Install WSL Kernal</div>
-      <br />
-      <div class="button" onclick="setWSL2()">WSL Mode 2</div>
-      <br />
-      <p>---- Docker ----</p>
-      <div class="button" onclick="installDocker()">
-        Install Docker (Can take a while)
-      </div>
-      <br />
-      <p>Restart your computer</p>
-      <div class="button" onclick="dockerPull()">Pull Gentle</div>
-      <br />
-      <p>---- FFmpeg ----</p>
-      <div class="button" onclick="rmFFmpeg()">Delete Old FFmpeg</div>
-      <br />
-      <div class="button" onclick="downloadFFmpeg()">Download FFmpeg</div>
-      <br />
-      <div class="button" onclick="pathFFmpeg()">Add FFmpeg to Path</div>
-      <br />
-
-      <br />
-    </div>
-  </div>
-  <script defer src="windows.js"></script>
-
-  <a href='../menu/index.html'>
-    <div class='home-button'>
-      <i class="fas fa-home fa-2x"></i>
-    </div>
-  </a>
+    <div class="row">
+        <div class="col" style="text-align: center;">
+            <p><strong>Go down the list of buttons, wait for a success popup before continuing.</strong><br></p>
+            <div class="container"><button class="btn btn-primary" id="uninstallPy" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Remove Default Python Installation</button></div>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="installPython" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Install Python</button></div>
+            <p>Restart this app<br></p>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="installPackages" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Install Python Packages</button></div>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="enableWSL" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Enable WSL</button></div>
+            <p>Restart /Update your computer&nbsp;<br></p>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="installKernal" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Install WSL Kernal</button></div>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="setWSL2" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">WSL Mode 2</button></div>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="installDocker" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Install Docker (This may take a while)</button></div>
+            <p>Restart your computer<br></p>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="dockerPull" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Pull Docker Container</button></div>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="rmFFmpeg" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Delete Old FFmpeg</button></div>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="downloadFFmpeg" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Download FFmpeg</button></div>
+            <div class="container" style="/*height: 70px;*/"><button class="btn btn-primary" id="pathFFmpeg" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Add FFmpeg to Path</button></div>
+        </div>
+    </div><a class="home-button" href="../menu/index.html"><i class="fa fa-home" style="color: var(--mm-button-background);font-size: 32px;"></i></a>    <script>exports={}</script>
+    <script src='windows.js'></script>
+    <script defer>
+        window.$ = window.jQuery = require('jquery');
+        $("#installPython").on("click", installPython);
+        $("#installPackages").on("click", installPackages);
+        $("#enableWSL").on("click", enableWSL);
+        $("#installKernal").on("click", installKernal);
+        $("#setWSL2").on("click", setWSL2);
+        $("#installDocker").on("click", installDocker);
+        $("#dockerPull").on("click", dockerPull);
+        $("#rmFFmpeg").on("click", rmFFmpeg);
+        $("#downloadFFmpeg").on("click", downloadFFmpeg);
+        $("#uninstallPy").on("click", pathFFmpeg);
+    </script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
+
+</html>

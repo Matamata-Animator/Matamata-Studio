@@ -8,7 +8,7 @@ import { autoUpdater } from "electron-updater";
 import * as os from "os";
 
 import * as fetch from "node-fetch";
-import { checkDefaults } from "./renderDefaults";
+import { checkDefaults } from "./userDefaults";
 function checkStatus(res) {
   if (res.ok) {
     return res.json();
@@ -74,7 +74,8 @@ app.on("ready", () => {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    minWidth: 775,
+    width: 1045,
+    minWidth: 920,
     minHeight: 650,
   });
   win.maximize();

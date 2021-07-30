@@ -1,5 +1,12 @@
 //@ts-nocheck
 import Swal from "sweetalert2";
+import { applyTheme } from "../themes";
+applyTheme();
+
+document.getElementById("addPoseButton")!.onclick = addPose;
+document.getElementById("savePosesButton")!.onclick = () => {
+  save(json, json_name);
+};
 
 let dropzone: p5.Element;
 let mdrop: p5.Element;
@@ -37,7 +44,7 @@ function setup() {
   mdrop = select("#mdrop");
   mdrop.dragOver(mhighlight);
   mdrop.dragLeave(munhighlight);
-  mdrop.drop(mgotFile, unhighlight);
+  mdrop.drop(mgotFile, munhighlight);
   rectMode(CENTER);
 
   mouth_image = loadImage("mouths/Adown.png");
@@ -56,8 +63,8 @@ function draw() {
     mouth_pos = [mouseX, mouseY];
   }
 
-  var x = document.getElementById("form").elements;
-  if (x["facingLeft"].checked != mirror_mouth) {
+  var x = document.getElementById("checkbox");
+  if (x.checked != mirror_mouth) {
     mirror_mouth = !mirror_mouth;
   }
 }
@@ -116,18 +123,18 @@ function drawMouth(x: number, y: number) {
   imageMode(CORNER);
 }
 function highlight() {
-  dropzone.style("background-color", "#848aac");
+  dropzone.style("background-color", "var(--mm-selection)");
 }
 
 function unhighlight() {
-  dropzone.style("background-color", "#626785");
+  dropzone.style("background-color", "var(--mm-background)");
 }
 function mhighlight() {
-  mdrop.style("background-color", "#848aac");
+  mdrop.style("background-color", "var(--mm-selection)");
 }
 
 function munhighlight() {
-  mdrop.style("background-color", "#626785");
+  mdrop.style("background-color", "var(--mm-background)");
 }
 
 function hovering() {

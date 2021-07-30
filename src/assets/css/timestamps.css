@@ -1,0 +1,23 @@
+#drop_zone {
+  background: red;
+  min-height: 9vw;
+}
+
+#dragHelpText {
+  margin: auto;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#dragHelpText-container {
+  display: flex;
+  justify-content: center;
+  height: 9vw;
+}
+
+#waveform {
+  width: 100%;
+  display: none;
+}
+

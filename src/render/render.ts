@@ -9,6 +9,10 @@ import { getSudo } from "../getSudo";
 import Store from "electron-store";
 import { UrlWithStringQuery } from "url";
 
+import * as jQuery from "jquery";
+
+import { applyTheme } from "../themes";
+applyTheme();
 const store = new Store();
 
 interface PathReturn {
@@ -49,8 +53,9 @@ async function savePath(item, options = {}) {
 let running = false;
 
 function getExtras() {
-  let extras = document.getElementById("extras") as HTMLInputElement;
-  return extras.value;
+  return "";
+  // let extras = document.getElementById("extras") as HTMLInputElement;
+  // return extras.value;
 }
 
 async function run(command: string): Promise<string> {
@@ -75,7 +80,7 @@ async function run(command: string): Promise<string> {
 }
 
 async function render() {
-  if (!(req["audio"] || store.get("audio")) || !req["output"]) {
+  if (!(req["audio"] || store.get("renderDefaults.audio")) || !req["output"]) {
     Swal.fire(
       "Please make sure you have selected an audio file and an output path."
     );
@@ -84,10 +89,12 @@ async function render() {
 
   let pyArgs = "";
   for (const [k, v] of store) {
-    let value = req[k] ?? v;
-    if (value && k != "defaults-set") {
-      pyArgs += `--${k} ${value} ${getExtras()}`;
-    }
+    jQuery.each(store.get("renderDefaults"), (k, v) => {
+      let value = req[k] ?? v;
+      if (value && k != "defaults-set") {
+        pyArgs += `--${k} ${value} ${getExtras()}`;
+      }
+    });
   }
 
   running = true;
@@ -155,7 +162,7 @@ function showDefaultsMenu() {
     </select>
 
     <input type="text" id="argDefault" class="swal2-input" value="${store.get(
-      "audio"
+      "renderDefaults.audio"
     )}">
 `,
     confirmButtonText: "Save",
@@ -166,7 +173,9 @@ function showDefaultsMenu() {
       let value =
         Swal.getPopup()!.querySelector<HTMLInputElement>("#argDefault")!.value;
 
-      value == "" ? store.set(parameter, null) : store.set(parameter, value);
+      value == ""
+        ? store.set(`renderDefaults.${parameter}`, null)
+        : store.set(`renderDefaults.${parameter}`, value);
       assignPath(value, parameter);
     },
   });
@@ -181,12 +190,17 @@ function selectChange() {
 
 function getFormOptions() {
   let options = "";
-  for (const [k, v] of store) {
+  let defaults = store.get("renderDefaults");
+  console.log(defaults);
+  jQuery.each(defaults, (k, v) => {
     options += `<option value="${k}">${k}</option>`;
-  }
+  });
+  // for (const [k, v] of store.get("renderDefaults")) {
+  //   options += `<option value="${k}">${k}</option>`;
+  // }
   return options;
 }
 
-for (const [k, v] of store) {
+jQuery.each(store.get("renderDefaults"), (k, v) => {
   assignPath(ipcRenderer.sendSync("tempGet", k) ?? v, k);
-}
+});

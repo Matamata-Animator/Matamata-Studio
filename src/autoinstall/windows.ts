@@ -1,6 +1,9 @@
 import { ipcRenderer, app } from "electron";
 import Swal from "sweetalert2";
 import { existsSync, lstatSync } from "fs";
+import { applyTheme } from "../themes";
+applyTheme();
+
 let repo = "https://github.com/Matamata-Animator/Windows-Install-Files";
 
 let running = false;

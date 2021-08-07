@@ -1,14 +1,14 @@
-# Matamata Desktop
+# Matamata Studio
 
-[![Build/Release](https://github.com/Matamata-Animator/Desktop/actions/workflows/build.yml/badge.svg)](https://github.com/Matamata-Animator/Desktop/actions/workflows/build.yml) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Matamata-Animator/Desktop?label=Curerent%20Version&style=flat-square)
+[![Build/Release](https://github.com/Matamata-Animator/Matamata-Studio/actions/workflows/build.yml/badge.svg)](https://github.com/Matamata-Animator/Matamata-Studio/actions/workflows/build.yml) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Matamata-Animator/Matamata-Studio?label=Curerent%20Version&style=flat-square)
 
-A GUI interface to easily use [Matamata](https://github.com/Matamata-Animator/Matamata)
+Easily create lip-synced animations
 
 ## Installation
 
 ### Windows
 
-- Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases), then choose one of the following options:
+- Download and run the Windows installer from the most recent [release](https://github.com/Matamata-Animator/Matamata-Studio/releases), then choose one of the following options:
 
 #### Automatic Install
 
@@ -26,7 +26,7 @@ docker pull lowerquality/gentle
 
 ### Ubuntu
 
-- Download and install the `.deb` file from the most recent [release](https://github.com/Matamata-Animator/Desktop/releases), then choose one of the two options below:
+- Download and install the `.deb` file from the most recent [release](https://github.com/Matamata-Animator/Matamata-Studio/releases), then choose one of the two options below:
 
 #### Automatic Installation
 

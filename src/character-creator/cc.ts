@@ -155,7 +155,7 @@ function mousePressed() {
   mouse_down = true;
 }
 function mouseReleased() {
-  mouse_down = false;
+  mouse_down = false; 
 }
 interface Pose {
   image: string;

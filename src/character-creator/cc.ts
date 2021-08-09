@@ -155,7 +155,7 @@ function mousePressed() {
   mouse_down = true;
 }
 function mouseReleased() {
-  mouse_down = false;
+  mouse_down = false; 
 }
 interface Pose {
   image: string;
@@ -166,10 +166,10 @@ interface Pose {
   closed_mouth?: string;
 }
 
-function addPose() {
+function addPose() { 
   if (!character) {
     Swal.fire("Please upload a pose image");
-  }
+  } 
 
   let gc: Map<string, number> = new Map();
   var x = document.getElementById("form").elements;
@@ -184,6 +184,10 @@ function addPose() {
     scale: int(mScale.value()) / 100,
     facingRight: !mirror_mouth,
   };
+
+  if(!pose.facingRight){
+    pose.x = (cnv.width - 2 * border)/2 - pose.x + (cnv.width - 2 * border)/2
+  }
 
   if (gc.get("closed_mouth")! + "") {
     pose["closed_mouth"] = gc.get("closed_mouth");

@@ -88,14 +88,13 @@ async function render() {
   }
 
   let pyArgs = "";
-  for (const [k, v] of store) {
-    jQuery.each(store.get("renderDefaults"), (k, v) => {
-      let value = req[k] ?? v;
-      if (value && k != "defaults-set") {
-        pyArgs += `--${k} ${value} ${getExtras()}`;
-      }
-    });
-  }
+  jQuery.each(store.get("renderDefaults"), (k, v) => {
+    let value = req[k] ?? v;
+    if (value && k != "defaults-set") {
+      pyArgs += `--${k} ${(value as string).replace(/\\/g, '/')} ${getExtras()}`;
+    }
+  });
+
 
   running = true;
 
@@ -106,6 +105,7 @@ async function render() {
   let cdCommand = "";
 
   let dir: string = ipcRenderer.sendSync("getCurrentDir");
+  console.log(dir)
   let sudoPswd = "";
   if (os.platform() === "linux") {
     sudoPswd = await getSudo();
@@ -119,15 +119,15 @@ async function render() {
   }
 
   if (os.platform() === "win32") {
-    pyCommand = `python ${pyCommand}`;
+    pyCommand = `python ${pyCommand}`; 
     if (dir.includes("app.asar")) {
-      req.corePath = dir;
+      req.corePath = dir;  
       req.corePath = req.corePath.replace(
         "app.asar\\build",
-        "build\\render\\Core"
-      );
-    }
-    cdCommand += "cd && ";
+        "build\\render\\Core" 
+      );   
+       cdCommand += "cd && "; 
+    } 
   }
 
   cdCommand += `cd ${req.corePath}`;

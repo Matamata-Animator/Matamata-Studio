@@ -51,7 +51,7 @@ html {
 }
 
 .home-button {
-  position: absolute;
+  position: fixed;
   bottom: 1vw;
   left: 1vw;
 }

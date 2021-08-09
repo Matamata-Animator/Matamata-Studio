@@ -185,6 +185,10 @@ function addPose() {
     facingRight: !mirror_mouth,
   };
 
+  if(!pose.facingRight){
+    pose.x = (cnv.width - 2 * border)/2 - pose.x + (cnv.width - 2 * border)/2
+  }
+
   if (gc.get("closed_mouth")! + "") {
     pose["closed_mouth"] = gc.get("closed_mouth");
   }

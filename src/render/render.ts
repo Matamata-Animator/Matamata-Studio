@@ -124,7 +124,7 @@ async function render() {
       req.corePath = dir;  
       req.corePath = req.corePath.replace(
         "app.asar\\build",
-        "build\\render\\Core"
+        "build\\render\\Core" 
       );
     }
     cdCommand += "cd && ";

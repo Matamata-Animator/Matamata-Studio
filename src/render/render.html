@@ -40,6 +40,10 @@
         $("#timestampsBtn").on("click", ()=>{
             uploadPath('timestamps', {filters: [{name: 'Timestamps File',extensions:['txt']}]})
         });
+
+        $("#textBtn").on("click", ()=>{
+            uploadPath('text', {filters: [{name: 'Text File',extensions:['txt']}]})
+        });
         
         $("#renderBtn").on("click", ()=>{
             if(!running) render()

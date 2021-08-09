@@ -60,9 +60,9 @@ if (!isDev) {
   }
 }
 
-try {
-  require("electron-reloader")(module);
-} catch (_) {}
+// try {
+//   require("electron-reloader")(module);
+// } catch (_) {}
 
 var path = require("path");
 let win: BrowserWindow;

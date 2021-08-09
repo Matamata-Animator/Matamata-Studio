@@ -30,10 +30,10 @@
         });
 
        $("#outputBtn").on("click", ()=>{
-            uploadPath('output', {defaultPath: 'myAnimation.mov', filters: [{name: 'Video File',extensions:['mp4', 'mov']}]}) 
+            savePath('output', {defaultPath: 'myAnimation.mov', filters: [{name: 'Video File',extensions:['mp4', 'mov']}]}) 
         });
         
-       $("#outputBtn").on("click", ()=>{
+       $("#timestampsBtn").on("click", ()=>{
             uploadPath('character', {filters: [{name: 'Character File',extensions:['json']}]}) 
         });
         

@@ -166,10 +166,10 @@ interface Pose {
   closed_mouth?: string;
 }
 
-function addPose() {
+function addPose() { 
   if (!character) {
     Swal.fire("Please upload a pose image");
-  }
+  } 
 
   let gc: Map<string, number> = new Map();
   var x = document.getElementById("form").elements;

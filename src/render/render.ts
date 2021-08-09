@@ -119,7 +119,7 @@ async function render() {
   }
 
   if (os.platform() === "win32") {
-    pyCommand = `python ${pyCommand}`;
+    pyCommand = `python ${pyCommand}`; 
     if (dir.includes("app.asar")) {
       req.corePath = dir;  
       req.corePath = req.corePath.replace(

@@ -78,6 +78,9 @@ if (!isDev) {
             require("open")(asset[0].browser_download_url);
           }
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 }

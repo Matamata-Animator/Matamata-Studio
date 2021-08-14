@@ -3,6 +3,7 @@ import jQuery from "jquery";
 
 import Swal from "sweetalert2";
 import Store from "electron-store";
+import { ipcRenderer } from "electron";
 const store = new Store();
 
 applyTheme();
@@ -43,3 +44,6 @@ function getThemeSettings() {
   // }
   return options;
 }
+
+let versionTag = document.getElementById("version-number");
+versionTag!.innerText = `v${ipcRenderer.sendSync("getSemVer").version}`;

@@ -3,11 +3,17 @@ import { ipcMain, dialog, app } from "electron";
 
 import Store from "electron-store";
 import { writeFileSync } from "fs";
+
+import { autoUpdater } from "electron-updater";
+
 Store.initRenderer();
 
 let tempStore = {};
 
 export function setupHandlers() {
+  ipcMain.on("getSemVer", (ev) => {
+    ev.returnValue = autoUpdater.currentVersion;
+  });
   ipcMain.on("getCurrentDir", (ev) => {
     ev.returnValue = __dirname;
   });

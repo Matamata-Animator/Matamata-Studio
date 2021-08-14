@@ -61,7 +61,7 @@
   },
   "build": {
     "appId": "com.aispawn.matamata",
-    "productName": "Matamata Desktop",
+    "productName": "Matamata Studio",
     "extraResources": [
       "build/render/Core/*",
       "build/render/Core/**/*",

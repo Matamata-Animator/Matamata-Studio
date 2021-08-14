@@ -38,6 +38,7 @@ async function confirmOverwrite(text: string) {
 }
 
 async function getPoseName() {
+  mode = Mode.Typing;
   let pname = await Swal.fire({
     title: "Pose Name:",
     html: `
@@ -198,6 +199,7 @@ async function animateThis() {
 }
 
 async function createMarker(name = "POSE") {
+  console.log(name);
   mode = Mode.Select;
   for (const m of audio.markers.markers) {
     if (m.time == audio.getCurrentTime()) {
@@ -259,26 +261,28 @@ function deleteMarker(click: MouseEvent) {
 }
 
 document.onkeypress = async (e) => {
-  console.log(e);
-  switch (e.key.toLowerCase()) {
-    case " ":
-      togglePause();
-      break;
-    case "s":
-      mode = Mode.Select;
-      break;
-    case "a":
-      createMarker();
-      break;
-    case "d":
-      mode = Mode.Delete;
-      break;
-    case "enter":
-      let x = document.getElementsByClassName("swal2-confirm")[0];
-      if (x) {
-        eventFire(x, "click");
-      }
-      break;
+  if (mode != Mode.Typing) {
+    switch (e.key.toLowerCase()) {
+      case " ":
+        togglePause();
+        break;
+      case "s":
+        mode = Mode.Select;
+        break;
+      case "a":
+        createMarker();
+        break;
+      case "d":
+        mode = Mode.Delete;
+        break;
+    }
+  }
+
+  if (e.key.toLocaleLowerCase() == "enter") {
+    let x = document.getElementsByClassName("swal2-confirm")[0];
+    if (x) {
+      eventFire(x, "click");
+    }
   }
 };
 

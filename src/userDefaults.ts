@@ -47,5 +47,5 @@ function setDefaults() {
   }
   store.set("renderDefaults.defaults-set", true);
 
-  store.set("themes.currentTheme", "Nord");
+  store.set("themes.currentTheme", "Dracula");
 }

@@ -2,3 +2,8 @@
   margin: 4vw;
 }
 
+#version-number {
+  position: fixed;
+  bottom: 0.1vw;
+  right: 1vw;
+}

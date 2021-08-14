@@ -18,11 +18,12 @@ const isElevated = require("is-elevated");
       title: "You need elevated permissions to use the autoinstaller!",
       text: "Please relaunch this app as an administrator.",
       icon: "error",
-      confirmButtonText: `Quit`,
+      confirmButtonText: `Return Home`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        ipcRenderer.send("quit");
+        window.location.href = "../menu/index.html";
+        // ipcRenderer.send("quit");
       }
     });
   }

@@ -17,7 +17,7 @@
     "--mm-button-background": "#5e81ac",
     "--mm-button-color": "#000",
     "--mm-selection": "#4c566a",
-    "--mm-waveform-color": "#8fbcbb",
+    "--mm-waveform-color": "##50FA7B",
 
     "--mm-foreground": "#FFF"
   },

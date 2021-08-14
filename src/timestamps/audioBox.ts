@@ -43,7 +43,7 @@ async function getPoseName() {
     title: "Pose Name:",
     html: `
   <input type="poseName" id="poseName" class="swal2-input" placeholder="crossed">`,
-    confirmButtonText: "Let's Go!",
+    confirmButtonText: "Add Pose",
     focusConfirm: false,
     allowEnterKey: true,
 

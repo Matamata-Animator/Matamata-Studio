@@ -122,3 +122,4 @@ dist
 build
 
 .exe
+.vscode

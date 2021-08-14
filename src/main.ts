@@ -25,6 +25,26 @@ if (!isDev) {
     title: "Update Dialog",
   };
   if (os.platform() != "linux") {
+    const log = require("electron-log");
+    function sendStatusToWindow(text) {
+      log.info(text);
+      win.webContents.send("message", text);
+    }
+    autoUpdater.on("download-progress", (progressObj) => {
+      let log_message = "Download speed: " + progressObj.bytesPerSecond;
+      log_message = log_message + " - Downloaded " + progressObj.percent + "%";
+      log_message =
+        log_message +
+        " (" +
+        progressObj.transferred +
+        "/" +
+        progressObj.total +
+        ")";
+      sendStatusToWindow(log_message);
+    });
+    autoUpdater.on("update-downloaded", (info) => {
+      sendStatusToWindow("Update downloaded");
+    });
     autoUpdater.autoDownload = false;
     autoUpdater.autoInstallOnAppQuit = true;
     autoUpdater.allowDowngrade = true;
@@ -35,7 +55,9 @@ if (!isDev) {
         r.updateInfo.version != autoUpdater.currentVersion.version &&
         dialog.showMessageBoxSync(confirmDialog) == 1
       ) {
-        autoUpdater.downloadUpdate();
+        autoUpdater.autoDownload = true;
+
+        autoUpdater.checkForUpdatesAndNotify();
       }
     });
   } else {

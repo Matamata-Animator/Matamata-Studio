@@ -46,6 +46,7 @@ async function getPoseName() {
     confirmButtonText: "Add Pose",
     focusConfirm: false,
     allowEnterKey: true,
+    allowOutsideClick: false,
 
     preConfirm: async () => {
       let pname = (
@@ -127,6 +128,11 @@ async function dropHandler(event: JQuery.DragEvent) {
         setZoomMin();
       });
     }
+  } else if (event.originalEvent?.dataTransfer?.files[0].type != "audio/wav") {
+    await Swal.fire({
+      title: "Please ensure that you upload a WAV file",
+      icon: "warning",
+    });
   }
 }
 
@@ -260,7 +266,7 @@ function deleteMarker(click: MouseEvent) {
   marker.remove();
 }
 
-document.onkeypress = async (e) => {
+document.onkeyup = async (e) => {
   if (mode != Mode.Typing) {
     switch (e.key.toLowerCase()) {
       case " ":
@@ -270,7 +276,7 @@ document.onkeypress = async (e) => {
         mode = Mode.Select;
         break;
       case "a":
-        createMarker();
+        createMarker(await getPoseName());
         break;
       case "d":
         mode = Mode.Delete;

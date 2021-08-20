@@ -127,6 +127,11 @@ async function dropHandler(event: JQuery.DragEvent) {
         setZoomMin();
       });
     }
+  }else if(event.originalEvent?.dataTransfer?.files[0].type != 'audio/wav'){
+    await Swal.fire({
+      title: 'Please ensure that you upload a WAV file',
+      icon: "warning",
+    })
   }
 }
 

@@ -5,18 +5,18 @@
   cursor: pointer;
   text-align: center;
 
-  width: 28vw;
+  width: max(28vw, 327px);
   margin-left: 1.5vw;
   margin-right: 1.5vw;
 }
 
 img {
-  width: 26vw;
-  height: 13vw;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  margin-top: 1vw;
-  margin-bottom: 1vw;
+  width: 93%;
+  height: 47.5%;
+  margin-left: 3.5%;
+  margin-right: 3.5%;
+  margin-top: 3.5%;
+  margin-bottom: 3.5%;
   object-fit: cover;
 }
 

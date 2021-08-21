@@ -36,7 +36,7 @@ for (const e of extras) {
   let text = document.createElement("div");
   text.className = "w3-container w3-center extra-desc";
   text.innerHTML = ` 
-     <p><strong>${e.title}</strong></p>
+     <p><strong>${e.title}</strong></p> 
    <p>${e.description}</p> 
   `;
 

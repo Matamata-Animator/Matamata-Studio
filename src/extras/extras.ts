@@ -20,13 +20,21 @@ for (const e of extras) {
 
   let card = document.createElement("div");
   card.className = "w3-card-4 card";
-  card.onclick = () => window.open(`${e.url}`);
+  card.onclick = () => {
+    // var params = [
+    //   "height=" + window.innerHeight,
+    //   "width=" + window.innerWidth,
+    //   "fullscreen=yes", // only works in IE, but here for completeness
+    // ].join(",");
+
+    let newWindow = window.open(`${e.url}`);
+  };
 
   let image = document.createElement("img");
   image.src = e.thumbnail;
 
   let text = document.createElement("div");
-  text.className = "w3-container w3-center";
+  text.className = "w3-container w3-center extra-desc";
   text.innerHTML = ` 
      <p><strong>${e.title}</strong></p>
    <p>${e.description}</p> 

@@ -335,4 +335,9 @@ function loadTimestamps(path: string) {
     return;
   }
   console.log(timestamps);
+
+  for (const stamp of timestamps) {
+    audio.setCurrentTime(stamp.timestamp / 1000);
+    createMarker(stamp.pose_name);
+  }
 }

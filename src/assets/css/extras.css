@@ -1,0 +1,12 @@
+.card {
+  padding: 1vw;
+  padding-bottom: 0vw;
+  color: var(--mm-foreground);
+  margin-bottom: 2vw;
+}
+
+img {
+  width: 30vw;
+  height: 15vw;
+  object-fit: cover;
+}

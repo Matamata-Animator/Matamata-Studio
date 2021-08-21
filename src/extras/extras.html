@@ -1,47 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    />
-    <title>Matamata Desktop</title>
-    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap"
-    />
-    <link rel="stylesheet" href="../assets/css/Momcake.css" />
-    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css" />
-    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css" />
-    <link
-      rel="stylesheet"
-      href="../assets/fonts/fontawesome5-overrides.min.css"
-    />
-    <link rel="stylesheet" href="../assets/css/styles.css" />
-    <link rel="stylesheet" href="../assets/css/render.css" />
-  </head>
 
-  <body>
-    <div class="row">
-      <div class="col" style="text-align: center">
-        <p>
-          This is an assortment of tools that are useful for video creation.
-          These are used by but not created by the Matamata team.
-        </p>
-        <div class="container">
-          
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <title>Matamata Desktop</title>
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap" />
+  <link rel="stylesheet" href="../assets/css/Momcake.css" />
+  <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css" />
+  <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css" />
+  <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/extras.css" />
+
+</head>
+
+<body>
+  <div class="col" style="text-align: center">
+    <p>
+      This is an assortment of tools that are useful for video creation.
+      These are used by but not created by the Matamata team. An internet connection may be required.
+    </p>
+    <div class="flex-cont" id='cards'>
+      <div class="w3-card-4 card" style="background-color: var(--mm-selection);"
+        onclick="window.open('https://www.w3schools.com')">
+        <img src="thumbnails/photopea.png">
+        <div class="w3-container w3-center">
+          <p><strong>Title</strong></p>
+          <p>Description</p>
+        </div>
+      </div>
+
+
     </div>
-    <a class="home-button" href="../menu/index.html"
-      ><i
-        class="fa fa-home"
-        style="color: var(--mm-button-background); font-size: 32px"
-      ></i
-    ></a>
+
+    <a class="home-button" href="../menu/index.html"><i class="fa fa-home"
+        style="color: var(--mm-button-background); font-size: 32px"></i></a>
     <script>
       exports = {};
     </script>
+    <script src='extras.js'></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-  </body>
+</body>
+
 </html>

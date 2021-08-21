@@ -30,20 +30,9 @@ if (!isDev) {
       log.info(text);
       win.webContents.send("message", text);
     }
-    autoUpdater.on("download-progress", (progressObj) => {
-      let log_message = "Download speed: " + progressObj.bytesPerSecond;
-      log_message = log_message + " - Downloaded " + progressObj.percent + "%";
-      log_message =
-        log_message +
-        " (" +
-        progressObj.transferred +
-        "/" +
-        progressObj.total +
-        ")";
-      sendStatusToWindow(log_message);
-    });
+
     autoUpdater.on("update-downloaded", (info) => {
-      sendStatusToWindow("Update downloaded");
+      sendStatusToWindow("Update Downloaded");
     });
     autoUpdater.autoDownload = false;
     autoUpdater.autoInstallOnAppQuit = true;
@@ -100,8 +89,8 @@ app.on("ready", () => {
       contextIsolation: false,
     },
     width: 1045,
-    minWidth: 920,
-    minHeight: 650,
+    // minWidth: 920,
+    // minHeight: 650,
   });
   win.maximize();
   let indexHTML = path.join(__dirname + "/menu/index.html");

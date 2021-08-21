@@ -8,6 +8,10 @@ import Swal from "sweetalert2";
 import * as jQuery from "jquery";
 import { applyTheme } from "../themes";
 import { Console } from "console";
+
+import * as fs from "fs";
+import { NamedTupleMember } from "typescript";
+
 applyTheme();
 
 let audioPath = "";
@@ -308,5 +312,27 @@ function eventFire(el, etype) {
 }
 
 function loadTimestamps(path: string) {
-  console.log(path);
+  let wholeFile = fs.readFileSync(path).toString();
+  let replaced = wholeFile.replace("\r", "\n");
+  replaced = replaced.replace(/\n+/g, "\n");
+  let lines = replaced.split("\n");
+  interface Pose {
+    pose_name: string;
+    timestamp: number;
+  }
+  let timestamps: Pose[] = [];
+  try {
+    for (const line of lines) {
+      console.log(line);
+      let split = line.split(" ");
+      timestamps.push({
+        pose_name: split[1],
+        timestamp: split[0] as unknown as number,
+      });
+    }
+  } catch {
+    console.log("BAD FILE");
+    return;
+  }
+  console.log(timestamps);
 }

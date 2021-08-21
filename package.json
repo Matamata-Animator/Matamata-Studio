@@ -1,6 +1,6 @@
 {
   "name": "matamata",
-  "version": "v1.2.4",
+  "version": "v1.3.0",
   "executableName": "Matamata Studio",
   "description": "Desktop GUI for Matamata",
   "author": {
@@ -52,6 +52,7 @@
     "node-powershell": "^4.0.0",
     "open": "^8.2.1",
     "p5": "^1.4.0",
+    "pako": "^2.0.4",
     "spawn-command": "^0.0.2-1",
     "sudo-block": "^4.0.0",
     "sweetalert2": "^11.0.18",

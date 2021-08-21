@@ -28,9 +28,9 @@ html {
 }
 
 .dropText {
-  left: .1vw;
+  left: 0.1vw;
   margin-left: 0;
-  adding-left: 0px;
+  padding-left: 0px;
 }
 
 .checkbox {
@@ -43,7 +43,7 @@ html {
 }
 
 .container {
-  height: max(4vw,60px);
+  height: max(4vw, 60px);
 }
 
 .btn {
@@ -56,3 +56,23 @@ html {
   left: 1vw;
 }
 
+.menu-buttons-flex-cont,
+.flex-cont {
+  /* We first create a flex layout context */
+  display: flex;
+
+  /* Then we define the flow direction 
+     and if we allow the items to wrap 
+   * Remember this is the same as:
+   * flex-direction: row;
+   * flex-wrap: wrap;
+   */
+  flex-flow: row wrap;
+
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-around;
+
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}

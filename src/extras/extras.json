@@ -1,0 +1,22 @@
+{
+  "extras": [
+    {
+      "title": "Photopea - Photoshop Equivalent",
+      "description": "Photopea is a free online image editor, supporting PSD, Sketch and XCF files.",
+      "url": "https://www.photopea.com/",
+      "thumbnail": "thumbnails/photopea.png"
+    },
+    {
+      "title": "Figma* - Illustrator Alike",
+      "description": "Figma is a vector graphics editor and prototyping tool.",
+      "url": "https://www.figma.com/login",
+      "thumbnail": "thumbnails/figma.png"
+    },
+    {
+      "title": "Vectr - Illustrator Alike",
+      "description": "Similar to Figma, however it is a more lightweight option, and it does not require an account.",
+      "url": "https://vectr.com/tmp",
+      "thumbnail": "thumbnails/vectr.png"
+    }
+  ]
+}

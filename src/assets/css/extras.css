@@ -1,0 +1,33 @@
+.card {
+  background-color: var(--mm-selection);
+  color: var(--mm-foreground);
+  margin-bottom: 2vw;
+  cursor: pointer;
+  text-align: center;
+
+  width: 28vw;
+  margin-left: 1.5vw;
+  margin-right: 1.5vw;
+}
+
+img {
+  width: 26vw;
+  height: 13vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  object-fit: cover;
+}
+
+.extra-desc {
+  margin-top: 0.5vw;
+}
+
+.intro {
+  margin: 1vw;
+  margin-bottom: 2vw;
+  text-align: center;
+  width: 70vw;
+  margin-left: 15vw;
+}

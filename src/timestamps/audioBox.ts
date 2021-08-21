@@ -7,6 +7,7 @@ import exp from "constants";
 import Swal from "sweetalert2";
 import * as jQuery from "jquery";
 import { applyTheme } from "../themes";
+import { Console } from "console";
 applyTheme();
 
 let audioPath = "";
@@ -95,8 +96,8 @@ window.onresize = async () => {
 async function dropHandler(event: JQuery.DragEvent) {
   console.log(event);
   event.preventDefault();
-  let path = event.originalEvent?.dataTransfer?.files[0].path;
-
+  let path = event.originalEvent?.dataTransfer?.files[0].path as string;
+  console.log(event.originalEvent?.dataTransfer?.files[0].type);
   if (
     event.originalEvent?.dataTransfer?.files[0].type === "audio/wav" &&
     (!isLoaded() ||
@@ -128,7 +129,11 @@ async function dropHandler(event: JQuery.DragEvent) {
         setZoomMin();
       });
     }
-  } else if (event.originalEvent?.dataTransfer?.files[0].type != "audio/wav") {
+  } else if (
+    event.originalEvent?.dataTransfer?.files[0].type === "text/plain"
+  ) {
+    loadTimestamps(path);
+  } else {
     await Swal.fire({
       title: "Please ensure that you upload a WAV file",
       icon: "warning",
@@ -300,4 +305,8 @@ function eventFire(el, etype) {
     evObj.initEvent(etype, true, false);
     el.dispatchEvent(evObj);
   }
+}
+
+function loadTimestamps(path: string) {
+  console.log(path);
 }

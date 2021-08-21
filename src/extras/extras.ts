@@ -1,4 +1,5 @@
 import { readFileSync } from "fs";
+import { ipcRenderer } from "electron";
 // <div class="w3-card-4 card" style="background-color: var(--mm-selection);"
 // onclick="window.open('https://www.w3schools.com')">
 // <img src="thumbnails/photopea.png">
@@ -7,7 +8,8 @@ import { readFileSync } from "fs";
 //   <p>Description</p>
 // </div>
 // </div>
-let raw = readFileSync("build/extras/extras.json");
+let basepath = ipcRenderer.sendSync("getCurrentDir");
+let raw = readFileSync(`${basepath}/extras/extras.json`);
 let json = JSON.parse(raw.toString());
 let extras = json.extras;
 

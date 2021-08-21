@@ -1,12 +1,24 @@
 .card {
+  background-color: var(--mm-selection);
+  color: var(--mm-foreground);
   padding: 1vw;
   padding-bottom: 0vw;
-  color: var(--mm-foreground);
   margin-bottom: 2vw;
+  cursor: pointer;
+  text-align: center;
+
+  width: 33vw;
 }
 
 img {
   width: 30vw;
   height: 15vw;
   object-fit: cover;
+  margin: auto;
+}
+
+.intro {
+  margin: 1vw;
+  margin-bottom: 2vw;
+  text-align: center;
 }

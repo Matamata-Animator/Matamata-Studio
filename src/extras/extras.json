@@ -1,8 +1,10 @@
 {
   "extras": [
     {
-      "name": "Photopea - Photoshop Equivalent",
-      "url": "https://www.photopea.com/"
+      "title": "Photopea - Photoshop Equivalent",
+      "description": "Photopea is a free online image editor, supporting PSD, Sketch and XCF files.",
+      "url": "https://www.photopea.com/",
+      "thumbnail": "thumbnails/photopea.png"
     }
   ]
 }

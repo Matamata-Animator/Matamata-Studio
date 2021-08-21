@@ -1,130 +1,87 @@
 <!DOCTYPE html>
 <html lang="en" style="height: 100%; background: var(--mm-background)">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    />
-    <title>Matamata Studio</title>
-    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap"
-    />
-    <link rel="stylesheet" href="../assets/css/Momcake.css" />
-    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css" />
-    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css" />
-    <link
-      rel="stylesheet"
-      href="../assets/fonts/fontawesome5-overrides.min.css"
-    />
-    <link rel="stylesheet" href="../assets/css/styles.css" />
-    <link rel="stylesheet" href="../assets/css/menu.css" />
-  </head>
 
-  <body>
-    <h1
-      style="
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <title>Matamata Studio</title>
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap" />
+  <link rel="stylesheet" href="../assets/css/Momcake.css" />
+  <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css" />
+  <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css" />
+  <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/menu.css" />
+</head>
+
+<body>
+  <h1 style="
         transform: perspective(0px);
         font-size: min(10vw, 150px);
         text-align: center;
         margin-top: 1vw;
         font-family: Momcake;
         color: var(--mm-title-color);
-      "
-    >
-      <strong>Matamata</strong> Studio
-    </h1>
-    <div class="row">
-      <div class="menu-buttons-flex-cont">
-        <a class="menu-button" href="../autoinstall/decider.html"
-          ><button
-            class="btn btn-primary"
-            type="button"
-            style="
+      ">
+    <strong>Matamata</strong> Studio
+  </h1>
+  <div class="row">
+    <div class="menu-buttons-flex-cont">
+      <a class="menu-button" href="../autoinstall/decider.html"><button class="btn btn-primary" type="button" style="
               background: var(--mm-button-background);
               color: var(--mm-button-color);
-            "
-            title="Easily install app dependancies"
-          >
-            Install Requirements
-          </button></a
-        ><a class="menu-button" href="../character-creator/cc.html"
-          ><button
-            class="btn btn-primary"
-            type="button"
-            style="
+            " title="Easily install app dependancies">
+          Install Requirements
+        </button></a><a class="menu-button" href="../character-creator/cc.html"><button class="btn btn-primary"
+          type="button" style="
               background: var(--mm-button-background);
               color: var(--mm-button-color);
-            "
-            title="Easily install app dependancies"
-          >
-            Configure Character
-          </button></a
-        ><a class="menu-button" href="../timestamps/timestamps.html"
-          ><button
-            class="btn btn-primary"
-            type="button"
-            style="
+            " title="Easily install app dependancies">
+          Configure Character
+        </button></a><a class="menu-button" href="../timestamps/timestamps.html"><button class="btn btn-primary"
+          type="button" style="
               background: var(--mm-button-background);
               color: var(--mm-button-color);
-            "
-            title="Easily install app dependancies"
-          >
-            Create Timestamps
-          </button></a
-        ><a class="menu-button" href="../render/render.html"
-          ><button
-            class="btn btn-primary"
-            type="button"
-            style="
+            " title="Easily install app dependancies">
+          Create Timestamps
+        </button></a><a class="menu-button" href="../render/render.html"><button class="btn btn-primary" type="button"
+          style="
               background: var(--mm-button-background);
               color: var(--mm-button-color);
-            "
-            title="Easily install app dependancies"
-          >
-            Render Video
-          </button></a
-        >
+            " title="Easily install app dependancies">
+          Render Video
+        </button></a>
 
-        <a class="menu-button" href="../extras/extras.html"
-          ><button
-            class="btn btn-primary"
-            type="button"
-            style="
+      <a class="menu-button" href="../extras/extras.html"><button class="btn btn-primary" type="button" style="
               background: var(--mm-button-background);
               color: var(--mm-button-color);
             "
-            title="Many more useful features for video creation. These are used by but not created by the Matamata team."
-          >
-            Extras
-          </button></a
-        >
-      </div>
+          title="Many more useful features for video creation. These are used by but not created by the Matamata team.">
+          Extras
+        </button></a>
     </div>
-    <i
-      class="fas fa-paint-roller"
-      id="theme-button"
-      style="
+  </div>
+  <i class="fas fa-paint-roller" id="theme-button" style="
         color: var(--mm-button-background);
         font-size: 34px;
         position: fixed;
         left: 1vw;
         bottom: 1vw;
-      "
-    ></i>
-    <script>
-      exports = {};
-    </script>
+      "></i>
+  <script>
+    exports = {};
+  </script>
 
-    <p id="version-number">v0.0.0</p>
-    <script src="menu.js"></script>
-    <script>
-      window.$ = window.jQuery = require("jquery");
-      $("#theme-button").on("click", themeSettings);
-    </script>
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-  </body>
+  <p id="version-number">v0.0.0</p>
+  <script src="menu.js"></script>
+  <script>
+    window.$ = window.jQuery = require("jquery");
+    $("#theme-button").on("click", themeSettings);
+  </script>
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
 </html>

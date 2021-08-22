@@ -7,6 +7,14 @@ import exp from "constants";
 import Swal from "sweetalert2";
 import * as jQuery from "jquery";
 import { applyTheme } from "../themes";
+import { Console } from "console";
+
+import * as fs from "fs";
+import { NamedTupleMember } from "typescript";
+import Store from "electron-store";
+
+const store = new Store();
+
 applyTheme();
 
 let audioPath = "";
@@ -92,11 +100,40 @@ window.onresize = async () => {
   audio.setHeight((9 * innerWidth) / 100);
 };
 
+async function loadPreviousRender() {
+  let prevAudioPath = store.get("timestamps_creator.audioPath") as string;
+  if (fs.existsSync(prevAudioPath)) {
+    revealWaveform();
+
+    audioPath = prevAudioPath;
+    audio.load(prevAudioPath);
+    audio.clearMarkers();
+    audio.on("ready", function () {
+      setZoomMin();
+      let tsPath = ipcRenderer.sendSync("userDataPath");
+      tsPath = `${tsPath}/timestamps.txt`;
+      loadTimestamps(tsPath);
+    });
+  }
+}
+loadPreviousRender();
+
+async function revealWaveform() {
+  let x: any = document.getElementById("dragHelpText-container");
+  if (x) {
+    x.style.display = "none";
+  }
+
+  x = document.getElementById("waveform");
+  if (x) {
+    x.style.display = "inherit";
+  }
+}
 async function dropHandler(event: JQuery.DragEvent) {
   console.log(event);
   event.preventDefault();
-  let path = event.originalEvent?.dataTransfer?.files[0].path;
-
+  let path = event.originalEvent?.dataTransfer?.files[0].path as string;
+  console.log(event.originalEvent?.dataTransfer?.files[0].type);
   if (
     event.originalEvent?.dataTransfer?.files[0].type === "audio/wav" &&
     (!isLoaded() ||
@@ -107,15 +144,7 @@ async function dropHandler(event: JQuery.DragEvent) {
     if (isLoaded()) {
       audio.pause();
     } else {
-      let x: any = document.getElementById("dragHelpText-container");
-      if (x) {
-        x.style.display = "none";
-      }
-
-      x = document.getElementById("waveform");
-      if (x) {
-        x.style.display = "inherit";
-      }
+      revealWaveform();
     }
 
     // audio = new Audio(path);
@@ -128,7 +157,11 @@ async function dropHandler(event: JQuery.DragEvent) {
         setZoomMin();
       });
     }
-  } else if (event.originalEvent?.dataTransfer?.files[0].type != "audio/wav") {
+  } else if (
+    event.originalEvent?.dataTransfer?.files[0].type === "text/plain"
+  ) {
+    loadTimestamps(path);
+  } else {
     await Swal.fire({
       title: "Please ensure that you upload a WAV file",
       icon: "warning",
@@ -197,6 +230,8 @@ async function animateThis() {
   let ts_text = await exportTimestamps();
   let path = ipcRenderer.sendSync("userDataPath");
   path = `${path}/timestamps.txt`;
+  store.set("timestamps_creator.audioPath", audioPath);
+  console.log(store.get("timestamps_creator.audioPath"));
   ipcRenderer.send("saveTo", path, ts_text);
   ipcRenderer.send("tempSet", "timestamps", path);
   ipcRenderer.send("tempSet", "audio", audioPath);
@@ -299,5 +334,38 @@ function eventFire(el, etype) {
     var evObj = document.createEvent("Events");
     evObj.initEvent(etype, true, false);
     el.dispatchEvent(evObj);
+  }
+}
+
+function loadTimestamps(path: string) {
+  let wholeFile = fs.readFileSync(path).toString();
+  let replaced = wholeFile.replace("\r", "\n");
+  replaced = replaced.replace(/\n+/g, "\n");
+  let lines = replaced.split("\n");
+  interface Pose {
+    pose_name: string;
+    timestamp: number;
+  }
+  let timestamps: Pose[] = [];
+  try {
+    for (const line of lines) {
+      console.log(line);
+      let split = line.split(" ");
+      if (split[1]) {
+        timestamps.push({
+          pose_name: split[1],
+          timestamp: split[0] as unknown as number,
+        });
+      }
+    }
+  } catch {
+    console.log("BAD FILE");
+    return;
+  }
+  console.log(timestamps);
+
+  for (const stamp of timestamps) {
+    audio.setCurrentTime(stamp.timestamp / 1000);
+    createMarker(stamp.pose_name);
   }
 }

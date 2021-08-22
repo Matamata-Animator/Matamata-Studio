@@ -339,7 +339,7 @@ function eventFire(el, etype) {
 
 function loadTimestamps(path: string) {
   let wholeFile = fs.readFileSync(path).toString();
-  let replaced = wholeFile.replace("\r", "\n");
+  let replaced = wholeFile.replace(/\r/g, "\n");
   replaced = replaced.replace(/\n+/g, "\n");
   let lines = replaced.split("\n");
   interface Pose {

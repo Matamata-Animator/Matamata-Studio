@@ -11,6 +11,9 @@ import { Console } from "console";
 
 import * as fs from "fs";
 import { NamedTupleMember } from "typescript";
+import Store from "electron-store";
+
+const store = new Store();
 
 applyTheme();
 
@@ -97,6 +100,35 @@ window.onresize = async () => {
   audio.setHeight((9 * innerWidth) / 100);
 };
 
+async function loadPreviousRender() {
+  let prevAudioPath = store.get("timestamps_creator.audioPath") as string;
+  if (fs.existsSync(prevAudioPath)) {
+    revealWaveform();
+
+    audioPath = prevAudioPath;
+    audio.load(prevAudioPath);
+    audio.clearMarkers();
+    audio.on("ready", function () {
+      setZoomMin();
+      let tsPath = ipcRenderer.sendSync("userDataPath");
+      tsPath = `${tsPath}/timestamps.txt`;
+      loadTimestamps(tsPath);
+    });
+  }
+}
+loadPreviousRender();
+
+async function revealWaveform() {
+  let x: any = document.getElementById("dragHelpText-container");
+  if (x) {
+    x.style.display = "none";
+  }
+
+  x = document.getElementById("waveform");
+  if (x) {
+    x.style.display = "inherit";
+  }
+}
 async function dropHandler(event: JQuery.DragEvent) {
   console.log(event);
   event.preventDefault();
@@ -112,15 +144,7 @@ async function dropHandler(event: JQuery.DragEvent) {
     if (isLoaded()) {
       audio.pause();
     } else {
-      let x: any = document.getElementById("dragHelpText-container");
-      if (x) {
-        x.style.display = "none";
-      }
-
-      x = document.getElementById("waveform");
-      if (x) {
-        x.style.display = "inherit";
-      }
+      revealWaveform();
     }
 
     // audio = new Audio(path);
@@ -206,6 +230,8 @@ async function animateThis() {
   let ts_text = await exportTimestamps();
   let path = ipcRenderer.sendSync("userDataPath");
   path = `${path}/timestamps.txt`;
+  store.set("timestamps_creator.audioPath", audioPath);
+  console.log(store.get("timestamps_creator.audioPath"));
   ipcRenderer.send("saveTo", path, ts_text);
   ipcRenderer.send("tempSet", "timestamps", path);
   ipcRenderer.send("tempSet", "audio", audioPath);
@@ -325,10 +351,12 @@ function loadTimestamps(path: string) {
     for (const line of lines) {
       console.log(line);
       let split = line.split(" ");
-      timestamps.push({
-        pose_name: split[1],
-        timestamp: split[0] as unknown as number,
-      });
+      if (split[1]) {
+        timestamps.push({
+          pose_name: split[1],
+          timestamp: split[0] as unknown as number,
+        });
+      }
     }
   } catch {
     console.log("BAD FILE");

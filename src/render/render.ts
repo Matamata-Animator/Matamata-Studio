@@ -12,6 +12,9 @@ import { UrlWithStringQuery } from "url";
 import * as jQuery from "jquery";
 
 import { applyTheme } from "../themes";
+
+import { simplifyError } from "./errors";
+
 applyTheme();
 const store = new Store();
 
@@ -144,7 +147,7 @@ async function render() {
   } else {
     Swal.fire({
       title: "Error",
-      text: a.replace(`"${sudoPswd}"`, "SUDO_PASSWORD"),
+      text: simplifyError(a.replace(`"${sudoPswd}"`, "SUDO_PASSWORD")),
       icon: "error",
     });
   }

@@ -76,3 +76,7 @@ html {
   margin: 0;
   list-style: none;
 }
+
+.swal2-success-ring {
+  border: 0.25em solid rgb(165 220 134);
+}

@@ -9,6 +9,11 @@ import * as os from "os";
 
 import * as fetch from "node-fetch";
 import { checkDefaults } from "./userDefaults";
+
+try {
+  require("electron-reloader")(module);
+} catch (_) {}
+
 function checkStatus(res) {
   if (res.ok) {
     return res.json();
@@ -73,10 +78,6 @@ if (!isDev) {
       });
   }
 }
-
-try {
-  require("electron-reloader")(module);
-} catch (_) {}
 
 var path = require("path");
 let win: BrowserWindow;

@@ -1,60 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
     <title>Matamata Desktop</title>
-    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap">
-    <link rel="stylesheet" href="../assets/css/Momcake.css">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/render.css">
-</head>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../assets/css/Momcake.css" />
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css" />
+    <link
+      rel="stylesheet"
+      href="../assets/fonts/fontawesome5-overrides.min.css"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="../assets/css/render.css" />
+  </head>
 
-<body>
-    <div class="render_option"><span><button class="btn btn-primary" id="audioBtn" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Audio (Required)</button></span><span class="file_name_cont" style="border-color: var(--mm-button-background);"><span id="audio" class="file_name" style="color: var(--mm-foreground);"></span></span></div>
-    <div class="render_option"><span><button class="btn btn-primary" id="outputBtn" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Output (Required)</button></span><span class="file_name_cont" style="border-color: var(--mm-button-background);"><span id="output" class="file_name" style="color: var(--mm-foreground);"></span></span></div>
-    <div class="render_option"><span><button class="btn btn-primary" id="characterBtn" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Character</button></span><span class="file_name_cont" style="border-color: var(--mm-button-background);"><span id="character" class="file_name" style="color: var(--mm-foreground);"></span></span></div>
-    <div class="render_option"><span><button class="btn btn-primary" id="timestampsBtn" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Timestamps</button></span><span class="file_name_cont" style="border-color: var(--mm-button-background);"><span id="timestamps" class="file_name" style="color: var(--mm-foreground);"></span></span></div>
-    <div class="render_option"><span><button class="btn btn-primary" id="textBtn" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Transcript</button></span><span class="file_name_cont" style="border-color: var(--mm-button-background);"><span id="text" class="file_name" style="color: var(--mm-foreground);"></span></span></div><button class="btn btn-primary render_option" id="renderBtn" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Render</button><button class="btn btn-primary" id="adjustDefaults" type="button" style="background: var(--mm-button-background);color: var(--mm-button-color);">Adjust Defaults</button>    <script>exports={}</script>
-    <script src='render.js'></script>
+  <body>
+    <div
+      style="
+        position: absolute;
+        min-height: 100vh;
+        min-width: 100vw;
+        top: 0px;
+        left: 0px;
+        z-index: -1;
+      "
+    ></div>
+    <div class="render_option">
+      <span
+        ><button
+          class="btn btn-primary"
+          id="audioBtn"
+          type="button"
+          style="
+            background: var(--mm-button-background);
+            color: var(--mm-button-color);
+          "
+        >
+          Audio (Required)
+        </button></span
+      ><span
+        class="file_name_cont"
+        style="border-color: var(--mm-button-background)"
+        ><span
+          id="audio"
+          class="file_name"
+          style="color: var(--mm-foreground)"
+        ></span
+      ></span>
+    </div>
+    <div class="render_option">
+      <span
+        ><button
+          class="btn btn-primary"
+          id="outputBtn"
+          type="button"
+          style="
+            background: var(--mm-button-background);
+            color: var(--mm-button-color);
+          "
+        >
+          Output (Required)
+        </button></span
+      ><span
+        class="file_name_cont"
+        style="border-color: var(--mm-button-background)"
+        ><span
+          id="output"
+          class="file_name"
+          style="color: var(--mm-foreground)"
+        ></span
+      ></span>
+    </div>
+    <div class="render_option">
+      <span
+        ><button
+          class="btn btn-primary"
+          id="characterBtn"
+          type="button"
+          style="
+            background: var(--mm-button-background);
+            color: var(--mm-button-color);
+          "
+        >
+          Character
+        </button></span
+      ><span
+        class="file_name_cont"
+        style="border-color: var(--mm-button-background)"
+        ><span
+          id="character"
+          class="file_name"
+          style="color: var(--mm-foreground)"
+        ></span
+      ></span>
+    </div>
+    <div class="render_option">
+      <span
+        ><button
+          class="btn btn-primary"
+          id="timestampsBtn"
+          type="button"
+          style="
+            background: var(--mm-button-background);
+            color: var(--mm-button-color);
+          "
+        >
+          Timestamps
+        </button></span
+      ><span
+        class="file_name_cont"
+        style="border-color: var(--mm-button-background)"
+        ><span
+          id="timestamps"
+          class="file_name"
+          style="color: var(--mm-foreground)"
+        ></span
+      ></span>
+    </div>
+    <div class="render_option">
+      <span
+        ><button
+          class="btn btn-primary"
+          id="textBtn"
+          type="button"
+          style="
+            background: var(--mm-button-background);
+            color: var(--mm-button-color);
+          "
+        >
+          Transcript
+        </button></span
+      ><span
+        class="file_name_cont"
+        style="border-color: var(--mm-button-background)"
+        ><span
+          id="text"
+          class="file_name"
+          style="color: var(--mm-foreground)"
+        ></span
+      ></span>
+    </div>
+    <button
+      class="btn btn-primary render_option"
+      id="renderBtn"
+      type="button"
+      style="
+        background: var(--mm-button-background);
+        color: var(--mm-button-color);
+      "
+    >
+      Render</button
+    ><button
+      class="btn btn-primary"
+      id="adjustDefaults"
+      type="button"
+      style="
+        background: var(--mm-button-background);
+        color: var(--mm-button-color);
+      "
+    >
+      Set Defaults
+    </button>
+    <script>
+      exports = {};
+    </script>
+    <script src="render.js"></script>
     <script defer>
-        window.$ = window.jQuery = require('jquery');
-        
-        $("#audioBtn").on("click", ()=>{
-            uploadPath('audio', {filters: [{name: 'WAV File',extensions:['wav']}]}) 
-        });
+      window.$ = window.jQuery = require("jquery");
 
-       $("#outputBtn").on("click", ()=>{
-            savePath('output', {defaultPath: 'myAnimation.mov', filters: [{name: 'Video File',extensions:['mp4', 'mov']}]}) 
+      $("#audioBtn").on("click", () => {
+        uploadPath("audio", {
+          filters: [{ name: "WAV File", extensions: ["wav"] }],
         });
-        
-       $("#characterBtn").on("click", ()=>{
-            uploadPath('character', {filters: [{name: 'Character File',extensions:['json']}]}) 
-        });
-        
-        $("#timestampsBtn").on("click", ()=>{
-            uploadPath('timestamps', {filters: [{name: 'Timestamps File',extensions:['txt']}]})
-        });
+      });
 
-        $("#textBtn").on("click", ()=>{
-            uploadPath('text', {filters: [{name: 'Text File',extensions:['txt']}]})
+      $("#outputBtn").on("click", () => {
+        savePath("output", {
+          defaultPath: "myAnimation.mov",
+          filters: [{ name: "Video File", extensions: ["mp4", "mov"] }],
         });
-        
-        $("#renderBtn").on("click", ()=>{
-            if(!running) render()
+      });
+
+      $("#characterBtn").on("click", () => {
+        uploadPath("character", {
+          filters: [{ name: "Character File", extensions: ["json"] }],
         });
-        
-        $("#adjustDefaults").on('click', ()=>{
-            showDefaultsMenu()
-        })
-    </script><a class="home-button" href="../menu/index.html"><i class="fa fa-home" style="color: var(--mm-button-background);font-size: 32px;"></i></a>
+      });
+
+      $("#timestampsBtn").on("click", () => {
+        uploadPath("timestamps", {
+          filters: [{ name: "Timestamps File", extensions: ["txt"] }],
+        });
+      });
+
+      $("#textBtn").on("click", () => {
+        uploadPath("text", {
+          filters: [{ name: "Text File", extensions: ["txt"] }],
+        });
+      });
+
+      $("#renderBtn").on("click", () => {
+        if (!running) render();
+      });
+
+      $("#adjustDefaults").on("click", () => {
+        showDefaultsMenu();
+      });
+    </script>
+    <a class="home-button" href="../menu/index.html"
+      ><i
+        class="fa fa-home"
+        style="color: var(--mm-button-background); font-size: 32px"
+      ></i
+    ></a>
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-</body>
-
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+  </body>
 </html>

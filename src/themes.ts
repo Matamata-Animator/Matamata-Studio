@@ -35,4 +35,18 @@ export function setTheme(theme: string) {
   applyTheme();
 }
 
+export function setCursor(name: string) {
+  document.body.style.cursor = name;
+
+  let classes = ["buttons", "render_option"];
+  for (const c of classes) {
+    let buttons = document.getElementsByClassName(
+      c
+    ) as HTMLCollectionOf<HTMLElement>;
+    for (const b of buttons) {
+      b.style.cursor = name;
+    }
+  }
+}
+
 //TODO: User custom themes

@@ -11,7 +11,10 @@ import { UrlWithStringQuery } from "url";
 
 import * as jQuery from "jquery";
 
-import { applyTheme } from "../themes";
+import { setCursor, applyTheme } from "../themes";
+
+import { simplifyError } from "./errors";
+
 applyTheme();
 const store = new Store();
 
@@ -80,7 +83,9 @@ async function run(command: string): Promise<string> {
 }
 
 async function render() {
+  setCursor("progress");
   if (!(req["audio"] || store.get("renderDefaults.audio")) || !req["output"]) {
+    setCursor("default");
     Swal.fire(
       "Please make sure you have selected an audio file and an output path."
     );
@@ -138,13 +143,14 @@ async function render() {
 
   let a: string = await run(command);
   running = false;
+  setCursor("default");
 
   if (a == "0" || a == "99") {
     Swal.fire({ title: "Animation Complete", icon: "success" });
   } else {
     Swal.fire({
       title: "Error",
-      text: a.replace(`"${sudoPswd}"`, "SUDO_PASSWORD"),
+      text: simplifyError(a.replace(`"${sudoPswd}"`, "SUDO_PASSWORD")),
       icon: "error",
     });
   }

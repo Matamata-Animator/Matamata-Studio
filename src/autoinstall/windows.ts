@@ -1,7 +1,8 @@
 import { ipcRenderer, app } from "electron";
 import Swal from "sweetalert2";
 import { existsSync, lstatSync } from "fs";
-import { applyTheme } from "../themes";
+import { setCursor, applyTheme } from "../themes";
+
 applyTheme();
 
 let repo = "https://github.com/Matamata-Animator/Windows-Install-Files";
@@ -130,14 +131,5 @@ function run(command, type = "run") {
     ipcRenderer.on("data", onData);
     ipcRenderer.on("exit", onExit);
     ipcRenderer.send(type, command);
-  }
-}
-function setCursor(name: string) {
-  document.body.style.cursor = name;
-  let buttons = document.getElementsByClassName(
-    "button"
-  ) as HTMLCollectionOf<HTMLElement>;
-  for (const b of buttons) {
-    b.style.cursor = name;
   }
 }

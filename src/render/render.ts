@@ -105,55 +105,18 @@ async function render() {
 
   running = true;
 
-  let command = "echo 'hello world'";
 
-  let pyCommand = `animate.py ${pyArgs}`;
+  //ADD ANIMATION
+  
 
-  let cdCommand = "";
 
-  let dir: string = ipcRenderer.sendSync("getCurrentDir");
-  console.log(dir);
-  let sudoPswd = "";
-  if (os.platform() === "linux") {
-    sudoPswd = await getSudo();
-    pyCommand = `echo "${sudoPswd}" | sudo -S python3 ${pyCommand}`;
-    dir = __dirname.replace(/ /g, "\\ ");
-
-    if (dir.includes("app.asar")) {
-      req.corePath = dir.replace("app.asar/build/render", "build/render/Core/");
-      cdCommand += "cd && ";
-    }
-  }
-
-  if (os.platform() === "win32") {
-    pyCommand = `python ${pyCommand}`;
-    if (dir.includes("app.asar")) {
-      req.corePath = dir;
-      req.corePath = req.corePath.replace(
-        "app.asar\\build",
-        "build\\render\\Core"
-      );
-      cdCommand += "cd && ";
-    }
-  }
-
-  cdCommand += `cd ${req.corePath}`;
-
-  command = `${cdCommand} && ${pyCommand}`;
-
-  let a: string = await run(command);
   running = false;
+
+
   setCursor("default");
 
-  if (a == "0" || a == "99") {
-    Swal.fire({ title: "Animation Complete", icon: "success" });
-  } else {
-    Swal.fire({
-      title: "Error",
-      text: simplifyError(a.replace(`"${sudoPswd}"`, "SUDO_PASSWORD")),
-      icon: "error",
-    });
-  }
+  Swal.fire({ title: "Animation Complete", icon: "success" });
+
   console.log("done");
 }
 

@@ -28,7 +28,7 @@ interface PathReturn {
 }
 
 let req = {
-  corePath: "build/render/Core/",
+  
 };
 
 ipcRenderer.on("path", (ev, item: string, r: PathReturn) => {
@@ -99,7 +99,15 @@ async function render() {
   running = true;
 
 
+
+  const default_args = require("./Core/defaults/default_args.json");
   let args: Args = {} as unknown as Args;
+  for (const option in default_args) {
+    args[option] = default_args[option]['default'];
+  }
+  args['verbose'] = 10;
+  
+  
   jQuery.each(store.get("renderDefaults"), (k: string, v) => {
     let value = req[k] ?? v;
     if (value && k != "defaults-set") {

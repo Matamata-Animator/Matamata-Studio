@@ -68,7 +68,6 @@
       "build/render/Core/**/*",
       "build/render/Core/**/**/*"
     ],
-    "asar": false,
     "linux": {
       "target": [
         "deb"

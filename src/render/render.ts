@@ -15,6 +15,10 @@ import { setCursor, applyTheme } from "../themes";
 
 import { simplifyError } from "./errors";
 
+import {main} from "./Core/src/animate"
+
+import {Args} from "./Core/src/argparse"
+
 applyTheme();
 const store = new Store();
 
@@ -92,21 +96,20 @@ async function render() {
     return;
   }
 
-  let pyArgs = "";
-  jQuery.each(store.get("renderDefaults"), (k, v) => {
-    let value = req[k] ?? v;
-    if (value && k != "defaults-set") {
-      pyArgs += `--${k} ${(value as string).replace(
-        /\\/g,
-        "/"
-      )} ${getExtras()}`;
-    }
-  });
-
   running = true;
 
 
-  //ADD ANIMATION
+  let args: Args = {} as unknown as Args;
+  jQuery.each(store.get("renderDefaults"), (k: string, v) => {
+    let value = req[k] ?? v;
+    if (value && k != "defaults-set") {
+      args[k] = (value as string).replace(/\\/g,"/");
+    }
+  });
+
+
+
+  main(args)
   
 
 

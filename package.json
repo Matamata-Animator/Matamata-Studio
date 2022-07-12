@@ -19,7 +19,7 @@
     "@types/sound-play": "^1.1.0",
     "@types/wavesurfer.js": "^5.1.0",
     "copyfiles": "^2.4.1",
-    "electron": "^13.3.0",
+    "electron": "^13.6.9",
     "electron-builder": "^22.11.7",
     "electron-reloader": "^1.2.1",
     "prettier": "2.3.2",
@@ -27,9 +27,8 @@
     "tsc-watch": "^4.4.0"
   },
   "scripts": {
-    "copy-core-files": "copyfiles -u 1 src/render/Core/* src/render/Core/**/* src/render/Core/**/**/* build/",
-    "copy-asset-files": "copyfiles -u 1 src/assets/* src/assets/**/* src/assets/**/**/* build/",
-    "copy-files": "npm run copy-core-files && npm run copy-asset-files && copyfiles -u 1 src/*.json src/**/*.json src/**/*.html src/**/*.css src/**/*.png src/**/*.svg src/**/*.icns src/**/*.ico src/**/*.js src/**/**/*.woff src/**/**/*.css src/**/**/*.png src/styles/fa/* src/styles/fa/**/* src/styles/fa/**/**/* src/styles/fa/**/**/**/* build/",
+    "copy-files-old": "copyfiles -s -u 1 src/* src/**/* src/**/**/* src/**/**/**/* src/**/**/**/**/* src/**/**/**/**/**/* build/",
+    "copy-files": "cp -r src/* build/",
     "build": "tsc && npm run copy-files",
     "watch": "tsc-watch --onSuccess \"npm run copy-files\"",
     "start": "npm run build && electron . --no-sandbox",

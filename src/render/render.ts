@@ -19,9 +19,9 @@ import {main} from "./Core/src/animate"
 
 import {Args} from "./Core/src/argparse"
 
+
 applyTheme();
 const store = new Store();
-
 interface PathReturn {
   canceled: boolean;
   filePaths: string[];
@@ -57,7 +57,7 @@ async function savePath(item, options = {}) {
   // Renderer process
   ipcRenderer.send("getSavePath", item, options);
 }
-let running = false;
+var running = false;
 
 function getExtras() {
   return "";
@@ -107,7 +107,7 @@ async function render() {
     }
   });
 
-
+  console.log(args)
 
   main(args)
   
@@ -166,12 +166,10 @@ function getFormOptions() {
   let options = "";
   let defaults = store.get("renderDefaults");
   console.log(defaults);
-  jQuery.each(defaults, (k, v) => {
+  jQuery.each(defaults, (k: string, v) => {
     options += `<option value="${k}">${k}</option>`;
   });
-  // for (const [k, v] of store.get("renderDefaults")) {
-  //   options += `<option value="${k}">${k}</option>`;
-  // }
+
   return options;
 }
 

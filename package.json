@@ -1,6 +1,6 @@
 {
   "name": "matamata",
-  "version": "v1.4.2",
+  "version": "v2.0.0",
   "executableName": "Matamata Studio",
   "description": "Desktop GUI for Matamata",
   "author": {
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "copy-files-old": "copyfiles -s -u 1 src/* src/**/* src/**/**/* src/**/**/**/* src/**/**/**/**/* src/**/**/**/**/**/* build/",
-    "copy-files": "cp -r src/* build/",
+    "copy-files": "rsync -av --exclude='*.ts' src/ build/",
     "build": "tsc && npm run copy-files",
     "watch": "tsc-watch --onSuccess \"npm run copy-files\"",
     "start": "npm run build && electron . --no-sandbox",
@@ -68,6 +68,7 @@
       "build/render/Core/**/*",
       "build/render/Core/**/**/*"
     ],
+    "asar": false,
     "linux": {
       "target": [
         "deb"

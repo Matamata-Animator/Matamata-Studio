@@ -1,5 +1,6 @@
 import Store from "electron-store";
 import * as os from "os";
+import { autoUpdater } from "electron-updater";
 
 const store = new Store();
 
@@ -7,6 +8,11 @@ export function checkDefaults() {
   if (
     !store.has("renderDefaults.defaults-set") ||
     store.get("renderDefaults.defaults-set") != true
+
+    || !store.has('version')
+    || store.get('version') != autoUpdater.currentVersion.version
+
+
   ) {
     setDefaults();
   }
@@ -29,6 +35,9 @@ const renderDefaults = {
 
   codec: "",
 
+  transcriber: "vosk",
+  watson_api_key: null,
+
   [Symbol.iterator]: function* () {
     let properties = Object.keys(this);
     for (let i of properties) {
@@ -48,4 +57,5 @@ function setDefaults() {
   store.set("renderDefaults.defaults-set", true);
 
   store.set("themes.currentTheme", "Dracula");
+  store.set('version', autoUpdater.currentVersion.version)
 }

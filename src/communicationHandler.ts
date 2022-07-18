@@ -6,6 +6,11 @@ import { writeFileSync } from "fs";
 
 import { autoUpdater } from "electron-updater";
 
+
+  // DIFFERENT PATH WHEN BUILT. USES "RECOURES" FOLDER
+import {main} from "./Core/src/animate"
+import {Args} from "./Core/src/argparse"
+
 Store.initRenderer();
 
 let tempStore = {};
@@ -102,6 +107,25 @@ export function setupHandlers() {
 
 
   ipcMain.on("render", (ev, args)=>{
+    console.log(args);
+    console.log('###################')
+    const default_args = require("./Core/defaults/default_args.json");
 
+
+    default_args['verbose']['default'] = 10;
+    default_args['no_docker']['default'] = true;
+    default_args['character']['default'] = "src/Core_Defaults/character.json";
+    default_args['mouths']['default'] = "src/Core_Defaults/phonemes.json";
+
+    for (const option in default_args) {
+      if (!(option in args)){
+        args[option] = default_args[option]['default'];
+      }
+    }
+
+
+    console.log(args)
+
+    main(args)
   })
 }

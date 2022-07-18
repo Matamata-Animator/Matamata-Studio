@@ -95,13 +95,7 @@ async function render() {
 
 
 
-  const default_args = require("./Core/defaults/default_args.json");
-  let args: Args = {} as unknown as Args;
-  for (const option in default_args) {
-    args[option] = default_args[option]['default'];
-  }
-  args['verbose'] = 10;
-  args['no_docker'] = true;
+  let args = {};
   
   jQuery.each(store.get("renderDefaults"), (k: string, v) => {
     let value = req[k] ?? v;

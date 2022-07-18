@@ -98,4 +98,10 @@ export function setupHandlers() {
   ipcMain.on("userDataPath", (ev) => {
     ev.returnValue = app.getPath("userData");
   });
+
+
+
+  ipcMain.on("render", (ev, args)=>{
+
+  })
 }

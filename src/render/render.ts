@@ -15,11 +15,6 @@ import { setCursor, applyTheme } from "../themes";
 
 import { simplifyError } from "./errors";
 
-import {main} from "./Core/src/animate"
-
-import {Args} from "./Core/src/argparse"
-
-
 applyTheme();
 const store = new Store();
 interface PathReturn {
@@ -106,7 +101,7 @@ async function render() {
     args[option] = default_args[option]['default'];
   }
   args['verbose'] = 10;
-  
+  args['no_docker'] = true;
   
   jQuery.each(store.get("renderDefaults"), (k: string, v) => {
     let value = req[k] ?? v;
@@ -115,10 +110,8 @@ async function render() {
     }
   });
 
-  console.log(args)
 
-  main(args)
-  
+  ipcRenderer.sendSync("render", args)
 
 
   running = false;

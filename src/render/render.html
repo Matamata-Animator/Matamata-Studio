@@ -80,6 +80,32 @@
         ></span
       ></span>
     </div>
+
+    <div class="render_option">
+      <span
+        ><button
+          class="btn btn-primary"
+          id="voskBtn"
+          type="button"
+          style="
+            background: var(--mm-button-background);
+            color: var(--mm-button-color);
+          "
+        >
+          Vosk Model (Required)
+        </button></span
+      ><span
+        class="file_name_cont"
+        style="border-color: var(--mm-button-background)"
+        ><span
+          id="vosk_model"
+          class="file_name"
+          style="color: var(--mm-foreground)"
+        ></span
+      ></span>
+    </div>
+
+
     <div class="render_option">
       <span
         ><button
@@ -189,6 +215,13 @@
           filters: [{ name: "Video File", extensions: ["mp4", "mov"] }],
         });
       });
+
+      $("#voskBtn").on("click", () => {
+        uploadPath("vosk_model", {
+          name: "Model Folder", properties: ["openDirectory"]
+        });
+      });
+
 
       $("#characterBtn").on("click", () => {
         uploadPath("character", {

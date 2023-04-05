@@ -108,14 +108,15 @@ export function setupHandlers() {
 
   ipcMain.on("render", (ev, args)=>{
     console.log(args);
+    console.log(process.cwd())
     console.log('###################')
     const default_args = require("./Core/defaults/default_args.json");
 
+    console.log(default_args)
 
     default_args['verbose']['default'] = 10;
-    default_args['no_docker']['default'] = true;
-    default_args['character']['default'] = "src/Core_Defaults/character.json";
-    default_args['mouths']['default'] = "src/Core_Defaults/phonemes.json";
+    default_args['character']['default'] = "src/Core/defaults/character.json";
+    default_args['mouths']['default'] = "src/Core/defaults/phonemes.json";
 
     for (const option in default_args) {
       if (!(option in args)){

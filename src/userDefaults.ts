@@ -14,29 +14,29 @@ export function checkDefaults() {
 
 
   ) {
+    console.log("Resseting defaults")
     setDefaults();
   }
 }
 
 const renderDefaults = {
   audio: null,
-  timestamps: null,
+  timestamps: "build/Core/defaults/default_timestamps.txt",
   text: null,
   output: null,
   offset: null,
 
-  character: null,
+  character: "build/Core/defaults/SampleCharacter/characterStudio.json",
   mouths: null,
 
   dimensions: null,
   dimension_scaler: null,
 
-  emotion_detection_env: null,
-
   codec: "",
 
   transcriber: "vosk",
   watson_api_key: null,
+  vosk_model: null,
 
   [Symbol.iterator]: function* () {
     let properties = Object.keys(this);

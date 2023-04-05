@@ -29,6 +29,7 @@ let req = {
 ipcRenderer.on("path", (ev, item: string, r: PathReturn) => {
   if (!r.canceled) {
     let path = r.filePaths[0];
+    console.log(`SAVING PATH: ${path} AND ${item}`);
     assignPath(path, item);
   }
 });
@@ -60,34 +61,24 @@ function getExtras() {
   // return extras.value;
 }
 
-async function run(command: string): Promise<string> {
-  console.log(command);
-  ipcRenderer.on("data", (ev, data) => {
-    console.log("data", data);
-  });
-
-  let ran: Promise<string> = new Promise((resolve, reject) => {
-    ipcRenderer.on("error", (ev, err) => {
-      console.log("Error: ", err);
-      resolve(err);
-    });
-    ipcRenderer.on("exit", (ev, exitCode) => {
-      console.log(exitCode);
-      resolve(exitCode);
-    });
-
-    ipcRenderer.send("run", command);
-  });
-  return ran;
-}
 
 async function render() {
+  console.log(req)
   setCursor("progress");
+
   if (!(req["audio"] || store.get("renderDefaults.audio")) || !req["output"]) {
     setCursor("default");
     Swal.fire(
       "Please make sure you have selected an audio file and an output path."
     );
+    return;
+  }
+
+  if (!(req["vosk_model"] || store.get("renderDefaults.vosk_model"))) {
+    setCursor("default");
+    Swal.fire(
+      "Please make sure you have selected an model path"
+      );
     return;
   }
 
@@ -99,11 +90,15 @@ async function render() {
   
   jQuery.each(store.get("renderDefaults"), (k: string, v) => {
     let value = req[k] ?? v;
+    console.log(k, value)
     if (value && k != "defaults-set") {
       args[k] = (value as string).replace(/\\/g,"/");
     }
   });
 
+  console.log('----')
+
+  console.log(args)
 
   ipcRenderer.sendSync("render", args)
 
